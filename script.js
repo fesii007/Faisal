@@ -466,42 +466,45 @@ class InteractiveFeatures {
     
     // Animated counters for stats
     setupCounterAnimations() {
-      const counters = document.querySelectorAll('.stat-number');
-
-const animateCounter = (counter) => {
-    // Correctly parse the initial number.
-    const initialText = counter.textContent;
-    const target = parseInt(initialText.replace(/[^0-9]/g, ''));
-    
-    // Set a default value in case parsing fails
-    if (isNaN(target)) return;
-    
-    let current = 0;
-    const duration = 1000; // Animation duration in milliseconds
-    const increment = target / (duration / 20); // 20 is the interval time
-
-    const timer = setInterval(() => {
-        current += increment;
-
-        if (current >= target) {
-            clearInterval(timer);
-            // Replace only the numbers with the final target value
-            let finalValue = initialText.replace(/[0-9.]+/g, target.toString());
-            // Restore any non-numeric characters
-            finalValue = finalValue.replace('K', 'K+').replace('+', '+').replace('#', '#');
-            counter.textContent = finalValue;
-        } else {
-            // Update the number during the animation
-            counter.textContent = initialText.replace(/[0-9.]+/g, Math.floor(current));
-        }
-    }, 20);
-};
-
-// Start the animation for each counter
-counters.forEach(animateCounter);
+        const counters = document.querySelectorAll('.stat-number');
+        
+        const animateCounter = (counter) => {
+            const initialText = counter.textContent;
+            // Use parseFloat to handle decimals and remove all non-numeric and non-decimal characters
+            const target = parseFloat(initialText.replace(/[^0-9.]/g, ''));
+            
+            // Exit if the target is not a valid number
+            if (isNaN(target)) {
+                return;
+            }
+            
+            const duration = 1500; // Animation duration in milliseconds
+            const steps = 100;
+            const increment = target / steps;
+            let current = 0;
+            let step = 0;
+            
+            const timer = setInterval(() => {
+                step++;
+                current += increment;
+                
+                if (step >= steps) {
+                    clearInterval(timer);
+                    // Ensure the final value is exactly the target number
+                    const finalValue = initialText.replace(/[0-9.]+/g, target.toString());
+                    counter.textContent = finalValue;
+                } else {
+                    const value = current.toFixed(1); // Keep one decimal place
+                    const formattedValue = value.endsWith('.0') ? Math.floor(current) : value;
+                    counter.textContent = initialText.replace(/[0-9.]+/g, formattedValue.toString());
+                }
+            }, duration / steps);
+        };
+        
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
+                    // Only run the animation once
                     animateCounter(entry.target);
                     observer.unobserve(entry.target);
                 }
@@ -806,7 +809,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     }, 50);
                 });
                 
-                showMoreTestimonialsBtn.innerHTML = '<i class="fas fa-chevron-up"></i> Show Less Testimonials';
+                showMoreTestimonialsBtn.innerHTML = '<i class="fas fa-heart"></i> Show All Testimonials (+17 more)';
                 testimonialsExpanded = true;
             } else {
                 // Remove additional items
