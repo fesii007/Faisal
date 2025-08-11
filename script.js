@@ -466,30 +466,39 @@ class InteractiveFeatures {
     
     // Animated counters for stats
     setupCounterAnimations() {
-        const counters = document.querySelectorAll('.stat-number');
-        
-        const animateCounter = (counter) => {
-            const target = parseInt(counter.textContent.replace(/[^0-9]/g, ''));
-            const increment = target / 100;
-            let current = 0;
-            
-            const timer = setInterval(() => {
-                current += increment;
-                if (current >= target) {
-                    counter.textContent = counter.textContent.replace(/[0-9.K+%]/g, match => {
-                        if (match === 'K') return 'K+';
-                        if (match === '+') return '+';
-                        if (match === '%') return '%';
-                        return target.toString();
-                    });
-                    clearInterval(timer);
-                } else {
-                    const value = Math.floor(current);
-                    counter.textContent = counter.textContent.replace(/[0-9]+/, value.toString());
-                }
-            }, 20);
-        };
-        
+      const counters = document.querySelectorAll('.stat-number');
+
+const animateCounter = (counter) => {
+    // Correctly parse the initial number.
+    const initialText = counter.textContent;
+    const target = parseInt(initialText.replace(/[^0-9]/g, ''));
+    
+    // Set a default value in case parsing fails
+    if (isNaN(target)) return;
+    
+    let current = 0;
+    const duration = 1000; // Animation duration in milliseconds
+    const increment = target / (duration / 20); // 20 is the interval time
+
+    const timer = setInterval(() => {
+        current += increment;
+
+        if (current >= target) {
+            clearInterval(timer);
+            // Replace only the numbers with the final target value
+            let finalValue = initialText.replace(/[0-9.]+/g, target.toString());
+            // Restore any non-numeric characters
+            finalValue = finalValue.replace('K', 'K+').replace('+', '+').replace('#', '#');
+            counter.textContent = finalValue;
+        } else {
+            // Update the number during the animation
+            counter.textContent = initialText.replace(/[0-9.]+/g, Math.floor(current));
+        }
+    }, 20);
+};
+
+// Start the animation for each counter
+counters.forEach(animateCounter);
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
