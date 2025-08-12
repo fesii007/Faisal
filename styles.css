@@ -2093,3 +2093,27 @@ body {
     from { transform: rotate(0deg); }
     to { transform: rotate(360deg); }
 }
+--------------------------------------------------------------------------------------------
+.footer-bottom {
+    display: flex;
+    justify-content: space-between; /* This pushes the new links to the left and the credit to the right */
+    align-items: center;
+    padding-top: 20px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1); /* Adds a separator line */
+    margin-top: 40px;
+}
+
+.footer-terms a {
+    color: var(--text-color-light); /* Assuming this is your light gray text color */
+    text-decoration: none;
+    margin-right: 20px; /* Spacing between the links */
+    transition: color 0.3s ease;
+}
+
+.footer-terms a:hover {
+    color: var(--highlight-color); /* The color you use for highlighted text */
+}
+
+.footer-credit {
+    text-align: right; /* Ensures the credit text is aligned to the right */
+}
