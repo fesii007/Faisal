@@ -2117,3 +2117,24 @@ body {
 .footer-credit {
     text-align: right; /* Ensures the credit text is aligned to the right */
 }
+
+----------------------------------------------------------------------------------------------
+@media (max-width: 768px) {
+    #navbar .container {
+        padding: 0 15px;
+    }
+}
+---------------------------------------------------------------------------------------------
+@media (max-width: 768px) {
+    .brand-logos {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 20px; /* Adds space between logos */
+    }
+    
+    .brand-item {
+        flex: 1 1 auto; /* Allows items to grow and shrink */
+        max-width: 150px; /* Set a max width to control size on mobile */
+    }
+}
