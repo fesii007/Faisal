@@ -1,0 +1,988 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Futuristic Web Developer Portfolio</title>
+    <meta name="description" content="Professional web developer specializing in Python/React apps, Shopify stores, and WordPress websites. Fast, secure, and visually stunning digital solutions.">
+    <meta property="og:title" content="Futuristic Web Developer Portfolio">
+    <meta property="og:description" content="Transforming ideas into digital reality with cutting-edge technology">
+    <meta property="og:type" content="website">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --deep-space: hsl(213, 25%, 8%);
+            --space-gray: hsl(219, 31%, 14%);
+            --neon-cyan: hsl(187, 100%, 50%);
+            --neon-purple: hsl(260, 71%, 62%);
+            --neon-magenta: hsl(322, 100%, 59%);
+            --glass-bg: hsla(219, 31%, 14%, 0.3);
+            --glass-border: hsla(187, 100%, 50%, 0.2);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: var(--deep-space);
+            color: white;
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .font-orbitron {
+            font-family: 'Orbitron', monospace;
+        }
+
+        .font-inter {
+            font-family: 'Inter', sans-serif;
+        }
+
+        .glass-card {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            box-shadow: 
+                0 0 20px hsla(187, 100%, 50%, 0.1),
+                inset 0 1px 0 hsla(255, 255, 255, 0.1);
+            border-radius: 16px;
+        }
+
+        .neon-glow {
+            box-shadow: 
+                0 0 5px currentColor,
+                0 0 10px currentColor,
+                0 0 20px currentColor;
+        }
+
+        .text-glow {
+            text-shadow: 0 0 10px currentColor;
+        }
+
+        .holographic-btn {
+            background: linear-gradient(45deg, hsla(187, 100%, 50%, 0.1), hsla(260, 71%, 62%, 0.1));
+            border: 1px solid;
+            border-image: linear-gradient(45deg, var(--neon-cyan), var(--neon-purple)) 1;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            border-radius: 8px;
+        }
+
+        .holographic-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, hsla(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .holographic-btn:hover::before {
+            left: 100%;
+        }
+
+        .project-card {
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .project-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 
+                0 10px 25px hsla(187, 100%, 50%, 0.2),
+                0 0 20px hsla(187, 100%, 50%, 0.1);
+        }
+
+        #starfield {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        .grid-hidden {
+            display: none;
+        }
+
+        .lightbox {
+            background: hsla(0, 0%, 0%, 0.9);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+        }
+
+        .animate-float {
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+
+        /* Grid Layouts */
+        .grid {
+            display: grid;
+            gap: 24px;
+        }
+
+        .grid-cols-1 {
+            grid-template-columns: repeat(1, minmax(0, 1fr));
+        }
+
+        @media (min-width: 768px) {
+            .md\:grid-cols-2 {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .lg\:grid-cols-3 {
+                grid-template-columns: repeat(3, minmax(0, 1fr));
+            }
+        }
+
+        /* Utility Classes */
+        .min-h-screen { min-height: 100vh; }
+        .flex { display: flex; }
+        .items-center { align-items: center; }
+        .justify-center { justify-content: center; }
+        .text-center { text-align: center; }
+        .relative { position: relative; }
+        .absolute { position: absolute; }
+        .fixed { position: fixed; }
+        .inset-0 { top: 0; right: 0; bottom: 0; left: 0; }
+        .hidden { display: none; }
+        .w-full { width: 100%; }
+        .h-full { height: 100%; }
+        .max-w-4xl { max-width: 56rem; }
+        .max-w-7xl { max-width: 80rem; }
+        .mx-auto { margin-left: auto; margin-right: auto; }
+        .mb-4 { margin-bottom: 1rem; }
+        .mb-6 { margin-bottom: 1.5rem; }
+        .mb-8 { margin-bottom: 2rem; }
+        .mb-12 { margin-bottom: 3rem; }
+        .mt-8 { margin-top: 2rem; }
+        .p-4 { padding: 1rem; }
+        .p-6 { padding: 1.5rem; }
+        .p-8 { padding: 2rem; }
+        .p-12 { padding: 3rem; }
+        .px-4 { padding-left: 1rem; padding-right: 1rem; }
+        .px-6 { padding-left: 1.5rem; padding-right: 1.5rem; }
+        .px-8 { padding-left: 2rem; padding-right: 2rem; }
+        .py-3 { padding-top: 0.75rem; padding-bottom: 0.75rem; }
+        .py-4 { padding-top: 1rem; padding-bottom: 1rem; }
+        .py-8 { padding-top: 2rem; padding-bottom: 2rem; }
+        .py-16 { padding-top: 4rem; padding-bottom: 4rem; }
+        .rounded-lg { border-radius: 8px; }
+        .rounded-xl { border-radius: 12px; }
+        .rounded-2xl { border-radius: 16px; }
+        .overflow-hidden { overflow: hidden; }
+        .z-10 { z-index: 10; }
+        .z-50 { z-index: 50; }
+
+        /* Typography */
+        .text-sm { font-size: 0.875rem; }
+        .text-lg { font-size: 1.125rem; }
+        .text-xl { font-size: 1.25rem; }
+        .text-2xl { font-size: 1.5rem; }
+        .text-3xl { font-size: 1.875rem; }
+        .text-4xl { font-size: 2.25rem; }
+        .font-semibold { font-weight: 600; }
+        .font-bold { font-weight: 700; }
+
+        /* Colors */
+        .text-white { color: white; }
+        .text-gray-300 { color: hsl(0, 0%, 75%); }
+        .text-gray-400 { color: hsl(0, 0%, 60%); }
+        .text-neon-cyan { color: var(--neon-cyan); }
+        .text-neon-purple { color: var(--neon-purple); }
+        .text-neon-magenta { color: var(--neon-magenta); }
+        .border-gray-800 { border-color: hsl(0, 0%, 20%); }
+        .border-t { border-top: 1px solid; }
+
+        /* Gradient Text */
+        .bg-gradient-to-r {
+            background: linear-gradient(to right, var(--neon-cyan), var(--neon-purple), var(--neon-magenta));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        /* Gradient Dividers */
+        .gradient-divider {
+            background: linear-gradient(to right, var(--neon-cyan), var(--neon-magenta));
+            height: 4px;
+            width: 128px;
+            margin: 0 auto 32px;
+        }
+
+        .neon-divider {
+            height: 4px;
+            width: 96px;
+            margin: 0 auto 16px;
+        }
+
+        .neon-divider.cyan { background: var(--neon-cyan); }
+        .neon-divider.purple { background: var(--neon-purple); }
+        .neon-divider.magenta { background: var(--neon-magenta); }
+
+        /* Responsive Flexbox */
+        .flex-col { flex-direction: column; }
+        .flex-wrap { flex-wrap: wrap; }
+        .gap-3 { gap: 0.75rem; }
+        .gap-4 { gap: 1rem; }
+        .gap-6 { gap: 1.5rem; }
+        .gap-8 { gap: 2rem; }
+
+        @media (min-width: 640px) {
+            .sm\:flex-row { flex-direction: row; }
+        }
+
+        @media (min-width: 768px) {
+            .md\:text-xl { font-size: 1.25rem; }
+            .md\:text-4xl { font-size: 2.25rem; }
+            .md\:text-6xl { font-size: 3.75rem; }
+            .md\:p-12 { padding: 3rem; }
+        }
+
+        @media (min-width: 1024px) {
+            .lg\:text-7xl { font-size: 4.5rem; }
+        }
+
+        /* Image Styles */
+        .project-image {
+            width: 100%;
+            height: 192px;
+            object-fit: cover;
+        }
+
+        /* Button Hover States */
+        .holographic-btn:hover {
+            color: white;
+        }
+
+        /* Performance Optimization */
+        @media (prefers-reduced-motion: reduce) {
+            .animate-float {
+                animation: none;
+            }
+            
+            * {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+
+        /* Top Navigation */
+        .top-nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            padding: 1rem 2rem;
+            background: hsla(213, 25%, 8%, 0.9);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-bottom: 1px solid hsla(187, 100%, 50%, 0.2);
+        }
+
+        .home-btn {
+            background: linear-gradient(45deg, hsla(187, 100%, 50%, 0.1), hsla(260, 71%, 62%, 0.1));
+            border: 1px solid;
+            border-image: linear-gradient(45deg, var(--neon-cyan), var(--neon-purple)) 1;
+            padding: 0.5rem 1.5rem;
+            border-radius: 8px;
+            color: var(--neon-cyan);
+            text-decoration: none;
+            font-family: 'Orbitron', monospace;
+            font-weight: 600;
+            font-size: 0.875rem;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .home-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, hsla(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .home-btn:hover::before {
+            left: 100%;
+        }
+
+        .home-btn:hover {
+            color: white;
+            box-shadow: 
+                0 0 10px var(--neon-cyan),
+                0 0 20px hsla(187, 100%, 50%, 0.3);
+        }
+
+        /* Add top padding to body to account for fixed nav */
+        body {
+            background: var(--deep-space);
+            color: white;
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            overflow-x: hidden;
+            padding-top: 80px;
+        }
+
+        /* Mobile Optimizations */
+        @media (max-width: 768px) {
+            .glass-card {
+                backdrop-filter: blur(8px);
+                -webkit-backdrop-filter: blur(8px);
+            }
+            
+            .text-4xl { font-size: 2rem; }
+            .text-3xl { font-size: 1.5rem; }
+            .p-12 { padding: 2rem; }
+            .px-8 { padding-left: 1rem; padding-right: 1rem; }
+            
+            .top-nav {
+                padding: 1rem;
+            }
+            
+            .home-btn {
+                font-size: 0.75rem;
+                padding: 0.4rem 1rem;
+            }
+            
+            body {
+                padding-top: 70px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Top Navigation -->
+    <nav class="top-nav">
+        <a href="https://www.thefaisalhanif.com" class="home-btn" data-testid="button-home">
+            <i class="fas fa-home" aria-hidden="true"></i> HOME
+        </a>
+    </nav>
+
+    <!-- Animated Background Canvas -->
+    <canvas id="starfield" aria-hidden="true"></canvas>
+
+    <!-- Hero Section -->
+    <section class="min-h-screen flex items-center justify-center px-4 relative">
+        <div class="glass-card p-8 md:p-12 max-w-4xl mx-auto text-center animate-float">
+            <h1 class="font-orbitron text-4xl md:text-6xl lg:text-7xl font-bold mb-6 bg-gradient-to-r text-glow">
+                Web Developer
+            </h1>
+            <div class="gradient-divider neon-glow"></div>
+            
+            <p class="text-lg md:text-xl text-gray-300 mb-8">
+                I build fast, secure, and visually stunning websites — from Python/React apps to Shopify and WordPress stores. 
+                Transforming ideas into digital reality with cutting-edge technology.
+            </p>
+            
+            <!-- Stats Row -->
+            <div class="flex flex-wrap justify-center gap-8 mb-12">
+                <div class="text-center">
+                    <div class="font-orbitron text-3xl font-bold text-neon-cyan text-glow">5+</div>
+                    <div class="text-sm text-gray-400">Years Experience</div>
+                </div>
+                <div class="text-center">
+                    <div class="font-orbitron text-3xl font-bold text-neon-purple text-glow">100+</div>
+                    <div class="text-sm text-gray-400">Projects Delivered</div>
+                </div>
+                <div class="text-center">
+                    <div class="font-orbitron text-3xl font-bold text-neon-magenta text-glow">24/7</div>
+                    <div class="text-sm text-gray-400">Support Available</div>
+                </div>
+            </div>
+
+            <!-- CTA Buttons -->
+            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                <button onclick="contactWhatsApp()" class="holographic-btn px-8 py-4 text-neon-cyan flex items-center justify-center gap-3" data-testid="button-whatsapp">
+                    <i class="fab fa-whatsapp text-xl" aria-hidden="true"></i>
+                    Contact on WhatsApp
+                </button>
+                <button onclick="contactEmail()" class="holographic-btn px-8 py-4 text-neon-magenta flex items-center justify-center gap-3" data-testid="button-email">
+                    <i class="fas fa-envelope text-xl" aria-hidden="true"></i>
+                    Contact via Email
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Python/Node.js/React Development Section -->
+    <section class="py-16 px-4" id="python-section">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-12">
+                <h2 class="font-orbitron text-3xl md:text-4xl font-bold mb-4 text-neon-cyan text-glow">
+                    Python / Node.js / React Development
+                </h2>
+                <div class="neon-divider cyan neon-glow"></div>
+                <p class="text-gray-300">Full-stack web applications with secure backends and modern frontends</p>
+            </div>
+
+            <div id="python-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+                <!-- First 3 projects (always visible) -->
+                <div class="glass-card overflow-hidden project-card" onclick="openLightbox('https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=600', 'React Analytics Dashboard')" data-testid="card-project-analytics">
+                    <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&h=250" alt="Analytics Dashboard" class="project-image" loading="lazy">
+                    <div class="p-6">
+                        <h3 class="font-orbitron font-semibold text-lg mb-2 text-neon-cyan">Analytics Dashboard</h3>
+                        <p class="text-sm text-gray-400">React, D3.js, Node.js</p>
+                    </div>
+                </div>
+
+                <div class="glass-card overflow-hidden project-card" onclick="openLightbox('https://images.unsplash.com/photo-1563013544-824ae1b704d3?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=600', 'Full-Stack E-commerce')" data-testid="card-project-ecommerce">
+                    <img src="https://images.unsplash.com/photo-1563013544-824ae1b704d3?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&h=250" alt="E-commerce Platform" class="project-image" loading="lazy">
+                    <div class="p-6">
+                        <h3 class="font-orbitron font-semibold text-lg mb-2 text-neon-cyan">E-commerce Platform</h3>
+                        <p class="text-sm text-gray-400">Python, Django, React</p>
+                    </div>
+                </div>
+
+                <div class="glass-card overflow-hidden project-card" onclick="openLightbox('https://images.unsplash.com/photo-1518186285589-2f7649de83e0?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=600', 'RESTful API Service')" data-testid="card-project-api">
+                    <img src="https://images.unsplash.com/photo-1518186285589-2f7649de83e0?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&h=250" alt="API Development" class="project-image" loading="lazy">
+                    <div class="p-6">
+                        <h3 class="font-orbitron font-semibold text-lg mb-2 text-neon-cyan">RESTful API Service</h3>
+                        <p class="text-sm text-gray-400">Node.js, Express, MongoDB</p>
+                    </div>
+                </div>
+
+                <!-- Hidden projects (shown on expand) -->
+                <div class="glass-card overflow-hidden project-card grid-hidden" onclick="openLightbox('https://images.unsplash.com/photo-1577563908411-5077b6dc7624?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=600', 'Real-time Chat App')" data-testid="card-project-chat">
+                    <img src="https://images.unsplash.com/photo-1577563908411-5077b6dc7624?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&h=250" alt="Chat Application" class="project-image" loading="lazy">
+                    <div class="p-6">
+                        <h3 class="font-orbitron font-semibold text-lg mb-2 text-neon-cyan">Real-time Chat App</h3>
+                        <p class="text-sm text-gray-400">Socket.io, React, Node.js</p>
+                    </div>
+                </div>
+
+                <div class="glass-card overflow-hidden project-card grid-hidden" onclick="openLightbox('https://images.unsplash.com/photo-1460925895917-afdab827c52f?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=600', 'Data Visualization Tool')" data-testid="card-project-dataviz">
+                    <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&h=250" alt="Data Visualization" class="project-image" loading="lazy">
+                    <div class="p-6">
+                        <h3 class="font-orbitron font-semibold text-lg mb-2 text-neon-cyan">Data Visualization Tool</h3>
+                        <p class="text-sm text-gray-400">Python, Plotly, FastAPI</p>
+                    </div>
+                </div>
+
+                <div class="glass-card overflow-hidden project-card grid-hidden" onclick="openLightbox('https://images.unsplash.com/photo-1555949963-aa79dcee981c?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=600', 'Task Management System')" data-testid="card-project-taskmanager">
+                    <img src="https://images.unsplash.com/photo-1555949963-aa79dcee981c?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&h=250" alt="Task Management" class="project-image" loading="lazy">
+                    <div class="p-6">
+                        <h3 class="font-orbitron font-semibold text-lg mb-2 text-neon-cyan">Task Management System</h3>
+                        <p class="text-sm text-gray-400">React, Redux, Node.js</p>
+                    </div>
+                </div>
+
+                <div class="glass-card overflow-hidden project-card grid-hidden" onclick="openLightbox('https://images.unsplash.com/photo-1504868584819-f8e8b4b6d7e3?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=600', 'Machine Learning API')" data-testid="card-project-mlapi">
+                    <img src="https://images.unsplash.com/photo-1504868584819-f8e8b4b6d7e3?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&h=250" alt="ML API" class="project-image" loading="lazy">
+                    <div class="p-6">
+                        <h3 class="font-orbitron font-semibold text-lg mb-2 text-neon-cyan">Machine Learning API</h3>
+                        <p class="text-sm text-gray-400">Python, TensorFlow, Flask</p>
+                    </div>
+                </div>
+
+                <div class="glass-card overflow-hidden project-card grid-hidden" onclick="openLightbox('https://images.unsplash.com/photo-1557804506-669a67965ba0?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=600', 'Social Media Dashboard')" data-testid="card-project-social">
+                    <img src="https://images.unsplash.com/photo-1557804506-669a67965ba0?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&h=250" alt="Social Dashboard" class="project-image" loading="lazy">
+                    <div class="p-6">
+                        <h3 class="font-orbitron font-semibold text-lg mb-2 text-neon-cyan">Social Media Dashboard</h3>
+                        <p class="text-sm text-gray-400">Vue.js, Node.js, Redis</p>
+                    </div>
+                </div>
+
+                <div class="glass-card overflow-hidden project-card grid-hidden" onclick="openLightbox('https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=600', 'Financial Tracker')" data-testid="card-project-finance">
+                    <img src="https://images.unsplash.com/photo-1554224155-6726b3ff858f?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&h=250" alt="Financial Tracker" class="project-image" loading="lazy">
+                    <div class="p-6">
+                        <h3 class="font-orbitron font-semibold text-lg mb-2 text-neon-cyan">Financial Tracker</h3>
+                        <p class="text-sm text-gray-400">React, TypeScript, PostgreSQL</p>
+                    </div>
+                </div>
+
+                <div class="glass-card overflow-hidden project-card grid-hidden" onclick="openLightbox('https://images.unsplash.com/photo-1587613990442-5b86a17c6fd5?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=600', 'IoT Device Controller')" data-testid="card-project-iot">
+                    <img src="https://images.unsplash.com/photo-1587613990442-5b86a17c6fd5?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&h=250" alt="IoT Controller" class="project-image" loading="lazy">
+                    <div class="p-6">
+                        <h3 class="font-orbitron font-semibold text-lg mb-2 text-neon-cyan">IoT Device Controller</h3>
+                        <p class="text-sm text-gray-400">Python, MQTT, React</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="text-center mt-8">
+                <button onclick="toggleSection('python')" id="python-toggle" class="holographic-btn px-6 py-3 text-neon-cyan" data-testid="button-expand-python">
+                    Click to expand
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Shopify Website Design Section -->
+    <section class="py-16 px-4" id="shopify-section">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-12">
+                <h2 class="font-orbitron text-3xl md:text-4xl font-bold mb-4 text-neon-purple text-glow">
+                    Shopify Website Design
+                </h2>
+                <div class="neon-divider purple neon-glow"></div>
+                <p class="text-gray-300">Custom e-commerce stores designed for conversion and user experience</p>
+            </div>
+
+            <div id="shopify-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+                <!-- First 3 projects (always visible) -->
+                <div class="glass-card overflow-hidden project-card" onclick="openLightbox('https://images.unsplash.com/photo-1441986300917-64674bd600d8?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=600', 'Fashion E-commerce Store')" data-testid="card-shopify-fashion">
+                    <img src="https://images.unsplash.com/photo-1441986300917-64674bd600d8?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&h=250" alt="Fashion Store" class="project-image" loading="lazy">
+                    <div class="p-6">
+                        <h3 class="font-orbitron font-semibold text-lg mb-2 text-neon-purple">Fashion E-commerce Store</h3>
+                        <p class="text-sm text-gray-400">Shopify Plus, Liquid, Custom Theme</p>
+                    </div>
+                </div>
+
+                <div class="glass-card overflow-hidden project-card" onclick="openLightbox('https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=600', 'Electronics Marketplace')" data-testid="card-shopify-electronics">
+                    <img src="https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&h=250" alt="Electronics Store" class="project-image" loading="lazy">
+                    <div class="p-6">
+                        <h3 class="font-orbitron font-semibold text-lg mb-2 text-neon-purple">Electronics Marketplace</h3>
+                        <p class="text-sm text-gray-400">Shopify, Multi-vendor, Apps Integration</p>
+                    </div>
+                </div>
+
+                <div class="glass-card overflow-hidden project-card" onclick="openLightbox('https://images.unsplash.com/photo-1542744173-8e7e53415bb0?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=600', 'Health & Beauty Store')" data-testid="card-shopify-beauty">
+                    <img src="https://images.unsplash.com/photo-1542744173-8e7e53415bb0?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&h=250" alt="Beauty Store" class="project-image" loading="lazy">
+                    <div class="p-6">
+                        <h3 class="font-orbitron font-semibold text-lg mb-2 text-neon-purple">Health & Beauty Store</h3>
+                        <p class="text-sm text-gray-400">Shopify, Subscription Model, Custom CSS</p>
+                    </div>
+                </div>
+
+                <!-- Hidden projects -->
+                <div class="glass-card overflow-hidden project-card grid-hidden" onclick="openLightbox('https://images.unsplash.com/photo-1586953208448-b95a79798f07?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=600', 'Home Decor Store')" data-testid="card-shopify-homedecor">
+                    <img src="https://images.unsplash.com/photo-1586953208448-b95a79798f07?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&h=250" alt="Home Decor" class="project-image" loading="lazy">
+                    <div class="p-6">
+                        <h3 class="font-orbitron font-semibold text-lg mb-2 text-neon-purple">Home Decor Store</h3>
+                        <p class="text-sm text-gray-400">Shopify, AR Integration, Custom Checkout</p>
+                    </div>
+                </div>
+
+                <div class="glass-card overflow-hidden project-card grid-hidden" onclick="openLightbox('https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=600', 'Sports Equipment Store')" data-testid="card-shopify-sports">
+                    <img src="https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&h=250" alt="Sports Store" class="project-image" loading="lazy">
+                    <div class="p-6">
+                        <h3 class="font-orbitron font-semibold text-lg mb-2 text-neon-purple">Sports Equipment Store</h3>
+                        <p class="text-sm text-gray-400">Shopify Plus, B2B Portal, Bulk Ordering</p>
+                    </div>
+                </div>
+
+                <div class="glass-card overflow-hidden project-card grid-hidden" onclick="openLightbox('https://images.unsplash.com/photo-1533481405265-e9ce0c044a10?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=600', 'Jewelry Boutique')" data-testid="card-shopify-jewelry">
+                    <img src="https://images.unsplash.com/photo-1533481405265-e9ce0c044a10?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&h=250" alt="Jewelry Store" class="project-image" loading="lazy">
+                    <div class="p-6">
+                        <h3 class="font-orbitron font-semibold text-lg mb-2 text-neon-purple">Jewelry Boutique</h3>
+                        <p class="text-sm text-gray-400">Shopify, 360° Product View, Custom Forms</p>
+                    </div>
+                </div>
+
+                <div class="glass-card overflow-hidden project-card grid-hidden" onclick="openLightbox('https://images.unsplash.com/photo-1542838132-92c53300491e?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=600', 'Pet Supplies Store')" data-testid="card-shopify-pets">
+                    <img src="https://images.unsplash.com/photo-1542838132-92c53300491e?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&h=250" alt="Pet Store" class="project-image" loading="lazy">
+                    <div class="p-6">
+                        <h3 class="font-orbitron font-semibold text-lg mb-2 text-neon-purple">Pet Supplies Store</h3>
+                        <p class="text-sm text-gray-400">Shopify, Auto-delivery, Pet Profiles</p>
+                    </div>
+                </div>
+
+                <div class="glass-card overflow-hidden project-card grid-hidden" onclick="openLightbox('https://images.unsplash.com/photo-1574634534894-89d7576c8259?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=600', 'Organic Food Store')" data-testid="card-shopify-organic">
+                    <img src="https://images.unsplash.com/photo-1574634534894-89d7576c8259?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&h=250" alt="Organic Food" class="project-image" loading="lazy">
+                    <div class="p-6">
+                        <h3 class="font-orbitron font-semibold text-lg mb-2 text-neon-purple">Organic Food Store</h3>
+                        <p class="text-sm text-gray-400">Shopify, Local Delivery, Farm Integration</p>
+                    </div>
+                </div>
+
+                <div class="glass-card overflow-hidden project-card grid-hidden" onclick="openLightbox('https://images.unsplash.com/photo-1523275335684-37898b6baf30?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=600', 'Watch Collection Store')" data-testid="card-shopify-watches">
+                    <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&h=250" alt="Watch Store" class="project-image" loading="lazy">
+                    <div class="p-6">
+                        <h3 class="font-orbitron font-semibold text-lg mb-2 text-neon-purple">Watch Collection Store</h3>
+                        <p class="text-sm text-gray-400">Shopify Plus, Luxury Theme, Payment Plans</p>
+                    </div>
+                </div>
+
+                <div class="glass-card overflow-hidden project-card grid-hidden" onclick="openLightbox('https://images.unsplash.com/photo-1555041469-a586c61ea9bc?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=600', 'Art & Crafts Store')" data-testid="card-shopify-arts">
+                    <img src="https://images.unsplash.com/photo-1555041469-a586c61ea9bc?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&h=250" alt="Arts Store" class="project-image" loading="lazy">
+                    <div class="p-6">
+                        <h3 class="font-orbitron font-semibold text-lg mb-2 text-neon-purple">Art & Crafts Store</h3>
+                        <p class="text-sm text-gray-400">Shopify, Digital Downloads, Artist Portal</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="text-center mt-8">
+                <button onclick="toggleSection('shopify')" id="shopify-toggle" class="holographic-btn px-6 py-3 text-neon-purple" data-testid="button-expand-shopify">
+                    Click to expand
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- WordPress Website Design Section -->
+    <section class="py-16 px-4" id="wordpress-section">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-12">
+                <h2 class="font-orbitron text-3xl md:text-4xl font-bold mb-4 text-neon-magenta text-glow">
+                    WordPress Website Design
+                </h2>
+                <div class="neon-divider magenta neon-glow"></div>
+                <p class="text-gray-300">Custom WordPress solutions for business websites and content management</p>
+            </div>
+
+            <div id="wordpress-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+                <!-- First 3 projects (always visible) -->
+                <div class="glass-card overflow-hidden project-card" onclick="openLightbox('https://images.unsplash.com/photo-1460925895917-afdab827c52f?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=600', 'Corporate Business Website')" data-testid="card-wordpress-corporate">
+                    <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&h=250" alt="Corporate Website" class="project-image" loading="lazy">
+                    <div class="p-6">
+                        <h3 class="font-orbitron font-semibold text-lg mb-2 text-neon-magenta">Corporate Business Website</h3>
+                        <p class="text-sm text-gray-400">WordPress, Custom Theme, SEO Optimized</p>
+                    </div>
+                </div>
+
+                <div class="glass-card overflow-hidden project-card" onclick="openLightbox('https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=600', 'Restaurant Website')" data-testid="card-wordpress-restaurant">
+                    <img src="https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&h=250" alt="Restaurant Website" class="project-image" loading="lazy">
+                    <div class="p-6">
+                        <h3 class="font-orbitron font-semibold text-lg mb-2 text-neon-magenta">Restaurant Website</h3>
+                        <p class="text-sm text-gray-400">WordPress, Online Reservations, Menu Management</p>
+                    </div>
+                </div>
+
+                <div class="glass-card overflow-hidden project-card" onclick="openLightbox('https://images.unsplash.com/photo-1498050108023-c5249f4df085?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=600', 'Tech Blog Platform')" data-testid="card-wordpress-blog">
+                    <img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&h=250" alt="Blog Platform" class="project-image" loading="lazy">
+                    <div class="p-6">
+                        <h3 class="font-orbitron font-semibold text-lg mb-2 text-neon-magenta">Tech Blog Platform</h3>
+                        <p class="text-sm text-gray-400">WordPress, Multi-author, Newsletter Integration</p>
+                    </div>
+                </div>
+
+                <!-- Hidden projects -->
+                <div class="glass-card overflow-hidden project-card grid-hidden" onclick="openLightbox('https://images.unsplash.com/photo-1503149779833-1de50ebe5f80?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=600', 'Real Estate Portal')" data-testid="card-wordpress-realestate">
+                    <img src="https://images.unsplash.com/photo-1503149779833-1de50ebe5f80?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&h=250" alt="Real Estate" class="project-image" loading="lazy">
+                    <div class="p-6">
+                        <h3 class="font-orbitron font-semibold text-lg mb-2 text-neon-magenta">Real Estate Portal</h3>
+                        <p class="text-sm text-gray-400">WordPress, Property Listings, Agent Portal</p>
+                    </div>
+                </div>
+
+                <div class="glass-card overflow-hidden project-card grid-hidden" onclick="openLightbox('https://images.unsplash.com/photo-1576091160399-112ba8d25d1f?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=600', 'Medical Practice Website')" data-testid="card-wordpress-medical">
+                    <img src="https://images.unsplash.com/photo-1576091160399-112ba8d25d1f?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&h=250" alt="Medical Website" class="project-image" loading="lazy">
+                    <div class="p-6">
+                        <h3 class="font-orbitron font-semibold text-lg mb-2 text-neon-magenta">Medical Practice Website</h3>
+                        <p class="text-sm text-gray-400">WordPress, Appointment Booking, HIPAA Compliant</p>
+                    </div>
+                </div>
+
+                <div class="glass-card overflow-hidden project-card grid-hidden" onclick="openLightbox('https://images.unsplash.com/photo-1509062522246-3755977927d7?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=600', 'Education Platform')" data-testid="card-wordpress-education">
+                    <img src="https://images.unsplash.com/photo-1509062522246-3755977927d7?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&h=250" alt="Education Platform" class="project-image" loading="lazy">
+                    <div class="p-6">
+                        <h3 class="font-orbitron font-semibold text-lg mb-2 text-neon-magenta">Education Platform</h3>
+                        <p class="text-sm text-gray-400">WordPress, LMS Integration, Student Portal</p>
+                    </div>
+                </div>
+
+                <div class="glass-card overflow-hidden project-card grid-hidden" onclick="openLightbox('https://images.unsplash.com/photo-1554415707-6e8cfc93fe23?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=600', 'Non-Profit Website')" data-testid="card-wordpress-nonprofit">
+                    <img src="https://images.unsplash.com/photo-1554415707-6e8cfc93fe23?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&h=250" alt="Non-Profit" class="project-image" loading="lazy">
+                    <div class="p-6">
+                        <h3 class="font-orbitron font-semibold text-lg mb-2 text-neon-magenta">Non-Profit Website</h3>
+                        <p class="text-sm text-gray-400">WordPress, Donation System, Volunteer Portal</p>
+                    </div>
+                </div>
+
+                <div class="glass-card overflow-hidden project-card grid-hidden" onclick="openLightbox('https://images.unsplash.com/photo-1488590528505-98d2b5aba04b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=600', 'Portfolio Website')" data-testid="card-wordpress-portfolio">
+                    <img src="https://images.unsplash.com/photo-1488590528505-98d2b5aba04b?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&h=250" alt="Portfolio Website" class="project-image" loading="lazy">
+                    <div class="p-6">
+                        <h3 class="font-orbitron font-semibold text-lg mb-2 text-neon-magenta">Portfolio Website</h3>
+                        <p class="text-sm text-gray-400">WordPress, Custom Gallery, Contact Forms</p>
+                    </div>
+                </div>
+
+                <div class="glass-card overflow-hidden project-card grid-hidden" onclick="openLightbox('https://images.unsplash.com/photo-1560472354-b33ff0c44a43?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=600', 'Event Management Site')" data-testid="card-wordpress-events">
+                    <img src="https://images.unsplash.com/photo-1560472354-b33ff0c44a43?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&h=250" alt="Event Management" class="project-image" loading="lazy">
+                    <div class="p-6">
+                        <h3 class="font-orbitron font-semibold text-lg mb-2 text-neon-magenta">Event Management Site</h3>
+                        <p class="text-sm text-gray-400">WordPress, Ticket Sales, Event Calendar</p>
+                    </div>
+                </div>
+
+                <div class="glass-card overflow-hidden project-card grid-hidden" onclick="openLightbox('https://images.unsplash.com/photo-1556155092-490a1ba16284?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=600', 'News & Magazine Site')" data-testid="card-wordpress-news">
+                    <img src="https://images.unsplash.com/photo-1556155092-490a1ba16284?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&h=250" alt="News Website" class="project-image" loading="lazy">
+                    <div class="p-6">
+                        <h3 class="font-orbitron font-semibold text-lg mb-2 text-neon-magenta">News & Magazine Site</h3>
+                        <p class="text-sm text-gray-400">WordPress, Multi-category, Ad Management</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="text-center mt-8">
+                <button onclick="toggleSection('wordpress')" id="wordpress-toggle" class="holographic-btn px-6 py-3 text-neon-magenta" data-testid="button-expand-wordpress">
+                    Click to expand
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="py-16 px-4" id="contact-section">
+        <div class="max-w-4xl mx-auto text-center">
+            <h2 class="font-orbitron text-3xl md:text-4xl font-bold mb-6 bg-gradient-to-r text-glow">
+                Let's Work Together
+            </h2>
+            <div class="gradient-divider neon-glow"></div>
+            
+            <p class="text-lg text-gray-300 mb-12">
+                Ready to transform your ideas into digital reality? Get in touch and let's create something amazing together.
+            </p>
+
+            <div class="flex flex-col sm:flex-row gap-6 justify-center">
+                <button onclick="contactWhatsApp()" class="holographic-btn px-8 py-4 text-neon-cyan flex items-center justify-center gap-3" data-testid="button-contact-whatsapp">
+                    <i class="fab fa-whatsapp text-2xl" aria-hidden="true"></i>
+                    <div>
+                        <div class="font-semibold">WhatsApp</div>
+                        <div class="text-sm text-gray-400">Quick Response</div>
+                    </div>
+                </button>
+                <button onclick="contactEmail()" class="holographic-btn px-8 py-4 text-neon-magenta flex items-center justify-center gap-3" data-testid="button-contact-email">
+                    <i class="fas fa-envelope text-2xl" aria-hidden="true"></i>
+                    <div>
+                        <div class="font-semibold">Email</div>
+                        <div class="text-sm text-gray-400">Detailed Discussion</div>
+                    </div>
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-8 px-4 border-t border-gray-800">
+        <div class="max-w-7xl mx-auto text-center">
+            <p class="text-gray-400 text-sm">
+                &copy; 2024 Web Developer Portfolio. Built with cutting-edge technology for the future.
+            </p>
+        </div>
+    </footer>
+
+    <!-- Lightbox Modal -->
+    <div id="lightbox" class="fixed inset-0 lightbox z-50 hidden flex items-center justify-center px-4" onclick="closeLightbox()">
+        <div class="glass-card p-4 max-w-4xl w-full" onclick="event.stopPropagation()">
+            <div class="flex justify-between items-center mb-4">
+                <h3 id="lightbox-title" class="font-orbitron text-xl font-semibold text-neon-cyan"></h3>
+                <button onclick="closeLightbox()" class="text-white hover:text-neon-cyan text-2xl" data-testid="button-close-lightbox">
+                    <i class="fas fa-times" aria-hidden="true"></i>
+                </button>
+            </div>
+            <img id="lightbox-image" src="" alt="" class="w-full h-auto rounded-lg" loading="lazy">
+        </div>
+    </div>
+
+    <script>
+        // Starfield Animation
+        class StarField {
+            constructor(canvas) {
+                this.canvas = canvas;
+                this.ctx = canvas.getContext('2d');
+                this.stars = [];
+                this.numStars = 200;
+                this.speed = 0.5;
+                
+                this.resize();
+                this.createStars();
+                this.animate();
+                
+                window.addEventListener('resize', () => this.resize());
+            }
+            
+            resize() {
+                this.canvas.width = window.innerWidth;
+                this.canvas.height = window.innerHeight;
+            }
+            
+            createStars() {
+                this.stars = [];
+                for (let i = 0; i < this.numStars; i++) {
+                    this.stars.push({
+                        x: Math.random() * this.canvas.width,
+                        y: Math.random() * this.canvas.height,
+                        size: Math.random() * 2 + 0.5,
+                        speed: Math.random() * this.speed + 0.1,
+                        opacity: Math.random() * 0.8 + 0.2,
+                        twinkle: Math.random() * 0.02 + 0.01
+                    });
+                }
+            }
+            
+            animate() {
+                this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+                
+                this.stars.forEach(star => {
+                    // Update position
+                    star.y += star.speed;
+                    if (star.y > this.canvas.height) {
+                        star.y = 0;
+                        star.x = Math.random() * this.canvas.width;
+                    }
+                    
+                    // Update twinkle
+                    star.opacity += star.twinkle;
+                    if (star.opacity > 1 || star.opacity < 0.2) {
+                        star.twinkle = -star.twinkle;
+                    }
+                    
+                    // Draw star
+                    this.ctx.beginPath();
+                    this.ctx.arc(star.x, star.y, star.size, 0, Math.PI * 2);
+                    this.ctx.fillStyle = `hsla(187, 100%, 50%, ${star.opacity})`;
+                    this.ctx.fill();
+                    
+                    // Add glow effect for larger stars
+                    if (star.size > 1.5) {
+                        this.ctx.beginPath();
+                        this.ctx.arc(star.x, star.y, star.size * 2, 0, Math.PI * 2);
+                        this.ctx.fillStyle = `hsla(187, 100%, 50%, ${star.opacity * 0.3})`;
+                        this.ctx.fill();
+                    }
+                });
+                
+                requestAnimationFrame(() => this.animate());
+            }
+        }
+        
+        // Initialize starfield
+        document.addEventListener('DOMContentLoaded', () => {
+            const canvas = document.getElementById('starfield');
+            new StarField(canvas);
+        });
+        
+        // Project Grid Toggle Functionality
+        function toggleSection(section) {
+            const grid = document.getElementById(`${section}-grid`);
+            const toggle = document.getElementById(`${section}-toggle`);
+            const hiddenCards = grid.querySelectorAll('.grid-hidden');
+            
+            const isExpanded = toggle.textContent === 'Show less';
+            
+            if (isExpanded) {
+                // Collapse
+                hiddenCards.forEach(card => card.classList.add('grid-hidden'));
+                toggle.textContent = 'Click to expand';
+            } else {
+                // Expand
+                hiddenCards.forEach(card => card.classList.remove('grid-hidden'));
+                toggle.textContent = 'Show less';
+            }
+        }
+        
+        // Lightbox Functionality
+        function openLightbox(imageSrc, title) {
+            const lightbox = document.getElementById('lightbox');
+            const lightboxImage = document.getElementById('lightbox-image');
+            const lightboxTitle = document.getElementById('lightbox-title');
+            
+            lightboxImage.src = imageSrc;
+            lightboxImage.alt = title;
+            lightboxTitle.textContent = title;
+            lightbox.classList.remove('hidden');
+            
+            // Prevent body scroll when lightbox is open
+            document.body.style.overflow = 'hidden';
+        }
+        
+        function closeLightbox() {
+            const lightbox = document.getElementById('lightbox');
+            lightbox.classList.add('hidden');
+            
+            // Restore body scroll
+            document.body.style.overflow = '';
+        }
+        
+        // Contact Functions
+        function contactWhatsApp() {
+            // Replace with your actual WhatsApp number and message
+            const phoneNumber = "1234567890"; // Replace with your WhatsApp number (without + or spaces)
+            const message = "Hi! I'm interested in your web development services. Let's discuss my project.";
+            const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
+            window.open(whatsappUrl, '_blank');
+        }
+        
+        function contactEmail() {
+            // Replace with your actual email and subject
+            const email = "developer@example.com"; // Replace with your email
+            const subject = "Web Development Project Inquiry";
+            const body = "Hi,\n\nI'm interested in your web development services. I'd like to discuss my project requirements.\n\nBest regards";
+            const emailUrl = `mailto:${email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+            window.location.href = emailUrl;
+        }
+        
+        // Keyboard Navigation for Accessibility
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                closeLightbox();
+            }
+        });
+        
+        // Smooth Scrolling for Internal Links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+        
+        // Lazy Loading Images Enhancement
+        if ('IntersectionObserver' in window) {
+            const imageObserver = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const img = entry.target;
+                        img.src = img.dataset.src || img.src;
+                        img.classList.remove('loading');
+                        observer.unobserve(img);
+                    }
+                });
+            });
+            
+            document.querySelectorAll('img[loading="lazy"]').forEach(img => {
+                imageObserver.observe(img);
+            });
+        }
+        
+        // Performance: Reduce animation on lower-end devices
+        if (navigator.hardwareConcurrency && navigator.hardwareConcurrency < 4) {
+            document.documentElement.style.setProperty('--animation-duration', '0.1s');
+        }
+    </script>
+</body>
+</html>
