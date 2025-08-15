@@ -1,0 +1,1328 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Visual Content Admin - Cyber CMS</title>
+    
+    <!-- External Dependencies -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Inter:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* CSS Variables for Cyber Theme */
+        :root {
+            --cyber-cyan: #00FFFF;
+            --electric-blue: #4FC3F7;
+            --neon-purple: #9C27B0;
+            --lime-green: #00FF41;
+            --cyber-gold: #FFD700;
+            --dark-bg: #0D1B2A;
+            --darker-bg: #041E42;
+            --glass-bg: rgba(13, 27, 42, 0.8);
+            --border-glow: rgba(0, 255, 255, 0.3);
+        }
+
+        /* Reset and Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, var(--dark-bg) 0%, var(--darker-bg) 50%, #0f3460 100%);
+            color: #E1E4E8;
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+
+        /* Glass Morphism Effects */
+        .glass-card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--border-glow);
+            border-radius: 12px;
+        }
+
+        .glass-panel {
+            background: rgba(13, 27, 42, 0.9);
+            backdrop-filter: blur(15px);
+            border: 1px solid var(--border-glow);
+        }
+
+        /* Typography */
+        .font-orbitron {
+            font-family: 'Orbitron', monospace;
+        }
+
+        .font-mono {
+            font-family: 'Space Mono', monospace;
+        }
+
+        .neon-text {
+            text-shadow: 0 0 10px currentColor, 0 0 20px currentColor, 0 0 30px currentColor;
+        }
+
+        /* Layout */
+        .admin-container {
+            display: flex;
+            height: 100vh;
+            flex-direction: column;
+        }
+
+        .main-content {
+            display: flex;
+            flex: 1;
+            overflow: hidden;
+        }
+
+        .sidebar {
+            width: 280px;
+            background: var(--glass-bg);
+            border-right: 1px solid var(--border-glow);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .content-area {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        .preview-area {
+            width: 350px;
+            background: var(--glass-bg);
+            border-left: 1px solid var(--border-glow);
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Header */
+        .header {
+            padding: 1rem;
+            border-bottom: 1px solid var(--border-glow);
+            background: var(--glass-bg);
+        }
+
+        .header h1 {
+            font-family: 'Orbitron', monospace;
+            color: var(--cyber-cyan);
+            font-size: 1.5rem;
+            text-shadow: 0 0 20px var(--cyber-cyan);
+        }
+
+        /* Authentication Panel */
+        .auth-panel {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            background: linear-gradient(135deg, var(--dark-bg) 0%, var(--darker-bg) 100%);
+        }
+
+        .auth-card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            border: 2px solid var(--border-glow);
+            border-radius: 16px;
+            padding: 2rem;
+            min-width: 450px;
+            text-align: center;
+        }
+
+        .auth-card h2 {
+            font-family: 'Orbitron', monospace;
+            color: var(--cyber-cyan);
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            text-shadow: 0 0 20px var(--cyber-cyan);
+        }
+
+        .token-guide {
+            background: rgba(255, 215, 0, 0.1);
+            border: 1px solid var(--cyber-gold);
+            border-radius: 8px;
+            padding: 1rem;
+            margin: 1rem 0;
+            text-align: left;
+            font-size: 0.875rem;
+        }
+
+        .token-guide h4 {
+            color: var(--cyber-gold);
+            margin-bottom: 0.5rem;
+        }
+
+        .token-guide ol {
+            color: #E1E4E8;
+            padding-left: 1.5rem;
+        }
+
+        .token-guide li {
+            margin-bottom: 0.25rem;
+        }
+
+        /* Form Styles */
+        .form-group {
+            margin-bottom: 1.5rem;
+            text-align: left;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--cyber-cyan);
+            font-weight: 500;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 0.75rem;
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid var(--border-glow);
+            border-radius: 8px;
+            color: #E1E4E8;
+            font-family: 'Space Mono', monospace;
+            transition: all 0.3s ease;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: var(--cyber-cyan);
+            box-shadow: 0 0 10px rgba(0, 255, 255, 0.3);
+        }
+
+        .form-textarea {
+            min-height: 100px;
+            resize: vertical;
+            font-family: 'Inter', sans-serif;
+        }
+
+        /* Button Styles */
+        .btn {
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            text-align: center;
+        }
+
+        .btn-primary {
+            background: linear-gradient(45deg, var(--cyber-cyan), var(--electric-blue));
+            color: #000;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 255, 255, 0.4);
+        }
+
+        .btn-secondary {
+            background: rgba(0, 255, 255, 0.1);
+            border: 1px solid var(--cyber-cyan);
+            color: var(--cyber-cyan);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(0, 255, 255, 0.2);
+        }
+
+        .btn-success {
+            background: linear-gradient(45deg, var(--lime-green), #00e037);
+            color: #000;
+        }
+
+        .btn-small {
+            padding: 0.5rem 1rem;
+            font-size: 0.875rem;
+        }
+
+        /* Content Sections */
+        .content-sections {
+            flex: 1;
+            overflow-y: auto;
+            padding: 1rem;
+        }
+
+        .content-section {
+            background: var(--glass-bg);
+            border: 1px solid var(--border-glow);
+            border-radius: 12px;
+            margin-bottom: 1.5rem;
+            overflow: hidden;
+        }
+
+        .section-header {
+            padding: 1rem;
+            border-bottom: 1px solid var(--border-glow);
+            background: rgba(0, 255, 255, 0.05);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .section-title {
+            font-family: 'Orbitron', monospace;
+            color: var(--cyber-cyan);
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .section-content {
+            padding: 1.5rem;
+        }
+
+        .field-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .field-label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--electric-blue);
+            font-weight: 500;
+            font-size: 0.9rem;
+        }
+
+        .field-input {
+            width: 100%;
+            padding: 0.75rem;
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid var(--border-glow);
+            border-radius: 6px;
+            color: #E1E4E8;
+            transition: all 0.3s ease;
+        }
+
+        .field-input:focus {
+            outline: none;
+            border-color: var(--cyber-cyan);
+            box-shadow: 0 0 8px rgba(0, 255, 255, 0.3);
+        }
+
+        /* Image Upload */
+        .image-upload {
+            border: 2px dashed var(--border-glow);
+            border-radius: 8px;
+            padding: 2rem;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .image-upload:hover {
+            border-color: var(--cyber-cyan);
+            background: rgba(0, 255, 255, 0.05);
+        }
+
+        .image-preview {
+            max-width: 100%;
+            max-height: 200px;
+            border-radius: 8px;
+            margin-top: 1rem;
+        }
+
+        /* Sidebar */
+        .sidebar-header {
+            padding: 1rem;
+            border-bottom: 1px solid var(--border-glow);
+        }
+
+        .sidebar-content {
+            flex: 1;
+            padding: 1rem;
+            overflow-y: auto;
+        }
+
+        .page-item {
+            display: flex;
+            align-items: center;
+            padding: 0.75rem;
+            cursor: pointer;
+            border-radius: 8px;
+            transition: all 0.2s ease;
+            margin-bottom: 0.5rem;
+        }
+
+        .page-item:hover {
+            background: rgba(0, 255, 255, 0.1);
+        }
+
+        .page-item.active {
+            background: rgba(0, 255, 255, 0.2);
+            border-left: 3px solid var(--cyber-cyan);
+        }
+
+        .page-icon {
+            margin-right: 0.75rem;
+            width: 20px;
+            text-align: center;
+            color: var(--cyber-cyan);
+        }
+
+        .page-name {
+            font-weight: 500;
+        }
+
+        /* Preview Panel */
+        .preview-header {
+            padding: 1rem;
+            border-bottom: 1px solid var(--border-glow);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .preview-controls {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .preview-btn {
+            padding: 0.5rem;
+            background: rgba(0, 255, 255, 0.1);
+            border: 1px solid var(--border-glow);
+            border-radius: 6px;
+            color: var(--cyber-cyan);
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .preview-btn:hover {
+            background: rgba(0, 255, 255, 0.2);
+        }
+
+        .preview-frame {
+            flex: 1;
+            padding: 1rem;
+        }
+
+        .preview-iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+            border-radius: 8px;
+            background: white;
+        }
+
+        /* Notifications */
+        .notifications {
+            position: fixed;
+            top: 1rem;
+            right: 1rem;
+            z-index: 1000;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .notification {
+            background: var(--glass-bg);
+            border: 1px solid var(--border-glow);
+            border-radius: 8px;
+            padding: 1rem;
+            min-width: 300px;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            animation: slideIn 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+
+        .notification.success { border-color: var(--lime-green); }
+        .notification.error { border-color: #ff4444; }
+        .notification.warning { border-color: var(--cyber-gold); }
+
+        .notification-icon {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .notification.success .notification-icon {
+            background: var(--lime-green);
+            color: #000;
+        }
+
+        .notification.error .notification-icon {
+            background: #ff4444;
+            color: white;
+        }
+
+        .notification.warning .notification-icon {
+            background: var(--cyber-gold);
+            color: #000;
+        }
+
+        .notification-close {
+            margin-left: auto;
+            background: none;
+            border: none;
+            color: #999;
+            cursor: pointer;
+            font-size: 1.2rem;
+        }
+
+        /* Loading States */
+        .loading {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 200px;
+            flex-direction: column;
+            color: var(--cyber-cyan);
+        }
+
+        .spinner {
+            width: 40px;
+            height: 40px;
+            border: 3px solid rgba(0, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top-color: var(--cyber-cyan);
+            animation: spin 1s ease-in-out infinite;
+            margin-bottom: 1rem;
+        }
+
+        /* Animations */
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        /* Utility Classes */
+        .hidden { display: none !important; }
+        .text-cyber-cyan { color: var(--cyber-cyan); }
+        .text-lime-green { color: var(--lime-green); }
+        .text-gray-400 { color: #9CA3AF; }
+        .text-gray-500 { color: #6B7280; }
+
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .preview-area { display: none; }
+        }
+
+        @media (max-width: 768px) {
+            .sidebar { width: 240px; }
+            .main-content { flex-direction: column; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Authentication Panel -->
+    <div id="auth-panel" class="auth-panel">
+        <div class="auth-card">
+            <h2>VISUAL CONTENT ADMIN</h2>
+            <p style="color: #9CA3AF; margin-bottom: 1rem;">
+                Edit your website content visually - no coding required
+            </p>
+            
+            <div class="token-guide">
+                <h4><i class="fas fa-key"></i> GitHub Token Setup</h4>
+                <p style="margin-bottom: 0.5rem;">To fix "Resource not accessible" error:</p>
+                <ol>
+                    <li>Go to <a href="https://github.com/settings/tokens" target="_blank" style="color: var(--cyber-cyan);">github.com/settings/tokens</a></li>
+                    <li>Click "Generate new token (classic)"</li>
+                    <li>Select scope: <strong>"repo"</strong> (Full control of repositories)</li>
+                    <li>Copy the generated token and paste below</li>
+                </ol>
+            </div>
+            
+            <form id="auth-form">
+                <div class="form-group">
+                    <label class="form-label">Username</label>
+                    <input type="text" id="username" class="form-input" value="fesii007" readonly>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">GitHub Personal Access Token</label>
+                    <input type="password" id="github-token" class="form-input" placeholder="ghp_xxxxxxxxxxxxxxxxxxxx" required>
+                    <small style="color: var(--cyber-gold); font-size: 0.75rem; margin-top: 0.5rem; display: block;">
+                        ⚠️ Make sure to select "repo" scope when creating the token
+                    </small>
+                </div>
+                
+                <button type="submit" class="btn btn-primary" style="width: 100%;">
+                    <i class="fas fa-sign-in-alt"></i> ACCESS VISUAL EDITOR
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Main Admin Panel -->
+    <div id="admin-panel" class="admin-container hidden">
+        <!-- Header -->
+        <div class="header">
+            <div style="display: flex; align-items: center; justify-content: space-between;">
+                <h1><i class="fas fa-palette"></i> VISUAL CONTENT ADMIN</h1>
+                <div style="display: flex; align-items: center; gap: 1rem;">
+                    <span class="text-gray-400">Editing: <span class="text-cyber-cyan" id="repo-name">fesii007/Faisal</span></span>
+                    <button id="logout-btn" class="btn btn-secondary">
+                        <i class="fas fa-sign-out-alt"></i> Logout
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <!-- Sidebar - Page List -->
+            <div class="sidebar">
+                <div class="sidebar-header">
+                    <h3 class="font-orbitron text-cyber-cyan neon-text">WEBSITE PAGES</h3>
+                </div>
+                
+                <div class="sidebar-content">
+                    <div id="page-list" class="loading">
+                        <div class="spinner"></div>
+                        <p>Loading website pages...</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Content Editor Area -->
+            <div class="content-area">
+                <div id="content-sections" class="content-sections">
+                    <div id="welcome-screen" class="content-section">
+                        <div class="section-header">
+                            <div class="section-title">
+                                <i class="fas fa-home"></i>
+                                Welcome to Visual Content Editor
+                            </div>
+                        </div>
+                        <div class="section-content">
+                            <h3 style="color: var(--cyber-cyan); margin-bottom: 1rem;">Edit Your Website Visually</h3>
+                            <p style="color: #E1E4E8; margin-bottom: 1rem;">
+                                This admin panel lets you edit your website content without touching any code. 
+                                You can update text, images, and other content through simple forms.
+                            </p>
+                            <ul style="color: #9CA3AF; padding-left: 1.5rem;">
+                                <li>✨ Edit text content directly</li>
+                                <li>🖼️ Upload and manage images</li>
+                                <li>📝 Update descriptions and titles</li>
+                                <li>👁️ See live preview of changes</li>
+                                <li>💾 Auto-save to GitHub repository</li>
+                            </ul>
+                            <p style="color: #E1E4E8; margin-top: 1rem;">
+                                Select a page from the sidebar to start editing!
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Preview Area -->
+            <div class="preview-area">
+                <div class="preview-header">
+                    <h3 class="font-orbitron text-cyber-cyan neon-text">LIVE PREVIEW</h3>
+                    <div class="preview-controls">
+                        <button id="refresh-preview" class="preview-btn" title="Refresh Preview">
+                            <i class="fas fa-sync-alt"></i>
+                        </button>
+                        <button id="open-new-tab" class="preview-btn" title="Open in New Tab">
+                            <i class="fas fa-external-link-alt"></i>
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="preview-frame">
+                    <iframe id="preview-iframe" class="preview-iframe" src="about:blank"></iframe>
+                </div>
+                
+                <div style="padding: 0.75rem; border-top: 1px solid var(--border-glow); font-size: 0.75rem; color: #9CA3AF;">
+                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                        <span id="preview-status">Select a page to preview</span>
+                        <a id="preview-link" href="#" target="_blank" class="text-cyber-cyan" style="text-decoration: none;">
+                            <i class="fas fa-link"></i> <span id="preview-url"></span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Notifications Container -->
+    <div id="notifications" class="notifications"></div>
+
+    <script>
+        // Global state
+        let githubToken = '';
+        let currentUser = null;
+        let currentRepository = null;
+        let websiteContent = {};
+        let currentPage = null;
+        let autoSaveTimer = null;
+
+        // GitHub API wrapper with enhanced error handling
+        class GitHubAPI {
+            constructor(token, owner = 'fesii007', repo = 'Faisal') {
+                this.token = token;
+                this.owner = owner;
+                this.repo = repo;
+            }
+
+            async request(endpoint, options = {}) {
+                const response = await fetch(`https://api.github.com${endpoint}`, {
+                    ...options,
+                    headers: {
+                        'Authorization': `token ${this.token}`,
+                        'Accept': 'application/vnd.github.v3+json',
+                        'Content-Type': 'application/json',
+                        ...options.headers,
+                    },
+                });
+
+                if (!response.ok) {
+                    const error = await response.json().catch(() => ({ message: response.statusText }));
+                    
+                    // Enhanced error messages for token permissions
+                    if (response.status === 403 && error.message.includes('Resource not accessible')) {
+                        throw new Error('Token lacks "repo" permissions. Please create a new token with "repo" scope at github.com/settings/tokens');
+                    }
+                    
+                    throw new Error(error.message || `GitHub API error: ${response.status}`);
+                }
+
+                return response.json();
+            }
+
+            async getFileContent(path) {
+                const data = await this.request(`/repos/${this.owner}/${this.repo}/contents/${path}`);
+                
+                if (Array.isArray(data)) {
+                    throw new Error('Path is a directory, not a file');
+                }
+
+                return {
+                    path: data.path,
+                    content: atob(data.content),
+                    sha: data.sha,
+                    size: data.size,
+                };
+            }
+
+            async updateFile(path, content, message, sha) {
+                return await this.request(`/repos/${this.owner}/${this.repo}/contents/${path}`, {
+                    method: 'PUT',
+                    body: JSON.stringify({
+                        message,
+                        content: btoa(content),
+                        sha,
+                    }),
+                });
+            }
+
+            async verifyAccess() {
+                const [user, repo] = await Promise.all([
+                    this.request('/user'),
+                    this.request(`/repos/${this.owner}/${this.repo}`)
+                ]);
+
+                return { user, repo };
+            }
+
+            async getRepositoryTree() {
+                const data = await this.request(`/repos/${this.owner}/${this.repo}/git/trees/main?recursive=1`);
+                return data.tree.filter(item => item.type === 'blob' && item.path.endsWith('.html'));
+            }
+        }
+
+        // Notification system
+        function showNotification(message, type = 'info') {
+            const notifications = document.getElementById('notifications');
+            const notification = document.createElement('div');
+            notification.className = `notification ${type}`;
+            
+            const iconClass = type === 'success' ? 'fa-check-circle' : 
+                             type === 'error' ? 'fa-exclamation-triangle' : 
+                             type === 'warning' ? 'fa-exclamation-circle' : 'fa-info-circle';
+            
+            notification.innerHTML = `
+                <div class="notification-icon">
+                    <i class="fas ${iconClass}"></i>
+                </div>
+                <div class="notification-content">
+                    <p>${message}</p>
+                </div>
+                <button class="notification-close" onclick="this.parentElement.remove()">
+                    <i class="fas fa-times"></i>
+                </button>
+            `;
+            
+            notifications.appendChild(notification);
+            
+            // Auto-remove after 5 seconds
+            setTimeout(() => {
+                if (notification.parentElement) {
+                    notification.remove();
+                }
+            }, 5000);
+        }
+
+        // Content parsing and extraction
+        function parseHTMLContent(html, filename) {
+            const parser = new DOMParser();
+            const doc = parser.parseFromString(html, 'text/html');
+            
+            const content = {
+                filename: filename,
+                title: doc.querySelector('title')?.textContent || '',
+                meta_description: doc.querySelector('meta[name="description"]')?.getAttribute('content') || '',
+                headings: [],
+                paragraphs: [],
+                images: [],
+                links: [],
+                rawHTML: html
+            };
+
+            // Extract headings
+            doc.querySelectorAll('h1, h2, h3, h4, h5, h6').forEach((heading, index) => {
+                content.headings.push({
+                    id: `heading_${index}`,
+                    tag: heading.tagName.toLowerCase(),
+                    text: heading.textContent,
+                    element: heading.outerHTML
+                });
+            });
+
+            // Extract paragraphs
+            doc.querySelectorAll('p').forEach((p, index) => {
+                if (p.textContent.trim()) {
+                    content.paragraphs.push({
+                        id: `paragraph_${index}`,
+                        text: p.textContent,
+                        html: p.innerHTML,
+                        element: p.outerHTML
+                    });
+                }
+            });
+
+            // Extract images
+            doc.querySelectorAll('img').forEach((img, index) => {
+                content.images.push({
+                    id: `image_${index}`,
+                    src: img.getAttribute('src'),
+                    alt: img.getAttribute('alt') || '',
+                    title: img.getAttribute('title') || '',
+                    element: img.outerHTML
+                });
+            });
+
+            // Extract links
+            doc.querySelectorAll('a[href]').forEach((link, index) => {
+                content.links.push({
+                    id: `link_${index}`,
+                    href: link.getAttribute('href'),
+                    text: link.textContent,
+                    title: link.getAttribute('title') || '',
+                    element: link.outerHTML
+                });
+            });
+
+            return content;
+        }
+
+        // Generate editable form for content
+        function generateContentForm(content) {
+            const sections = [];
+
+            // Page Title Section
+            sections.push(`
+                <div class="content-section">
+                    <div class="section-header">
+                        <div class="section-title">
+                            <i class="fas fa-heading"></i>
+                            Page Title & Meta
+                        </div>
+                        <button class="btn btn-success btn-small" onclick="savePage()">
+                            <i class="fas fa-save"></i> Save Changes
+                        </button>
+                    </div>
+                    <div class="section-content">
+                        <div class="field-group">
+                            <label class="field-label">Page Title</label>
+                            <input type="text" class="field-input" id="page_title" value="${content.title}" placeholder="Enter page title">
+                        </div>
+                        <div class="field-group">
+                            <label class="field-label">Meta Description</label>
+                            <textarea class="field-input form-textarea" id="meta_description" placeholder="Enter page description for SEO">${content.meta_description}</textarea>
+                        </div>
+                    </div>
+                </div>
+            `);
+
+            // Headings Section
+            if (content.headings.length > 0) {
+                const headingsHtml = content.headings.map(heading => `
+                    <div class="field-group">
+                        <label class="field-label">${heading.tag.toUpperCase()} - ${heading.text.substring(0, 50)}${heading.text.length > 50 ? '...' : ''}</label>
+                        <input type="text" class="field-input" data-type="heading" data-id="${heading.id}" value="${heading.text}" placeholder="Enter heading text">
+                    </div>
+                `).join('');
+
+                sections.push(`
+                    <div class="content-section">
+                        <div class="section-header">
+                            <div class="section-title">
+                                <i class="fas fa-font"></i>
+                                Headings (${content.headings.length})
+                            </div>
+                        </div>
+                        <div class="section-content">
+                            ${headingsHtml}
+                        </div>
+                    </div>
+                `);
+            }
+
+            // Paragraphs Section
+            if (content.paragraphs.length > 0) {
+                const paragraphsHtml = content.paragraphs.map(paragraph => `
+                    <div class="field-group">
+                        <label class="field-label">Paragraph - ${paragraph.text.substring(0, 50)}${paragraph.text.length > 50 ? '...' : ''}</label>
+                        <textarea class="field-input form-textarea" data-type="paragraph" data-id="${paragraph.id}" placeholder="Enter paragraph text">${paragraph.text}</textarea>
+                    </div>
+                `).join('');
+
+                sections.push(`
+                    <div class="content-section">
+                        <div class="section-header">
+                            <div class="section-title">
+                                <i class="fas fa-paragraph"></i>
+                                Text Content (${content.paragraphs.length})
+                            </div>
+                        </div>
+                        <div class="section-content">
+                            ${paragraphsHtml}
+                        </div>
+                    </div>
+                `);
+            }
+
+            // Images Section
+            if (content.images.length > 0) {
+                const imagesHtml = content.images.map(image => `
+                    <div class="field-group">
+                        <label class="field-label">Image - ${image.alt || image.src}</label>
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                            <div>
+                                <label class="field-label">Image URL</label>
+                                <input type="text" class="field-input" data-type="image" data-id="${image.id}" data-attr="src" value="${image.src}" placeholder="Enter image URL">
+                            </div>
+                            <div>
+                                <label class="field-label">Alt Text</label>
+                                <input type="text" class="field-input" data-type="image" data-id="${image.id}" data-attr="alt" value="${image.alt}" placeholder="Enter alt text">
+                            </div>
+                        </div>
+                        ${image.src ? `<img src="${image.src}" alt="${image.alt}" class="image-preview">` : ''}
+                    </div>
+                `).join('');
+
+                sections.push(`
+                    <div class="content-section">
+                        <div class="section-header">
+                            <div class="section-title">
+                                <i class="fas fa-images"></i>
+                                Images (${content.images.length})
+                            </div>
+                        </div>
+                        <div class="section-content">
+                            ${imagesHtml}
+                        </div>
+                    </div>
+                `);
+            }
+
+            // Links Section
+            if (content.links.length > 0) {
+                const linksHtml = content.links.map(link => `
+                    <div class="field-group">
+                        <label class="field-label">Link - ${link.text}</label>
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                            <div>
+                                <label class="field-label">Link Text</label>
+                                <input type="text" class="field-input" data-type="link" data-id="${link.id}" data-attr="text" value="${link.text}" placeholder="Enter link text">
+                            </div>
+                            <div>
+                                <label class="field-label">Link URL</label>
+                                <input type="text" class="field-input" data-type="link" data-id="${link.id}" data-attr="href" value="${link.href}" placeholder="Enter link URL">
+                            </div>
+                        </div>
+                    </div>
+                `).join('');
+
+                sections.push(`
+                    <div class="content-section">
+                        <div class="section-header">
+                            <div class="section-title">
+                                <i class="fas fa-link"></i>
+                                Links (${content.links.length})
+                            </div>
+                        </div>
+                        <div class="section-content">
+                            ${linksHtml}
+                        </div>
+                    </div>
+                `);
+            }
+
+            return sections.join('');
+        }
+
+        // Apply changes to HTML content
+        function applyChangesToHTML(originalContent) {
+            let updatedHTML = originalContent.rawHTML;
+
+            // Update title
+            const newTitle = document.getElementById('page_title').value;
+            if (newTitle !== originalContent.title) {
+                updatedHTML = updatedHTML.replace(
+                    /<title>.*?<\/title>/i,
+                    `<title>${newTitle}</title>`
+                );
+            }
+
+            // Update meta description
+            const newDescription = document.getElementById('meta_description').value;
+            if (newDescription !== originalContent.meta_description) {
+                if (originalContent.meta_description) {
+                    updatedHTML = updatedHTML.replace(
+                        /<meta[^>]*name="description"[^>]*>/i,
+                        `<meta name="description" content="${newDescription}">`
+                    );
+                } else {
+                    // Add meta description if it doesn't exist
+                    updatedHTML = updatedHTML.replace(
+                        /<\/head>/i,
+                        `    <meta name="description" content="${newDescription}">\n</head>`
+                    );
+                }
+            }
+
+            // Update headings
+            originalContent.headings.forEach(heading => {
+                const input = document.querySelector(`[data-type="heading"][data-id="${heading.id}"]`);
+                if (input && input.value !== heading.text) {
+                    const regex = new RegExp(escapeRegExp(heading.element), 'g');
+                    const newElement = heading.element.replace(heading.text, input.value);
+                    updatedHTML = updatedHTML.replace(regex, newElement);
+                }
+            });
+
+            // Update paragraphs
+            originalContent.paragraphs.forEach(paragraph => {
+                const textarea = document.querySelector(`[data-type="paragraph"][data-id="${paragraph.id}"]`);
+                if (textarea && textarea.value !== paragraph.text) {
+                    const regex = new RegExp(escapeRegExp(paragraph.element), 'g');
+                    const newElement = paragraph.element.replace(paragraph.text, textarea.value);
+                    updatedHTML = updatedHTML.replace(regex, newElement);
+                }
+            });
+
+            // Update images
+            originalContent.images.forEach(image => {
+                const srcInput = document.querySelector(`[data-type="image"][data-id="${image.id}"][data-attr="src"]`);
+                const altInput = document.querySelector(`[data-type="image"][data-id="${image.id}"][data-attr="alt"]`);
+                
+                if ((srcInput && srcInput.value !== image.src) || (altInput && altInput.value !== image.alt)) {
+                    let newElement = image.element;
+                    if (srcInput && srcInput.value !== image.src) {
+                        newElement = newElement.replace(/src="[^"]*"/, `src="${srcInput.value}"`);
+                    }
+                    if (altInput && altInput.value !== image.alt) {
+                        if (image.alt) {
+                            newElement = newElement.replace(/alt="[^"]*"/, `alt="${altInput.value}"`);
+                        } else {
+                            newElement = newElement.replace(/<img([^>]*)>/, `<img$1 alt="${altInput.value}">`);
+                        }
+                    }
+                    const regex = new RegExp(escapeRegExp(image.element), 'g');
+                    updatedHTML = updatedHTML.replace(regex, newElement);
+                }
+            });
+
+            // Update links
+            originalContent.links.forEach(link => {
+                const textInput = document.querySelector(`[data-type="link"][data-id="${link.id}"][data-attr="text"]`);
+                const hrefInput = document.querySelector(`[data-type="link"][data-id="${link.id}"][data-attr="href"]`);
+                
+                if ((textInput && textInput.value !== link.text) || (hrefInput && hrefInput.value !== link.href)) {
+                    let newElement = link.element;
+                    if (textInput && textInput.value !== link.text) {
+                        newElement = newElement.replace(link.text, textInput.value);
+                    }
+                    if (hrefInput && hrefInput.value !== link.href) {
+                        newElement = newElement.replace(/href="[^"]*"/, `href="${hrefInput.value}"`);
+                    }
+                    const regex = new RegExp(escapeRegExp(link.element), 'g');
+                    updatedHTML = updatedHTML.replace(regex, newElement);
+                }
+            });
+
+            return updatedHTML;
+        }
+
+        function escapeRegExp(string) {
+            return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+        }
+
+        // Load website pages
+        async function loadPages() {
+            try {
+                const api = new GitHubAPI(githubToken);
+                const tree = await api.getRepositoryTree();
+                const pages = tree.filter(file => file.path.endsWith('.html'));
+                
+                renderPageList(pages);
+                showNotification(`Found ${pages.length} HTML pages`, 'success');
+            } catch (error) {
+                showNotification(`Failed to load pages: ${error.message}`, 'error');
+            }
+        }
+
+        function renderPageList(pages) {
+            const pageListEl = document.getElementById('page-list');
+            
+            if (pages.length === 0) {
+                pageListEl.innerHTML = '<p class="text-gray-400">No HTML pages found</p>';
+                return;
+            }
+
+            pageListEl.innerHTML = pages.map(page => {
+                const pageName = page.path === 'index.html' ? 'Home Page' : 
+                                page.path.replace('.html', '').replace(/[-_]/g, ' ');
+                
+                return `
+                    <div class="page-item" data-path="${page.path}" onclick="selectPage('${page.path}')">
+                        <span class="page-icon">
+                            <i class="fas ${page.path === 'index.html' ? 'fa-home' : 'fa-file-alt'}"></i>
+                        </span>
+                        <span class="page-name">${pageName}</span>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        async function selectPage(path) {
+            try {
+                // Update UI
+                document.querySelectorAll('.page-item').forEach(item => {
+                    item.classList.remove('active');
+                });
+                document.querySelector(`[data-path="${path}"]`).classList.add('active');
+
+                // Load page content
+                const api = new GitHubAPI(githubToken);
+                const fileData = await api.getFileContent(path);
+                
+                // Parse content
+                const content = parseHTMLContent(fileData.content, path);
+                content.sha = fileData.sha; // Store SHA for saving
+                websiteContent[path] = content;
+                currentPage = path;
+
+                // Generate and display editable form
+                const contentSections = document.getElementById('content-sections');
+                contentSections.innerHTML = generateContentForm(content);
+
+                // Setup auto-save
+                setupAutoSave();
+
+                // Update preview
+                updatePreview();
+                
+                showNotification(`Loaded ${path} for editing`, 'success');
+            } catch (error) {
+                showNotification(`Failed to load page: ${error.message}`, 'error');
+            }
+        }
+
+        function setupAutoSave() {
+            // Add change listeners to all form elements
+            document.querySelectorAll('.field-input').forEach(input => {
+                input.addEventListener('input', scheduleAutoSave);
+            });
+        }
+
+        function scheduleAutoSave() {
+            if (autoSaveTimer) {
+                clearTimeout(autoSaveTimer);
+            }
+            
+            autoSaveTimer = setTimeout(() => {
+                savePage(true); // true = auto-save
+            }, 3000); // Auto-save after 3 seconds of inactivity
+        }
+
+        async function savePage(isAutoSave = false) {
+            if (!currentPage || !websiteContent[currentPage]) return;
+            
+            try {
+                if (!isAutoSave) {
+                    showNotification('Saving changes...', 'info');
+                }
+
+                const originalContent = websiteContent[currentPage];
+                const updatedHTML = applyChangesToHTML(originalContent);
+                
+                const api = new GitHubAPI(githubToken);
+                const result = await api.updateFile(
+                    currentPage,
+                    updatedHTML,
+                    `Update ${currentPage} content via Visual Admin`,
+                    originalContent.sha
+                );
+                
+                // Update SHA for next save
+                originalContent.sha = result.content.sha;
+                
+                if (isAutoSave) {
+                    showNotification('Auto-saved successfully', 'success');
+                } else {
+                    showNotification('Changes saved successfully!', 'success');
+                }
+                
+                // Update preview
+                setTimeout(updatePreview, 1000);
+                
+            } catch (error) {
+                showNotification(`Failed to save: ${error.message}`, 'error');
+            }
+        }
+
+        // Preview functionality
+        function updatePreview() {
+            if (!currentRepository) return;
+            
+            const iframe = document.getElementById('preview-iframe');
+            const previewUrl = `https://${currentRepository.owner.login}.github.io/${currentRepository.name}`;
+            
+            // Update preview link
+            document.getElementById('preview-link').href = previewUrl;
+            document.getElementById('preview-url').textContent = previewUrl.replace('https://', '');
+            
+            // Update iframe with current page
+            if (currentPage) {
+                const pageUrl = currentPage === 'index.html' ? previewUrl : `${previewUrl}/${currentPage}`;
+                iframe.src = pageUrl + '?t=' + Date.now();
+                document.getElementById('preview-status').textContent = `Previewing: ${currentPage}`;
+            } else {
+                iframe.src = previewUrl + '?t=' + Date.now();
+                document.getElementById('preview-status').textContent = 'Live Site Preview';
+            }
+        }
+
+        // Authentication
+        async function authenticate() {
+            const username = document.getElementById('username').value;
+            const token = document.getElementById('github-token').value;
+            
+            if (!token) {
+                showNotification('Please enter your GitHub token', 'error');
+                return;
+            }
+            
+            try {
+                const api = new GitHubAPI(token);
+                const { user, repo } = await api.verifyAccess();
+                
+                // Verify user is fesii007
+                if (user.login !== 'fesii007') {
+                    throw new Error('Access restricted to fesii007 only');
+                }
+                
+                // Store credentials
+                githubToken = token;
+                currentUser = user;
+                currentRepository = repo;
+                
+                // Show admin panel
+                document.getElementById('auth-panel').classList.add('hidden');
+                document.getElementById('admin-panel').classList.remove('hidden');
+                
+                // Initialize admin panel
+                await initializeAdminPanel();
+                
+                showNotification('Authentication successful! Ready to edit content.', 'success');
+                
+            } catch (error) {
+                showNotification(`Authentication failed: ${error.message}`, 'error');
+            }
+        }
+
+        async function initializeAdminPanel() {
+            try {
+                // Load pages
+                await loadPages();
+                
+                // Update preview
+                updatePreview();
+                
+            } catch (error) {
+                showNotification(`Failed to initialize admin panel: ${error.message}`, 'error');
+            }
+        }
+
+        function logout() {
+            githubToken = '';
+            currentUser = null;
+            currentRepository = null;
+            websiteContent = {};
+            currentPage = null;
+            
+            document.getElementById('admin-panel').classList.add('hidden');
+            document.getElementById('auth-panel').classList.remove('hidden');
+            document.getElementById('github-token').value = '';
+            
+            showNotification('Logged out successfully', 'info');
+        }
+
+        // Event listeners
+        document.addEventListener('DOMContentLoaded', function() {
+            // Auth form
+            document.getElementById('auth-form').addEventListener('submit', function(e) {
+                e.preventDefault();
+                authenticate();
+            });
+            
+            // Logout button
+            document.getElementById('logout-btn').addEventListener('click', logout);
+            
+            // Preview controls
+            document.getElementById('refresh-preview').addEventListener('click', updatePreview);
+            document.getElementById('open-new-tab').addEventListener('click', function() {
+                if (currentRepository) {
+                    const url = `https://${currentRepository.owner.login}.github.io/${currentRepository.name}`;
+                    window.open(url, '_blank');
+                }
+            });
+        });
+
+        // Global save function for buttons
+        window.savePage = savePage;
+        window.selectPage = selectPage;
+    </script>
+</body>
+</html>
