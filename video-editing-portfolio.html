@@ -1,0 +1,3447 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Faisal Hanif | Professional Video Editor Portfolio</title>
+    <meta name="description" content="Professional video editor specializing in courses, VSLs, reels, social ads, and business videos. View my complete portfolio and get premium video editing services.">
+    
+    <!-- Open Graph tags for social media -->
+    <meta property="og:title" content="Faisal Hanif | Professional Video Editor Portfolio">
+    <meta property="og:description" content="Professional video editor specializing in courses, VSLs, reels, social ads, and business videos.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://thefaisalhanif.com">
+    
+    <!-- Twitter Card tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Faisal Hanif | Professional Video Editor">
+    <meta name="twitter:description" content="Professional video editor specializing in courses, VSLs, reels, social ads, and business videos.">
+    
+    <!-- Preconnect for performance -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://www.youtube-nocookie.com">
+    
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        /* CONFIG COLORS - Sci-fi theme */
+        :root {
+            --bg-primary: #0a0f1c;
+            --bg-secondary: #151b2e;
+            --bg-card: rgba(21, 27, 46, 0.7);
+            --neon-cyan: #00d9ff;
+            --neon-purple: #8b5cf6;
+            --neon-magenta: #ff006e;
+            --neon-green: #39ff14;
+            --text-primary: #e2e8f0;
+            --text-secondary: #94a3b8;
+            --glass-bg: rgba(255, 255, 255, 0.05);
+            --glass-border: rgba(255, 255, 255, 0.1);
+            --accent-glow: rgba(0, 217, 255, 0.3);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+            zoom: 0.85;
+        }
+
+        /* Animated background canvas */
+        #bg-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: -1;
+            opacity: 0.8;
+        }
+
+        /* Glassmorphism base style */
+        .glass {
+            background: var(--glass-bg);
+            backdrop-filter: blur(12px);
+            border: 1px solid var(--glass-border);
+            border-radius: 16px;
+        }
+
+        /* Typography */
+        .font-orbitron {
+            font-family: 'Orbitron', 'Rajdhani', sans-serif;
+        }
+
+        .font-rajdhani {
+            font-family: 'Rajdhani', sans-serif;
+        }
+
+        /* Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+
+        /* Top Navigation */
+        .top-nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: rgba(10, 15, 28, 0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--neon-cyan);
+            padding: 0.75rem 0;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 20px var(--accent-glow);
+        }
+
+        .nav-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .home-btn {
+            background: linear-gradient(135deg, var(--neon-cyan), var(--neon-purple));
+            color: white !important;
+            text-decoration: none !important;
+            padding: 0.5rem 1.25rem;
+            border-radius: 8px;
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 0.875rem;
+            letter-spacing: 0.05em;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 4px 15px var(--accent-glow);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .home-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .home-btn:hover::before {
+            left: 100%;
+        }
+
+        .home-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 25px var(--accent-glow);
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: 1.5rem;
+            list-style: none;
+            align-items: center;
+        }
+
+        .nav-menu a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.875rem;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            transition: all 0.3s ease;
+            position: relative;
+            padding: 0.5rem 0;
+        }
+
+        .nav-menu a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--neon-cyan);
+            transition: width 0.3s ease;
+        }
+
+        .nav-menu a:hover {
+            color: var(--neon-cyan);
+        }
+
+        .nav-menu a:hover::after {
+            width: 100%;
+        }
+
+        /* Mobile menu */
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--text-primary);
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            padding: 120px 0 80px;
+        }
+
+        .hero-content {
+            display: grid;
+            grid-template-columns: 350px 1fr 300px;
+            gap: 2rem;
+            max-width: 1200px;
+            width: 100%;
+            align-items: center;
+        }
+
+        .profile-card {
+            background: var(--bg-card);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: 24px;
+            padding: 2rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .profile-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--neon-cyan), var(--neon-purple), var(--neon-magenta));
+        }
+
+        .profile-image {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            margin: 0 auto 1rem;
+            position: relative;
+            background: linear-gradient(45deg, var(--neon-purple), var(--neon-magenta));
+            padding: 4px;
+            box-shadow: 0 0 30px rgba(139, 92, 246, 0.5);
+        }
+
+        .profile-image img {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+            background: var(--bg-secondary);
+        }
+
+        .verified-badge {
+            position: absolute;
+            bottom: 5px;
+            right: 5px;
+            width: 25px;
+            height: 25px;
+            background: var(--neon-cyan);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 3px solid var(--bg-primary);
+        }
+
+        .profile-name {
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: var(--neon-cyan);
+            font-family: 'Orbitron', sans-serif;
+            margin-bottom: 0.5rem;
+        }
+
+        .profile-title {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            margin-bottom: 1.5rem;
+            line-height: 1.4;
+        }
+
+        .profile-stats {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .profile-stat {
+            text-align: center;
+        }
+
+        .profile-stat-number {
+            font-size: 1.8rem;
+            font-weight: 900;
+            color: var(--neon-green);
+            font-family: 'Orbitron', sans-serif;
+        }
+
+        .profile-stat-label {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .intro-content h2 {
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: var(--neon-cyan);
+            font-family: 'Orbitron', sans-serif;
+            margin-bottom: 1.5rem;
+            position: relative;
+        }
+
+        .intro-content h2::before {
+            content: '▶';
+            color: var(--neon-cyan);
+            margin-right: 0.5rem;
+            font-size: 0.8em;
+        }
+
+        .intro-text {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+            line-height: 1.7;
+            margin-bottom: 2rem;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .service-item {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 12px;
+            padding: 1.5rem 1rem;
+            text-align: center;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+
+        .service-item:hover {
+            transform: translateY(-3px);
+            border-color: var(--neon-cyan);
+            box-shadow: 0 10px 25px rgba(0, 217, 255, 0.2);
+        }
+
+        .service-icon {
+            font-size: 2rem;
+            color: var(--neon-cyan);
+            margin-bottom: 0.5rem;
+        }
+
+        .service-title {
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            font-family: 'Rajdhani', sans-serif;
+        }
+
+        .tech-badges {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            justify-content: flex-start;
+        }
+
+        .tech-badge {
+            background: var(--glass-bg);
+            border: 1px solid var(--neon-purple);
+            color: var(--neon-purple);
+            padding: 0.4rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+
+        .tech-badge:hover {
+            background: rgba(139, 92, 246, 0.1);
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(139, 92, 246, 0.3);
+        }
+
+        /* Video Editing Tools Section */
+        .tools-section {
+            padding: 4rem 0;
+            background: linear-gradient(135deg, rgba(139, 92, 246, 0.05), rgba(255, 0, 110, 0.05));
+        }
+
+        .tools-card {
+            background: var(--bg-card);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            padding: 1.8rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            max-width: 280px;
+            margin: 0;
+        }
+
+        .tools-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--neon-purple), var(--neon-magenta));
+        }
+
+        .tools-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, var(--neon-purple), var(--neon-magenta));
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1rem;
+            font-size: 1.8rem;
+            color: white;
+            box-shadow: 0 8px 25px rgba(139, 92, 246, 0.3);
+        }
+
+        .tools-title {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--neon-cyan);
+            font-family: 'Orbitron', sans-serif;
+            margin-bottom: 0.4rem;
+        }
+
+        .tools-subtitle {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            margin-bottom: 1.5rem;
+        }
+
+        .tools-features {
+            text-align: left;
+            margin-bottom: 1.5rem;
+        }
+
+        .tools-feature {
+            display: flex;
+            align-items: center;
+            margin-bottom: 0.6rem;
+            font-size: 0.85rem;
+        }
+
+        .tools-feature i {
+            color: var(--neon-green);
+            margin-right: 0.8rem;
+            font-size: 1rem;
+        }
+
+        .tools-badges {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.4rem;
+            justify-content: center;
+        }
+
+        .tool-badge {
+            background: rgba(0, 217, 255, 0.1);
+            border: 1px solid var(--neon-cyan);
+            color: var(--neon-cyan);
+            padding: 0.3rem 0.6rem;
+            border-radius: 15px;
+            font-size: 0.7rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .tool-badge:hover {
+            background: rgba(0, 217, 255, 0.2);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(0, 217, 255, 0.3);
+        }
+
+        /* Platform Cards Section */
+        .platforms-section {
+            padding: 4rem 0;
+            background: linear-gradient(135deg, rgba(57, 255, 20, 0.03), rgba(0, 217, 255, 0.03));
+        }
+
+        .platforms-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        .platform-card {
+            background: var(--bg-card);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: 24px;
+            padding: 2rem;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .platform-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0, 217, 255, 0.2);
+        }
+
+        .platform-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .platform-logo {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            font-family: 'Orbitron', sans-serif;
+        }
+
+        .platform-badge {
+            background: linear-gradient(135deg, #FFD700, #FFA500);
+            color: #000;
+            padding: 0.3rem 0.8rem;
+            border-radius: 15px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+
+        .platform-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .platform-stat {
+            text-align: center;
+        }
+
+        .platform-stat-number {
+            font-size: 1.8rem;
+            font-weight: 900;
+            color: var(--neon-cyan);
+            font-family: 'Orbitron', sans-serif;
+            margin-bottom: 0.2rem;
+        }
+
+        .platform-stat-label {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .platform-metrics {
+            margin-bottom: 1.5rem;
+        }
+
+        .platform-metric {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.8rem;
+            font-size: 0.9rem;
+        }
+
+        .platform-metric-label {
+            color: var(--text-secondary);
+        }
+
+        .platform-metric-value {
+            color: var(--neon-green);
+            font-weight: 600;
+        }
+
+        .platform-specialties {
+            margin-bottom: 1.5rem;
+        }
+
+        .platform-specialties h4 {
+            color: var(--text-primary);
+            font-size: 0.9rem;
+            margin-bottom: 0.8rem;
+            font-weight: 600;
+        }
+
+        .specialty-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .specialty-tag {
+            background: rgba(0, 217, 255, 0.1);
+            border: 1px solid rgba(0, 217, 255, 0.3);
+            color: var(--neon-cyan);
+            padding: 0.3rem 0.8rem;
+            border-radius: 15px;
+            font-size: 0.75rem;
+            font-weight: 500;
+        }
+
+        .platform-cta {
+            width: 100%;
+            padding: 1rem;
+            background: rgba(0, 217, 255, 0.1);
+            border: 2px solid var(--neon-cyan);
+            color: var(--neon-cyan);
+            border-radius: 12px;
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            transition: all 0.3s ease;
+            font-family: 'Rajdhani', sans-serif;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .platform-cta:hover {
+            background: rgba(0, 217, 255, 0.2);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0, 217, 255, 0.3);
+            color: white;
+        }
+
+        .fiverr-card {
+            border-color: rgba(57, 255, 20, 0.3);
+        }
+
+        .fiverr-card:hover {
+            box-shadow: 0 15px 40px rgba(57, 255, 20, 0.2);
+        }
+
+        .fiverr-card .platform-logo {
+            color: var(--neon-green);
+        }
+
+        .fiverr-card .platform-stat-number {
+            color: var(--neon-green);
+        }
+
+        .upwork-card .platform-badge {
+            background: linear-gradient(135deg, #00d4ff, #0066cc);
+            color: white;
+        }
+
+        /* Contact Section */
+        .contact-section {
+            padding: 4rem 0;
+            background: linear-gradient(135deg, rgba(139, 92, 246, 0.05), rgba(0, 217, 255, 0.05));
+        }
+
+        .contact-content {
+            text-align: center;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .primary-contact {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+            margin: 2rem 0;
+        }
+
+        .contact-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.8rem;
+            padding: 1.2rem 2rem;
+            background: var(--bg-card);
+            backdrop-filter: blur(20px);
+            border: 2px solid;
+            border-radius: 12px;
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .contact-btn.whatsapp {
+            border-color: var(--neon-green);
+            box-shadow: 0 0 20px rgba(57, 255, 20, 0.3);
+        }
+
+        .contact-btn.whatsapp:hover {
+            background: rgba(57, 255, 20, 0.1);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(57, 255, 20, 0.4);
+        }
+
+        .contact-btn.email {
+            border-color: var(--neon-cyan);
+            box-shadow: 0 0 20px rgba(0, 217, 255, 0.3);
+        }
+
+        .contact-btn.email:hover {
+            background: rgba(0, 217, 255, 0.1);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(0, 217, 255, 0.4);
+        }
+
+        .contact-btn i {
+            font-size: 1.3rem;
+        }
+
+        .contact-divider {
+            margin: 2rem 0 1.5rem;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            position: relative;
+        }
+
+        .contact-divider::before,
+        .contact-divider::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            width: 60px;
+            height: 1px;
+            background: var(--glass-border);
+        }
+
+        .contact-divider::before {
+            left: -80px;
+        }
+
+        .contact-divider::after {
+            right: -80px;
+        }
+
+        .secondary-contact {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            margin-top: 1.5rem;
+        }
+
+        .social-btn.small {
+            width: 45px;
+            height: 45px;
+            background: var(--bg-card);
+            backdrop-filter: blur(12px);
+            border: 1px solid var(--glass-border);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            font-size: 1.1rem;
+        }
+
+        .social-btn.small:hover {
+            border-color: var(--neon-cyan);
+            color: var(--neon-cyan);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(0, 217, 255, 0.3);
+        }
+
+        /* Expand Button */
+        .expand-container {
+            text-align: center;
+            margin: 2rem 0;
+        }
+
+        .expand-btn {
+            background: rgba(0, 217, 255, 0.1);
+            border: 2px solid var(--neon-cyan);
+            color: var(--neon-cyan);
+            padding: 0.8rem 2rem;
+            border-radius: 8px;
+            cursor: pointer;
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 600;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .expand-btn:hover {
+            background: rgba(0, 217, 255, 0.2);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0, 217, 255, 0.3);
+        }
+
+        .expand-btn i {
+            transition: transform 0.3s ease;
+        }
+
+        .expand-btn.expanded i {
+            transform: rotate(180deg);
+        }
+
+        /* Stats Section */
+        .stats-section {
+            padding: 3rem 0;
+            background: linear-gradient(135deg, rgba(0, 217, 255, 0.03), rgba(139, 92, 246, 0.03));
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .stat-item {
+            text-align: center;
+            padding: 1.5rem 1rem;
+            background: var(--glass-bg);
+            border-radius: 16px;
+            border: 1px solid var(--glass-border);
+            backdrop-filter: blur(12px);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .stat-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--neon-cyan), var(--neon-purple));
+        }
+
+        .stat-item:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px var(--accent-glow);
+        }
+
+        .stat-icon {
+            font-size: 2rem;
+            color: var(--neon-cyan);
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-number {
+            font-size: 2.2rem;
+            font-weight: 900;
+            color: var(--neon-cyan);
+            font-family: 'Orbitron', sans-serif;
+            margin-bottom: 0.3rem;
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            font-weight: 500;
+        }
+
+        /* Section styles */
+        section {
+            padding: 4rem 0;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .section-title {
+            font-size: clamp(2rem, 4vw, 3rem);
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--neon-cyan);
+            font-family: 'Orbitron', sans-serif;
+            text-shadow: 0 0 20px var(--accent-glow);
+        }
+
+        .section-subtitle {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Video grid */
+        .video-category {
+            margin-bottom: 4rem;
+        }
+
+        .category-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .category-title {
+            font-size: clamp(1.75rem, 3vw, 2.5rem);
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            background: linear-gradient(45deg, var(--neon-purple), var(--neon-magenta));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-family: 'Orbitron', sans-serif;
+        }
+
+        .category-description {
+            color: var(--text-secondary);
+            font-size: 1rem;
+        }
+
+        .video-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .video-card {
+            background: var(--bg-card);
+            backdrop-filter: blur(12px);
+            border: 1px solid var(--glass-border);
+            border-radius: 12px;
+            overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInUp 0.6s ease forwards;
+            max-width: 350px;
+        }
+
+        .video-card.hidden {
+            display: none;
+        }
+
+        .video-card:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 20px 40px rgba(0, 217, 255, 0.2);
+            border-color: var(--neon-cyan);
+        }
+
+        .video-embed {
+            position: relative;
+            width: 100%;
+            aspect-ratio: 16/9;
+            background: var(--bg-secondary);
+            overflow: hidden;
+            border-radius: 8px 8px 0 0;
+        }
+
+        .video-embed iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        .video-info {
+            padding: 1.2rem;
+        }
+
+        .video-title {
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 0.4rem;
+            color: var(--text-primary);
+        }
+
+        .video-description {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            line-height: 1.4;
+        }
+
+        /* Expand button */
+        .expand-btn {
+            display: block;
+            margin: 2rem auto;
+            padding: 1rem 2rem;
+            background: linear-gradient(135deg, var(--neon-purple), var(--neon-magenta));
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+            letter-spacing: 0.05em;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .expand-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .expand-btn:hover::before {
+            left: 100%;
+        }
+
+        .expand-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(139, 92, 246, 0.4);
+        }
+
+        /* Contact section */
+        .contact-section {
+            background: linear-gradient(135deg, rgba(255, 0, 110, 0.05), rgba(57, 255, 20, 0.05));
+        }
+
+        .contact-content {
+            display: grid;
+            gap: 3rem;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .primary-contact {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .contact-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.75rem;
+            padding: 1.5rem 2rem;
+            background: var(--glass-bg);
+            color: var(--text-primary);
+            text-decoration: none;
+            border-radius: 16px;
+            border: 1px solid var(--glass-border);
+            backdrop-filter: blur(12px);
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            text-align: center;
+        }
+
+        .contact-btn.fiverr {
+            border-color: var(--neon-green);
+            box-shadow: 0 0 25px rgba(57, 255, 20, 0.3);
+            background: linear-gradient(135deg, rgba(57, 255, 20, 0.1), rgba(57, 255, 20, 0.05));
+        }
+
+        .contact-btn.upwork {
+            border-color: var(--neon-cyan);
+            box-shadow: 0 0 25px var(--accent-glow);
+            background: linear-gradient(135deg, rgba(0, 217, 255, 0.1), rgba(0, 217, 255, 0.05));
+        }
+
+        .contact-btn:hover {
+            transform: translateY(-5px);
+            color: white;
+        }
+
+        .contact-btn.fiverr:hover {
+            background: linear-gradient(135deg, rgba(57, 255, 20, 0.2), rgba(57, 255, 20, 0.1));
+            box-shadow: 0 10px 35px rgba(57, 255, 20, 0.5);
+        }
+
+        .contact-btn.upwork:hover {
+            background: linear-gradient(135deg, rgba(0, 217, 255, 0.2), rgba(0, 217, 255, 0.1));
+            box-shadow: 0 10px 35px var(--accent-glow);
+        }
+
+        .secondary-contact {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .social-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 50px;
+            height: 50px;
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 12px;
+            color: var(--text-secondary);
+            text-decoration: none;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+            font-size: 1.2rem;
+        }
+
+        .social-btn:hover {
+            transform: translateY(-3px);
+            border-color: var(--neon-cyan);
+            color: var(--neon-cyan);
+            box-shadow: 0 5px 20px rgba(0, 217, 255, 0.3);
+        }
+
+        .contact-divider {
+            text-align: center;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            margin: 1rem 0;
+        }
+
+        .contact-divider::before,
+        .contact-divider::after {
+            content: '';
+            display: inline-block;
+            width: 50px;
+            height: 1px;
+            background: var(--glass-border);
+            margin: 0 1rem;
+            vertical-align: middle;
+        }
+
+        /* Footer */
+        .footer {
+            padding: 2rem 0;
+            text-align: center;
+            border-top: 1px solid var(--glass-border);
+            background: var(--bg-secondary);
+        }
+
+        .footer p {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        /* Animations */
+        @keyframes glow-pulse {
+            0% { text-shadow: 0 0 20px var(--accent-glow); }
+            100% { text-shadow: 0 0 30px var(--accent-glow), 0 0 40px var(--neon-cyan); }
+        }
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+
+        /* Responsive design */
+        @media (max-width: 768px) {
+            .nav-menu {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: rgba(10, 15, 28, 0.98);
+                backdrop-filter: blur(20px);
+                flex-direction: column;
+                padding: 1rem;
+                border-top: 1px solid var(--glass-border);
+            }
+
+            .nav-menu.active {
+                display: flex;
+            }
+
+            .mobile-menu-btn {
+                display: block;
+            }
+
+
+            .primary-contact {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .contact-divider::before,
+            .contact-divider::after {
+                display: none;
+            }
+
+        /* Mobile Responsive Design */
+        @media (max-width: 768px) {
+            body {
+                zoom: 1;
+            }
+
+            .container {
+                padding: 0 0.8rem;
+            }
+
+            /* Navigation */
+            .nav-content {
+                padding: 0 0.8rem;
+            }
+
+            .home-btn {
+                padding: 0.4rem 1rem;
+                font-size: 0.9rem;
+            }
+
+            /* Hero Section */
+            .hero {
+                min-height: auto;
+                padding: 1rem 0;
+            }
+
+            .hero-content {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+                text-align: center;
+            }
+
+            .profile-card {
+                margin: 0 auto;
+                max-width: 320px;
+            }
+
+            .profile-image {
+                width: 100px;
+                height: 100px;
+            }
+
+            .profile-name {
+                font-size: 1.5rem;
+            }
+
+            .profile-title {
+                font-size: 0.9rem;
+            }
+
+            .profile-stats {
+                gap: 1rem;
+            }
+
+            .intro-content h2 {
+                font-size: 1.8rem;
+            }
+
+            .intro-text {
+                font-size: 0.9rem;
+            }
+
+            .services-grid {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 0.8rem;
+            }
+
+            .service-icon {
+                width: 40px;
+                height: 40px;
+                font-size: 1.2rem;
+            }
+
+            .service-title {
+                font-size: 0.8rem;
+            }
+
+            .tech-badges {
+                gap: 0.4rem;
+            }
+
+            .tech-badge {
+                padding: 0.3rem 0.6rem;
+                font-size: 0.7rem;
+            }
+
+            /* Tools Card */
+            .tools-card {
+                margin: 0 auto;
+                max-width: 300px;
+                padding: 1.5rem;
+            }
+
+            .tools-icon {
+                width: 50px;
+                height: 50px;
+                font-size: 1.5rem;
+            }
+
+            .tools-title {
+                font-size: 1.2rem;
+            }
+
+            .tools-subtitle {
+                font-size: 0.8rem;
+            }
+
+            .tools-feature {
+                font-size: 0.8rem;
+            }
+
+            .tool-badge {
+                padding: 0.25rem 0.5rem;
+                font-size: 0.65rem;
+            }
+
+            /* Section Headers */
+            .section-title {
+                font-size: 1.8rem;
+            }
+
+            .section-subtitle {
+                font-size: 0.9rem;
+            }
+
+            .category-title {
+                font-size: 1.5rem;
+            }
+
+            .category-description {
+                font-size: 0.85rem;
+            }
+
+            /* Stats Section */
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 1rem;
+            }
+
+            .stat-item {
+                padding: 1rem;
+            }
+
+            .stat-number {
+                font-size: 1.5rem;
+            }
+
+            .stat-label {
+                font-size: 0.8rem;
+            }
+
+            /* Video Grids */
+            .video-grid {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+
+            .video-card {
+                max-width: 100%;
+            }
+
+            .video-info {
+                padding: 1rem;
+            }
+
+            .video-title {
+                font-size: 0.95rem;
+            }
+
+            .video-description {
+                font-size: 0.8rem;
+            }
+
+            /* Testimonials */
+            .testimonial-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+
+            .testimonial-card .video-embed {
+                margin: 0.8rem;
+            }
+
+            /* Platform Cards */
+            .platforms-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+
+            .platform-card {
+                padding: 1.5rem;
+            }
+
+            .platform-stats {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 0.8rem;
+            }
+
+            .platform-stat-number {
+                font-size: 1.4rem;
+            }
+
+            .platform-metric {
+                font-size: 0.85rem;
+            }
+
+            .specialty-tags {
+                gap: 0.4rem;
+            }
+
+            .specialty-tag {
+                font-size: 0.7rem;
+                padding: 0.25rem 0.6rem;
+            }
+
+            .platform-cta {
+                padding: 0.8rem;
+                font-size: 0.9rem;
+            }
+
+            /* Contact Section */
+            .primary-contact {
+                flex-direction: column;
+                align-items: center;
+                gap: 1rem;
+            }
+
+            .contact-btn {
+                padding: 1rem 1.5rem;
+                font-size: 1rem;
+                width: 100%;
+                max-width: 280px;
+            }
+
+            .secondary-contact {
+                gap: 0.8rem;
+            }
+
+            .social-btn.small {
+                width: 40px;
+                height: 40px;
+                font-size: 1rem;
+            }
+
+            /* Expand Buttons */
+            .expand-btn {
+                padding: 0.7rem 1.5rem;
+                font-size: 0.8rem;
+            }
+        }
+
+        /* Tablet Styles */
+        @media (min-width: 769px) and (max-width: 1024px) {
+            body {
+                zoom: 0.9;
+            }
+
+            .hero-content {
+                grid-template-columns: 300px 1fr 250px;
+                gap: 1.5rem;
+            }
+
+            .video-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .platforms-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+
+            .stats-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        /* Large Desktop Styles */
+        @media (min-width: 1400px) {
+            .container {
+                max-width: 1400px;
+            }
+
+            .hero-content {
+                grid-template-columns: 400px 1fr 350px;
+            }
+
+            .video-grid {
+                grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            }
+        }
+
+            .video-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .stats-grid {
+                grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            }
+        }
+
+        /* Testimonial specific styles */
+        .testimonial-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        .testimonial-card {
+            background: var(--bg-card);
+            backdrop-filter: blur(12px);
+            border: 1px solid var(--glass-border);
+            border-radius: 24px;
+            overflow: hidden;
+            transition: all 0.4s ease;
+            animation: fadeInUp 0.6s ease forwards;
+            position: relative;
+        }
+
+        .testimonial-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--neon-cyan), var(--neon-purple));
+        }
+
+        .testimonial-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0, 217, 255, 0.2);
+            border-color: var(--neon-cyan);
+        }
+
+        .testimonial-card {
+            border-radius: 20px !important;
+            overflow: hidden;
+        }
+
+        .testimonial-card .video-embed {
+            border-radius: 16px !important;
+            margin: 1rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .testimonial-card .video-embed::before {
+            content: '4K';
+            position: absolute;
+            top: 1rem;
+            left: 1rem;
+            background: rgba(0, 0, 0, 0.7);
+            color: white;
+            padding: 0.3rem 0.8rem;
+            border-radius: 6px;
+            font-weight: 700;
+            font-size: 0.9rem;
+            z-index: 10;
+        }
+
+        .testimonial-card .video-embed iframe {
+            border-radius: 12px !important;
+        }
+
+        .testimonial-card .video-info {
+            position: relative;
+        }
+
+        .testimonial-card .video-info::before {
+            content: '💬';
+            position: absolute;
+            top: -10px;
+            right: 1rem;
+            font-size: 1.5rem;
+            background: var(--bg-card);
+            padding: 0.3rem;
+            border-radius: 50%;
+            border: 2px solid var(--neon-cyan);
+        }
+    </style>
+</head>
+<body>
+    <!-- Animated Background Canvas -->
+    <canvas id="bg-canvas"></canvas>
+
+    <!-- Top Navigation -->
+    <nav class="top-nav">
+        <div class="nav-content">
+            <a href="https://www.thefaisalhanif.com" class="home-btn">
+                <i class="fas fa-home"></i> Home
+            </a>
+            <ul class="nav-menu" id="navMenu">
+                <li><a href="#courses">Courses</a></li>
+                <li><a href="#vsls">VSLs</a></li>
+                <li><a href="#reels">Reels</a></li>
+                <li><a href="#social-ads">Social Ads</a></li>
+                <li><a href="#business-videos">Business Videos</a></li>
+            </ul>
+            <button class="mobile-menu-btn" id="mobileMenuBtn">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <div class="profile-card">
+                    <div class="profile-image">
+                        <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTIwIiBoZWlnaHQ9IjEyMCIgdmlld0JveD0iMCAwIDEyMCAxMjAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSIxMjAiIGhlaWdodD0iMTIwIiByeD0iNjAiIGZpbGw9IiMwYTBmMWMiLz4KPGNpcmNsZSBjeD0iNjAiIGN5PSI0NSIgcj0iMTUiIGZpbGw9IiMwMGQ5ZmYiLz4KPHA
+
+ath IGQ9Ik0zNSA4NWMwLTEzLjggMTEuMi0yNSAyNS0yNXMyNSAxMS4yIDI1IDI1djVIMzV2LTV6IiBmaWxsPSIjMDBkOWZmIi8+Cjx0ZXh0IHg9IjYwIiB5PSIxMTAiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZpbGw9IiM5NGEzYjgiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSI4Ij5GYWlzYWwgSDwvdGV4dD4KPHN2Zz4K" alt="Faisal Hanif">
+                        <div class="verified-badge">
+                            <i class="fas fa-check" style="color: white; font-size: 0.7rem;"></i>
+                        </div>
+                    </div>
+                    <h1 class="profile-name">Faisal Hanif</h1>
+                    <p class="profile-title">Video Editor | Web Developer | AI Specialist</p>
+                    <div class="profile-stats">
+                        <div class="profile-stat">
+                            <div class="profile-stat-number">5+</div>
+                            <div class="profile-stat-label">Years</div>
+                        </div>
+                        <div class="profile-stat">
+                            <div class="profile-stat-number">2.5K+</div>
+                            <div class="profile-stat-label">Projects</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="intro-content">
+                    <h2>Your Creative Tech Partner</h2>
+                    <p class="intro-text">
+                        I'm a Master's graduate in Computer Science who turned a passion for tech and creativity into a full-time freelancing career. Over the past 5+ years, I've worked on everything from video editing and web development to experimenting with artificial intelligence.
+                    </p>
+                    <p class="intro-text">
+                        Along the way, I've completed 2,500+ projects on Fiverr with 1600+ positive reviews, delivered results for clients on Upwork, and partnered directly with businesses to boost their growth and bring their ideas to life.
+                    </p>
+                    <div class="services-grid">
+                        <div class="service-item">
+                            <div class="service-icon">
+                                <i class="fas fa-code"></i>
+                            </div>
+                            <div class="service-title">Web Dev</div>
+                        </div>
+                        <div class="service-item">
+                            <div class="service-icon">
+                                <i class="fas fa-video"></i>
+                            </div>
+                            <div class="service-title">Video</div>
+                        </div>
+                        <div class="service-item">
+                            <div class="service-icon">
+                                <i class="fas fa-robot"></i>
+                            </div>
+                            <div class="service-title">AI</div>
+                        </div>
+                    </div>
+                    <div class="tech-badges">
+                        <span class="tech-badge">React</span>
+                        <span class="tech-badge">Node.js</span>
+                        <span class="tech-badge">Python</span>
+                        <span class="tech-badge">Video</span>
+                        <span class="tech-badge">AI</span>
+                        <span class="tech-badge">Design</span>
+                    </div>
+                </div>
+                
+                <!-- Video Editing Tools Card -->
+                <div class="tools-card">
+                    <div class="tools-icon">
+                        <i class="fas fa-video"></i>
+                    </div>
+                    <h2 class="tools-title">Video Editing</h2>
+                    <p class="tools-subtitle">Cinematic visual storytelling</p>
+                    
+                    <div class="tools-features">
+                        <div class="tools-feature">
+                            <i class="fas fa-check"></i>
+                            <span>YouTube Content</span>
+                        </div>
+                        <div class="tools-feature">
+                            <i class="fas fa-check"></i>
+                            <span>Motion Graphics</span>
+                        </div>
+                        <div class="tools-feature">
+                            <i class="fas fa-check"></i>
+                            <span>Color Grading</span>
+                        </div>
+                        <div class="tools-feature">
+                            <i class="fas fa-check"></i>
+                            <span>VFX & Animation</span>
+                        </div>
+                    </div>
+                    
+                    <div class="tools-badges">
+                        <span class="tool-badge">Premiere Pro</span>
+                        <span class="tool-badge">After Effects</span>
+                        <span class="tool-badge">DaVinci Resolve</span>
+                        <span class="tool-badge">Motion Graphics</span>
+                        <span class="tool-badge">Sound Design</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="stats-section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title font-orbitron">Portfolio Statistics</h2>
+                <p class="section-subtitle">Numbers that showcase our commitment to excellence</p>
+            </div>
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <div class="stat-icon">
+                        <i class="fas fa-video"></i>
+                    </div>
+                    <div class="stat-number">500+</div>
+                    <div class="stat-label">Videos Completed</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-icon">
+                        <i class="fas fa-calendar-alt"></i>
+                    </div>
+                    <div class="stat-number">5+</div>
+                    <div class="stat-label">Years Experience</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <div class="stat-number">200+</div>
+                    <div class="stat-label">Happy Clients</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-icon">
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <div class="stat-number">4.9/5</div>
+                    <div class="stat-label">Client Rating</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Video Testimonials Section -->
+    <section id="testimonials" class="video-category">
+        <div class="container">
+            <div class="category-header">
+                <h2 class="category-title">Client Testimonials</h2>
+                <p class="category-description">Hear what our clients say about our video editing services</p>
+            </div>
+            <div class="testimonial-grid">
+                <div class="testimonial-card">
+                    <div class="video-embed">
+                        <iframe src="https://www.youtube-nocookie.com/embed/dQw4w9WgXcQ" 
+                                title="Client Testimonial 1" 
+                                allowfullscreen>
+                        </iframe>
+                    </div>
+                    <div class="video-info">
+                        <h3 class="video-title">Amazing Results!</h3>
+                        <p class="video-description">Professional video editing that exceeded expectations</p>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="video-embed">
+                        <iframe src="https://www.youtube-nocookie.com/embed/dQw4w9WgXcQ" 
+                                title="Client Testimonial 2" 
+                                allowfullscreen>
+                        </iframe>
+                    </div>
+                    <div class="video-info">
+                        <h3 class="video-title">Outstanding Quality</h3>
+                        <p class="video-description">Top-tier editing services with quick turnaround</p>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="video-embed">
+                        <iframe src="https://www.youtube-nocookie.com/embed/dQw4w9WgXcQ" 
+                                title="Client Testimonial 3" 
+                                allowfullscreen>
+                        </iframe>
+                    </div>
+                    <div class="video-info">
+                        <h3 class="video-title">Highly Recommended</h3>
+                        <p class="video-description">Creative solutions that drive engagement</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- VSLs Section -->
+    <section id="vsls" class="video-category">
+        <div class="container">
+            <div class="category-header">
+                <h2 class="category-title">Video Sales Letters</h2>
+                <p class="category-description">High-converting VSLs that drive sales and engagement</p>
+            </div>
+            <div class="video-grid" id="vslGrid">
+                <div class="video-card">
+                    <div class="video-embed">
+                        <iframe src="https://www.youtube-nocookie.com/embed/dQw4w9WgXcQ" 
+                                title="VSL Project 1" 
+                                allowfullscreen>
+                        </iframe>
+                    </div>
+                    <div class="video-info">
+                        <h3 class="video-title">Product Launch VSL</h3>
+                        <p class="video-description">Compelling video sales letter for product launch</p>
+                    </div>
+                </div>
+                <div class="video-card">
+                    <div class="video-embed">
+                        <iframe src="https://www.youtube-nocookie.com/embed/dQw4w9WgXcQ" 
+                                title="VSL Project 2" 
+                                allowfullscreen>
+                        </iframe>
+                    </div>
+                    <div class="video-info">
+                        <h3 class="video-title">Service Promotion VSL</h3>
+                        <p class="video-description">Engaging VSL for service-based business</p>
+                    </div>
+                </div>
+                <div class="video-card">
+                    <div class="video-embed">
+                        <iframe src="https://www.youtube-nocookie.com/embed/dQw4w9WgXcQ" 
+                                title="VSL Project 3" 
+                                allowfullscreen>
+                        </iframe>
+                    </div>
+                    <div class="video-info">
+                        <h3 class="video-title">E-commerce VSL</h3>
+                        <p class="video-description">High-converting VSL for online store</p>
+                    </div>
+                </div>
+                <!-- Additional VSL videos (hidden initially) -->
+                <div class="video-card hidden">
+                    <div class="video-embed">
+                        <iframe src="https://www.youtube-nocookie.com/embed/dQw4w9WgXcQ" 
+                                title="VSL Project 4" 
+                                allowfullscreen>
+                        </iframe>
+                    </div>
+                    <div class="video-info">
+                        <h3 class="video-title">SaaS VSL</h3>
+                        <p class="video-description">Software demonstration VSL</p>
+                    </div>
+                </div>
+                <div class="video-card hidden">
+                    <div class="video-embed">
+                        <iframe src="https://www.youtube-nocookie.com/embed/dQw4w9WgXcQ" 
+                                title="VSL Project 5" 
+                                allowfullscreen>
+                        </iframe>
+                    </div>
+                    <div class="video-info">
+                        <h3 class="video-title">Course VSL</h3>
+                        <p class="video-description">Educational course promotion VSL</p>
+                    </div>
+                </div>
+                <div class="video-card hidden">
+                    <div class="video-embed">
+                        <iframe src="https://www.youtube-nocookie.com/embed/dQw4w9WgXcQ" 
+                                title="VSL Project 6" 
+                                allowfullscreen>
+                        </iframe>
+                    </div>
+                    <div class="video-info">
+                        <h3 class="video-title">Fitness VSL</h3>
+                        <p class="video-description">Health and fitness program VSL</p>
+                    </div>
+                </div>
+                <div class="video-card hidden">
+                    <div class="video-embed">
+                        <iframe src="https://www.youtube-nocookie.com/embed/dQw4w9WgXcQ" 
+                                title="VSL Project 7" 
+                                allowfullscreen>
+                        </iframe>
+                    </div>
+                    <div class="video-info">
+                        <h3 class="video-title">Real Estate VSL</h3>
+                        <p class="video-description">Property investment VSL</p>
+                    </div>
+                </div>
+                <div class="video-card hidden">
+                    <div class="video-embed">
+                        <iframe src="https://www.youtube-nocookie.com/embed/dQw4w9WgXcQ" 
+                                title="VSL Project 8" 
+                                allowfullscreen>
+                        </iframe>
+                    </div>
+                    <div class="video-info">
+                        <h3 class="video-title">Tech Startup VSL</h3>
+                        <p class="video-description">Technology startup pitch VSL</p>
+                    </div>
+                </div>
+                <div class="video-card hidden">
+                    <div class="video-embed">
+                        <iframe src="https://www.youtube-nocookie.com/embed/dQw4w9WgXcQ" 
+                                title="VSL Project 9" 
+                                allowfullscreen>
+                        </iframe>
+                    </div>
+                    <div class="video-info">
+                        <h3 class="video-title">Fashion Brand VSL</h3>
+                        <p class="video-description">Fashion brand promotion VSL</p>
+                    </div>
+                </div>
+                <div class="video-card hidden">
+                    <div class="video-embed">
+                        <iframe src="https://www.youtube-nocookie.com/embed/dQw4w9WgXcQ" 
+                                title="VSL Project 10" 
+                                allowfullscreen>
+                        </iframe>
+                    </div>
+                    <div class="video-info">
+                        <h3 class="video-title">Food Delivery VSL</h3>
+                        <p class="video-description">Restaurant delivery service VSL</p>
+                    </div>
+                </div>
+                <div class="video-card hidden">
+                    <div class="video-embed">
+                        <iframe src="https://www.youtube-nocookie.com/embed/dQw4w9WgXcQ" 
+                                title="VSL Project 11" 
+                                allowfullscreen>
+                        </iframe>
+                    </div>
+                    <div class="video-info">
+                        <h3 class="video-title">Consulting VSL</h3>
+                        <p class="video-description">Business consulting services VSL</p>
+                    </div>
+                </div>
+                <div class="video-card hidden">
+                    <div class="video-embed">
+                        <iframe src="https://www.youtube-nocookie.com/embed/dQw4w9WgXcQ" 
+                                title="VSL Project 12" 
+                                allowfullscreen>
+                        </iframe>
+                    </div>
+                    <div class="video-info">
+                        <h3 class="video-title">App Launch VSL</h3>
+                        <p class="video-description">Mobile app launch VSL</p>
+                    </div>
+                </div>
+                <div class="video-card hidden">
+                    <div class="video-embed">
+                        <iframe src="https://www.youtube-nocookie.com/embed/dQw4w9WgXcQ" 
+                                title="VSL Project 13" 
+                                allowfullscreen>
+                        </iframe>
+                    </div>
+                    <div class="video-info">
+                        <h3 class="video-title">Finance VSL</h3>
+                        <p class="video-description">Financial services VSL</p>
+                    </div>
+                </div>
+                <div class="video-card hidden">
+                    <div class="video-embed">
+                        <iframe src="https://www.youtube-nocookie.com/embed/dQw4w9WgXcQ" 
+                                title="VSL Project 14" 
+                                allowfullscreen>
+                        </iframe>
+                    </div>
+                    <div class="video-info">
+                        <h3 class="video-title">Healthcare VSL</h3>
+                        <p class="video-description">Medical services VSL</p>
+                    </div>
+                </div>
+                <div class="video-card hidden">
+                    <div class="video-embed">
+                        <iframe src="https://www.youtube-nocookie.com/embed/dQw4w9WgXcQ" 
+                                title="VSL Project 15" 
+                                allowfullscreen>
+                        </iframe>
+                    </div>
+                    <div class="video-info">
+                        <h3 class="video-title">Travel VSL</h3>
+                        <p class="video-description">Travel agency VSL</p>
+                    </div>
+                </div>
+                <div class="video-card hidden">
+                    <div class="video-embed">
+                        <iframe src="https://www.youtube-nocookie.com/embed/dQw4w9WgXcQ" 
+                                title="VSL Project 16" 
+                                allowfullscreen>
+                        </iframe>
+                    </div>
+                    <div class="video-info">
+                        <h3 class="video-title">Beauty VSL</h3>
+                        <p class="video-description">Beauty products VSL</p>
+                    </div>
+                </div>
+                <div class="video-card hidden">
+                    <div class="video-embed">
+                        <iframe src="https://www.youtube-nocookie.com/embed/dQw4w9WgXcQ" 
+                                title="VSL Project 17" 
+                                allowfullscreen>
+                        </iframe>
+                    </div>
+                    <div class="video-info">
+                        <h3 class="video-title">Gaming VSL</h3>
+                        <p class="video-description">Gaming platform VSL</p>
+                    </div>
+                </div>
+                <div class="video-card hidden">
+                    <div class="video-embed">
+                        <iframe src="https://www.youtube-nocookie.com/embed/dQw4w9WgXcQ" 
+                                title="VSL Project 18" 
+                                allowfullscreen>
+                        </iframe>
+                    </div>
+                    <div class="video-info">
+                        <h3 class="video-title">Pet Care VSL</h3>
+                        <p class="video-description">Pet services VSL</p>
+                    </div>
+                </div>
+                <div class="video-card hidden">
+                    <div class="video-embed">
+                        <iframe src="https://www.youtube-nocookie.com/embed/dQw4w9WgXcQ" 
+                                title="VSL Project 19" 
+                                allowfullscreen>
+                        </iframe>
+                    </div>
+                    <div class="video-info">
+                        <h3 class="video-title">Sports VSL</h3>
+                        <p class="video-description">Sports equipment VSL</p>
+                    </div>
+                </div>
+                <div class="video-card hidden">
+                    <div class="video-embed">
+                        <iframe src="https://www.youtube-nocookie.com/embed/dQw4w9WgXcQ" 
+                                title="VSL Project 20" 
+                                allowfullscreen>
+                        </iframe>
+                    </div>
+                    <div class="video-info">
+                        <h3 class="video-title">Auto VSL</h3>
+                        <p class="video-description">Automotive services VSL</p>
+                    </div>
+                </div>
+            </div>
+            <button class="expand-btn" onclick="toggleExpand('vslGrid', this)">
+                <i class="fas fa-expand-arrows-alt"></i> Show More VSLs
+            </button>
+        </div>
+    </section>
+
+    <!-- Reels Section -->
+    <section id="reels" class="video-category">
+        <div class="container">
+            <div class="category-header">
+                <h2 class="category-title">Instagram Reels</h2>
+                <p class="category-description">Viral-worthy short-form content for social media</p>
+            </div>
+            <div class="video-grid" id="reelsGrid">
+                <div class="video-card">
+                    <div class="video-embed">
+                        <iframe src="https://www.youtube-nocookie.com/embed/dQw4w9WgXcQ" 
+                                title="Reel Project 1" 
+                                allowfullscreen>
+                        </iframe>
+                    </div>
+                    <div class="video-info">
+                        <h3 class="video-title">Trending Reel</h3>
+                        <p class="video-description">Viral Instagram reel with trending audio</p>
+                    </div>
+                </div>
+                <div class="video-card">
+                    <div class="video-embed">
+                        <iframe src="https://www.youtube-nocookie.com/embed/dQw4w9WgXcQ" 
+                                title="Reel Project 2" 
+                                allowfullscreen>
+                        </iframe>
+                    </div>
+                    <div class="video-info">
+                        <h3 class="video-title">Product Showcase</h3>
+                        <p class="video-description">Creative product demonstration reel</p>
+                    </div>
+                </div>
+                <div class="video-card">
+                    <div class="video-embed">
+                        <iframe src="https://www.youtube-nocookie.com/embed/dQw4w9WgXcQ" 
+                                title="Reel Project 3" 
+                                allowfullscreen>
+                        </iframe>
+                    </div>
+                    <div class="video-info">
+                        <h3 class="video-title">Behind the Scenes</h3>
+                        <p class="video-description">Engaging BTS content for brand awareness</p>
+                    </div>
+                </div>
+                <!-- Additional reel videos (hidden initially) -->
+                <div class="video-card hidden">
+                    <div class="video-embed">
+                        <iframe src="https://www.youtube-nocookie.com/embed/dQw4w9WgXcQ" 
+                                title="Reel Project 4" 
+                                allowfullscreen>
+                        </iframe>
+                    </div>
+                    <div class="video-info">
+                        <h3 class="video-title">Educational Reel</h3>
+                        <p class="video-description">Quick tutorial in reel format</p>
+                    </div>
+                </div>
+                <div class="video-card hidden">
+                    <div class="video-embed">
+                        <iframe src="https://www.youtube-nocookie.com/embed/dQw4w9WgXcQ" 
+                                title="Reel Project 5" 
+                                allowfullscreen>
+                        </iframe>
+                    </div>
+                    <div class="video-info">
+                        <h3 class="video-title">Lifestyle Reel</h3>
+                        <p class="video-description">Lifestyle brand content reel</p>
+                    </div>
+                </div>
+                <div class="video-card hidden">
+                    <div class="video-embed">
+                        <iframe src="https://www.youtube-nocookie.com/embed/dQw4w9WgXcQ" 
+                                title="Reel Project 6" 
+                                allowfullscreen>
+                        </iframe>
+                    </div>
+                    <div class="video-info">
+                        <h3 class="video-title">Fashion Reel</h3>
+                        <p class="video-description">Fashion brand showcase reel</p>
+                    </div>
+                </div>
+                <div class="video-card hidden">
+                    <div class="video-embed">
+                        <iframe src="https://www.youtube-nocookie.com/embed/dQw4w9WgXcQ" 
+                                title="Reel Project 7" 
+                                allowfullscreen>
+                        </iframe>
+                    </div>
+                    <div class="video-info">
+                        <h3 class="video-title">Food Reel</h3>
+                        <p class="video-description">Restaurant food showcase reel</p>
+                    </div>
+                </div>
+                <div class="video-card hidden">
+                    <div class="video-embed">
+                        <iframe src="https://www.youtube-nocookie.com/embed/dQw4w9WgXcQ" 
+                                title="Reel Project 8" 
+                                allowfullscreen>
+                        </iframe>
+                    </div>
+                    <div class="video-info">
+                        <h3 class="video-title">Fitness Reel</h3>
+                        <p class="video-description">Workout motivation reel</p>
+                    </div>
+                </div>
+                <div class="video-card hidden">
+                    <div class="video-embed">
+                        <iframe src="https://www.youtube-nocookie.com/embed/dQw4w9WgXcQ" 
+                                title="Reel Project 9" 
+                                allowfullscreen>
+                        </iframe>
+                    </div>
+                    <div class="video-info">
+                        <h3 class="video-title">Travel Reel</h3>
+                        <p class="video-description">Destination showcase reel</p>
+                    </div>
+                </div>
+                <div class="video-card hidden">
+                    <div class="video-embed">
+                        <iframe src="https://www.youtube-nocookie.com/embed/dQw4w9WgXcQ" 
+                                title="Reel Project 10" 
+                                allowfullscreen>
+                        </iframe>
+                    </div>
+                    <div class="video-info">
+                        <h3 class="video-title">Tech Reel</h3>
+                        <p class="video-description">Technology product reel</p>
+                    </div>
+                </div>
+                <div class="video-card hidden">
+                    <div class="video-embed">
+                        <iframe src="https://www.youtube-nocookie.com/embed/dQw4w9WgXcQ" 
+                                title="Reel Project 11" 
+                                allowfullscreen>
+                        </iframe>
+                    </div>
+                    <div class="video-info">
+                        <h3 class="video-title">Beauty Reel</h3>
+                        <p class="video-description">Beauty transformation reel</p>
+                    </div>
+                </div>
+                <div class="video-card hidden">
+                    <div class="video-embed">
+                        <iframe src="https://www.youtube-nocookie.com/embed/dQw4w9WgXcQ" 
+                                title="Reel Project 12" 
+                                allowfullscreen>
+                        </iframe>
+                    </div>
+                    <div class="video-info">
+                        <h3 class="video-title">Pet Reel</h3>
+                        <p class="video-description">Cute pet content reel</p>
+                    </div>
+                </div>
+                <div class="video-card hidden">
+                    <div class="video-embed">
+                        <iframe src="https://www.youtube-nocookie.com/embed/dQw4w9WgXcQ" 
+                                title="Reel Project 13" 
+                                allowfullscreen>
+                        </iframe>
+                    </div>
+                    <div class="video-info">
+                        <h3 class="video-title">Music Reel</h3>
+                        <p class="video-description">Music artist promotion reel</p>
+                    </div>
+                </div>
+                <div class="video-card hidden">
+                    <div class="video-embed">
+                        <iframe src="https://www.youtube-nocookie.com/embed/dQw4w9WgXcQ" 
+                                title="Reel Project 14" 
+                                allowfullscreen>
+                        </iframe>
+                    </div>
+                    <div class="video-info">
+                        <h3 class="video-title">DIY Reel</h3>
+                        <p class="video-description">Do-it-yourself tutorial reel</p>
+                    </div>
+                </div>
+                <div class="video-card hidden">
+                    <div class="video-embed">
+                        <iframe src="https://www.youtube-nocookie.com/embed/dQw4w9WgXcQ" 
+                                title="Reel Project 15" 
+                                allowfullscreen>
+                        </iframe>
+                    </div>
+                    <div class="video-info">
+                        <h3 class="video-title">Sports Reel</h3>
+                        <p class="video-description">Sports highlight reel</p>
+                    </div>
+                </div>
+                <div class="video-card hidden">
+                    <div class="video-embed">
+                        <iframe src="https://www.youtube-nocookie.com/embed/dQw4w9WgXcQ" 
+                                title="Reel Project 16" 
+                                allowfullscreen>
+                        </iframe>
+                    </div>
+                    <div class="video-info">
+                        <h3 class="video-title">Dance Reel</h3>
+                        <p class="video-description">Dance choreography reel</p>
+                    </div>
+                </div>
+                <div class="video-card hidden">
+                    <div class="video-embed">
+                        <iframe src="https://www.youtube-nocookie.com/embed/dQw4w9WgXcQ" 
+                                title="Reel Project 17" 
+                                allowfullscreen>
+                        </iframe>
+                    </div>
+                    <div class="video-info">
+                        <h3 class="video-title">Art Reel</h3>
+                        <p class="video-description">Artist process showcase reel</p>
+                    </div>
+                </div>
+                <div class="video-card hidden">
+                    <div class="video-embed">
+                        <iframe src="https://www.youtube-nocookie.com/embed/dQw4w9WgXcQ" 
+                                title="Reel Project 18" 
+                                allowfullscreen>
+                        </iframe>
+                    </div>
+                    <div class="video-info">
+                        <h3 class="video-title">Motivational Reel</h3>
+                        <p class="video-description">Inspirational content reel</p>
+                    </div>
+                </div>
+                <div class="video-card hidden">
+                    <div class="video-embed">
+                        <iframe src="https://www.youtube-nocookie.com/embed/dQw4w9WgXcQ" 
+                                title="Reel Project 19" 
+                                allowfullscreen>
+                        </iframe>
+                    </div>
+                    <div class="video-info">
+                        <h3 class="video-title">Gaming Reel</h3>
+                        <p class="video-description">Gaming highlights reel</p>
+                    </div>
+                </div>
+                <div class="video-card hidden">
+                    <div class="video-embed">
+                        <iframe src="https://www.youtube-nocookie.com/embed/dQw4w9WgXcQ" 
+                                title="Reel Project 20" 
+                                allowfullscreen>
+                        </iframe>
+                    </div>
+                    <div class="video-info">
+                        <h3 class="video-title">Comedy Reel</h3>
+                        <p class="video-description">Funny content compilation reel</p>
+                    </div>
+                </div>
+            </div>
+            <button class="expand-btn" onclick="toggleExpand('reelsGrid', this)">
+                <i class="fas fa-expand-arrows-alt"></i> Show More Reels
+            </button>
+        </div>
+    </section>
+
+    <!-- Social Ads Section -->
+    <section id="social-ads" class="video-category">
+        <div class="container">
+            <div class="category-header">
+                <h2 class="category-title">Social Media Ads</h2>
+                <p class="category-description">High-performance video ads for social platforms</p>
+            </div>
+            <div class="video-grid" id="socialAdsGrid">
+                <div class="video-card">
+                    <div class="video-embed">
+                        <iframe src="https://www.youtube-nocookie.com/embed/dQw4w9WgXcQ" 
+                                title="Social Ad 1" 
+                                allowfullscreen>
+                        </iframe>
+                    </div>
+                    <div class="video-info">
+                        <h3 class="video-title">Facebook Campaign</h3>
+                        <p class="video-description">High-converting Facebook video ad</p>
+                    </div>
+                </div>
+                <div class="video-card">
+                    <div class="video-embed">
+                        <iframe src="https://www.youtube-nocookie.com/embed/dQw4w9WgXcQ" 
+                                title="Social Ad 2" 
+                                allowfullscreen>
+                        </iframe>
+                    </div>
+                    <div class="video-info">
+                        <h3 class="video-title">Instagram Story Ad</h3>
+                        <p class="video-description">Engaging story ad for Instagram</p>
+                    </div>
+                </div>
+                <div class="video-card">
+                    <div class="video-embed">
+                        <iframe src="https://www.youtube-nocookie.com/embed/dQw4w9WgXcQ" 
+                                title="Social Ad 3" 
+                                allowfullscreen>
+                        </iframe>
+                    </div>
+                    <div class="video-info">
+                        <h3 class="video-title">YouTube Pre-roll</h3>
+                        <p class="video-description">Attention-grabbing YouTube ad</p>
+                    </div>
+                </div>
+                <!-- Additional social ad videos (hidden initially) -->
+                <div class="video-card hidden">
+                    <div class="video-embed">
+                        <iframe src="https://www.youtube-nocookie.com/embed/dQw4w9WgXcQ" 
+                                title="Social Ad 4" 
+                                allowfullscreen>
+                        </iframe>
+                    </div>
+                    <div class="video-info">
+                        <h3 class="video-title">TikTok Ad</h3>
+                        <p class="video-description">Native TikTok advertising content</p>
+                    </div>
+                </div>
+                <div class="video-card hidden">
+                    <div class="video-embed">
+                        <iframe src="https://www.youtube-nocookie.com/embed/dQw4w9WgXcQ" 
+                                title="Social Ad 5" 
+                                allowfullscreen>
+                        </iframe>
+                    </div>
+                    <div class="video-info">
+                        <h3 class="video-title">LinkedIn Sponsored</h3>
+                        <p class="video-description">Professional LinkedIn video ad</p>
+                    </div>
+                </div>
+                <div class="video-card hidden">
+                    <div class="video-embed">
+                        <iframe src="https://www.youtube-nocookie.com/embed/dQw4w9WgXcQ" 
+                                title="Social Ad 6" 
+                                allowfullscreen>
+                        </iframe>
+                    </div>
+                    <div class="video-info">
+                        <h3 class="video-title">Twitter Video Ad</h3>
+                        <p class="video-description">Engaging Twitter promotional video</p>
+                    </div>
+                </div>
+                <div class="video-card hidden">
+                    <div class="video-embed">
+                        <iframe src="https://www.youtube-nocookie.com/embed/dQw4w9WgXcQ" 
+                                title="Social Ad 7" 
+                                allowfullscreen>
+                        </iframe>
+                    </div>
+                    <div class="video-info">
+                        <h3 class="video-title">Pinterest Pin Ad</h3>
+                        <p class="video-description">Visual Pinterest advertising content</p>
+                    </div>
+                </div>
+                <div class="video-card hidden">
+                    <div class="video-embed">
+                        <iframe src="https://www.youtube-nocookie.com/embed/dQw4w9WgXcQ" 
+                                title="Social Ad 8" 
+                                allowfullscreen>
+                        </iframe>
+                    </div>
+                    <div class="video-info">
+                        <h3 class="video-title">Snapchat Story</h3>
+                        <p class="video-description">Creative Snapchat story ad</p>
+                    </div>
+                </div>
+                <div class="video-card hidden">
+                    <div class="video-embed">
+                        <iframe src="https://www.youtube-nocookie.com/embed/dQw4w9WgXcQ" 
+                                title="Social Ad 9" 
+                                allowfullscreen>
+                        </iframe>
+                    </div>
+                    <div class="video-info">
+                        <h3 class="video-title">Reddit Video Ad</h3>
+                        <p class="video-description">Native Reddit advertising content</p>
+                    </div>
+                </div>
+                <div class="video-card hidden">
+                    <div class="video-embed">
+                        <iframe src="https://www.youtube-nocookie.com/embed/dQw4w9WgXcQ" 
+                                title="Social Ad 10" 
+                                allowfullscreen>
+                        </iframe>
+                    </div>
+                    <div class="video-info">
+                        <h3 class="video-title">Twitch Stream Ad</h3>
+                        <p class="video-description">Gaming platform advertisement</p>
+                    </div>
+                </div>
+                <div class="video-card hidden">
+                    <div class="video-embed">
+                        <iframe src="https://www.youtube-nocookie.com/embed/dQw4w9WgXcQ" 
+                                title="Social Ad 11" 
+                                allowfullscreen>
+                        </iframe>
+                    </div>
+                    <div class="video-info">
+                        <h3 class="video-title">Discord Community</h3>
+                        <p class="video-description">Community-focused Discord ad</p>
+                    </div>
+                </div>
+                <div class="video-card hidden">
+                    <div class="video-embed">
+                        <iframe src="https://www.youtube-nocookie.com/embed/dQw4w9WgXcQ" 
+                                title="Social Ad 12" 
+                                allowfullscreen>
+                        </iframe>
+                    </div>
+                    <div class="video-info">
+                        <h3 class="video-title">WhatsApp Status</h3>
+                        <p class="video-description">WhatsApp status advertisement</p>
+                    </div>
+                </div>
+                <div class="video-card hidden">
+                    <div class="video-embed">
+                        <iframe src="https://www.youtube-nocookie.com/embed/dQw4w9WgXcQ" 
+                                title="Social Ad 13" 
+                                allowfullscreen>
+                        </iframe>
+                    </div>
+                    <div class="video-info">
+                        <h3 class="video-title">Telegram Channel</h3>
+                        <p class="video-description">Telegram promotional content</p>
+                    </div>
+                </div>
+                <div class="video-card hidden">
+                    <div class="video-embed">
+                        <iframe src="https://www.youtube-nocookie.com/embed/dQw4w9WgXcQ" 
+                                title="Social Ad 14" 
+                                allowfullscreen>
+                        </iframe>
+                    </div>
+                    <div class="video-info">
+                        <h3 class="video-title">WeChat Moment</h3>
+                        <p class="video-description">WeChat moments advertising</p>
+                    </div>
+                </div>
+                <div class="video-card hidden">
+                    <div class="video-embed">
+                        <iframe src="https://www.youtube-nocookie.com/embed/dQw4w9WgXcQ" 
+                                title="Social Ad 15" 
+                                allowfullscreen>
+                        </iframe>
+                    </div>
+                    <div class="video-info">
+                        <h3 class="video-title">Clubhouse Audio</h3>
+                        <p class="video-description">Audio-visual content for Clubhouse</p>
+                    </div>
+                </div>
+                <div class="video-card hidden">
+                    <div class="video-embed">
+                        <iframe src="https://www.youtube-nocookie.com/embed/dQw4w9WgXcQ" 
+                                title="Social Ad 16" 
+                                allowfullscreen>
+                        </iframe>
+                    </div>
+                    <div class="video-info">
+                        <h3 class="video-title">Spotify Ad</h3>
+                        <p class="video-description">Music platform video advertisement</p>
+                    </div>
+                </div>
+                <div class="video-card hidden">
+                    <div class="video-embed">
+                        <iframe src="https://www.youtube-nocookie.com/embed/dQw4w9WgXcQ" 
+                                title="Social Ad 17" 
+                                allowfullscreen>
+                        </iframe>
+                    </div>
+                    <div class="video-info">
+                        <h3 class="video-title">Podcast Promo</h3>
+                        <p class="video-description">Podcast promotional video</p>
+                    </div>
+                </div>
+                <div class="video-card hidden">
+                    <div class="video-embed">
+                        <iframe src="https://www.youtube-nocookie.com/embed/dQw4w9WgXcQ" 
+                                title="Social Ad 18" 
+                                allowfullscreen>
+                        </iframe>
+                    </div>
+                    <div class="video-info">
+                        <h3 class="video-title">Newsletter Video</h3>
+                        <p class="video-description">Email newsletter video content</p>
+                    </div>
+                </div>
+                <div class="video-card hidden">
+                    <div class="video-embed">
+                        <iframe src="https://www.youtube-nocookie.com/embed/dQw4w9WgXcQ" 
+                                title="Social Ad 19" 
+                                allowfullscreen>
+                        </iframe>
+                    </div>
+                    <div class="video-info">
+                        <h3 class="video-title">Blog Video</h3>
+                        <p class="video-description">Blog post embedded video</p>
+                    </div>
+                </div>
+                <div class="video-card hidden">
+                    <div class="video-embed">
+                        <iframe src="https://www.youtube-nocookie.com/embed/dQw4w9WgXcQ" 
+                                title="Social Ad 20" 
+                                allowfullscreen>
+                        </iframe>
+                    </div>
+                    <div class="video-info">
+                        <h3 class="video-title">Website Banner</h3>
+                        <p class="video-description">Website banner video advertisement</p>
+                    </div>
+                </div>
+            </div>
+            <button class="expand-btn" onclick="toggleExpand('socialAdsGrid', this)">
+                <i class="fas fa-expand-arrows-alt"></i> Show More Social Ads
+            </button>
+        </div>
+    </section>
+
+    <!-- Business Videos Section -->
+    <section id="business-videos" class="video-category">
+        <div class="container">
+            <div class="category-header">
+                <h2 class="category-title">Business Videos</h2>
+                <p class="category-description">Professional corporate and business video content</p>
+            </div>
+            <div class="video-grid" id="businessGrid">
+                <div class="video-card">
+                    <div class="video-embed">
+                        <iframe src="https://www.youtube-nocookie.com/embed/dQw4w9WgXcQ" 
+                                title="Business Video 1" 
+                                allowfullscreen>
+                        </iframe>
+                    </div>
+                    <div class="video-info">
+                        <h3 class="video-title">Company Overview</h3>
+                        <p class="video-description">Professional company introduction video</p>
+                    </div>
+                </div>
+                <div class="video-card">
+                    <div class="video-embed">
+                        <iframe src="https://www.youtube-nocookie.com/embed/dQw4w9WgXcQ" 
+                                title="Business Video 2" 
+                                allowfullscreen>
+                        </iframe>
+                    </div>
+                    <div class="video-info">
+                        <h3 class="video-title">Product Demo</h3>
+                        <p class="video-description">Detailed product demonstration video</p>
+                    </div>
+                </div>
+                <div class="video-card">
+                    <div class="video-embed">
+                        <iframe src="https://www.youtube-nocookie.com/embed/dQw4w9WgXcQ" 
+                                title="Business Video 3" 
+                                allowfullscreen>
+                        </iframe>
+                    </div>
+                    <div class="video-info">
+                        <h3 class="video-title">Team Introduction</h3>
+                        <p class="video-description">Meet the team behind the company</p>
+                    </div>
+                </div>
+                <!-- Additional business videos (hidden initially) -->
+                <div class="video-card hidden">
+                    <div class="video-embed">
+                        <iframe src="https://www.youtube-nocookie.com/embed/dQw4w9WgXcQ" 
+                                title="Business Video 4" 
+                                allowfullscreen>
+                        </iframe>
+                    </div>
+                    <div class="video-info">
+                        <h3 class="video-title">Client Success Story</h3>
+                        <p class="video-description">Inspiring client transformation story</p>
+                    </div>
+                </div>
+                <div class="video-card hidden">
+                    <div class="video-embed">
+                        <iframe src="https://www.youtube-nocookie.com/embed/dQw4w9WgXcQ" 
+                                title="Business Video 5" 
+                                allowfullscreen>
+                        </iframe>
+                    </div>
+                    <div class="video-info">
+                        <h3 class="video-title">Corporate Training</h3>
+                        <p class="video-description">Professional training module video</p>
+                    </div>
+                </div>
+                <div class="video-card hidden">
+                    <div class="video-embed">
+                        <iframe src="https://www.youtube-nocookie.com/embed/dQw4w9WgXcQ" 
+                                title="Business Video 6" 
+                                allowfullscreen>
+                        </iframe>
+                    </div>
+                    <div class="video-info">
+                        <h3 class="video-title">Annual Report Video</h3>
+                        <p class="video-description">Engaging annual report presentation</p>
+                    </div>
+                </div>
+                <div class="video-card hidden">
+                    <div class="video-embed">
+                        <iframe src="https://www.youtube-nocookie.com/embed/dQw4w9WgXcQ" 
+                                title="Business Video 7" 
+                                allowfullscreen>
+                        </iframe>
+                    </div>
+                    <div class="video-info">
+                        <h3 class="video-title">Investor Pitch</h3>
+                        <p class="video-description">Compelling investor presentation video</p>
+                    </div>
+                </div>
+                <div class="video-card hidden">
+                    <div class="video-embed">
+                        <iframe src="https://www.youtube-nocookie.com/embed/dQw4w9WgXcQ" 
+                                title="Business Video 8" 
+                                allowfullscreen>
+                        </iframe>
+                    </div>
+                    <div class="video-info">
+                        <h3 class="video-title">Company Culture</h3>
+                        <p class="video-description">Behind-the-scenes company culture video</p>
+                    </div>
+                </div>
+                <div class="video-card hidden">
+                    <div class="video-embed">
+                        <iframe src="https://www.youtube-nocookie.com/embed/dQw4w9WgXcQ" 
+                                title="Business Video 9" 
+                                allowfullscreen>
+                        </iframe>
+                    </div>
+                    <div class="video-info">
+                        <h3 class="video-title">Service Explainer</h3>
+                        <p class="video-description">Service features explanation video</p>
+                    </div>
+                </div>
+                <div class="video-card hidden">
+                    <div class="video-embed">
+                        <iframe src="https://www.youtube-nocookie.com/embed/dQw4w9WgXcQ" 
+                                title="Business Video 10" 
+                                allowfullscreen>
+                        </iframe>
+                    </div>
+                    <div class="video-info">
+                        <h3 class="video-title">Partnership Announcement</h3>
+                        <p class="video-description">Strategic partnership announcement</p>
+                    </div>
+                </div>
+                <div class="video-card hidden">
+                    <div class="video-embed">
+                        <iframe src="https://www.youtube-nocookie.com/embed/dQw4w9WgXcQ" 
+                                title="Business Video 11" 
+                                allowfullscreen>
+                        </iframe>
+                    </div>
+                    <div class="video-info">
+                        <h3 class="video-title">Employee Testimonial</h3>
+                        <p class="video-description">Employee satisfaction testimonial</p>
+                    </div>
+                </div>
+                <div class="video-card hidden">
+                    <div class="video-embed">
+                        <iframe src="https://www.youtube-nocookie.com/embed/dQw4w9WgXcQ" 
+                                title="Business Video 12" 
+                                allowfullscreen>
+                        </iframe>
+                    </div>
+                    <div class="video-info">
+                        <h3 class="video-title">Product Launch</h3>
+                        <p class="video-description">Exciting product launch announcement</p>
+                    </div>
+                </div>
+                <div class="video-card hidden">
+                    <div class="video-embed">
+                        <iframe src="https://www.youtube-nocookie.com/embed/dQw4w9WgXcQ" 
+                                title="Business Video 13" 
+                                allowfullscreen>
+                        </iframe>
+                    </div>
+                    <div class="video-info">
+                        <h3 class="video-title">Conference Keynote</h3>
+                        <p class="video-description">Conference keynote presentation</p>
+                    </div>
+                </div>
+                <div class="video-card hidden">
+                    <div class="video-embed">
+                        <iframe src="https://www.youtube-nocookie.com/embed/dQw4w9WgXcQ" 
+                                title="Business Video 14" 
+                                allowfullscreen>
+                        </iframe>
+                    </div>
+                    <div class="video-info">
+                        <h3 class="video-title">Awards Ceremony</h3>
+                        <p class="video-description">Company awards and recognition</p>
+                    </div>
+                </div>
+                <div class="video-card hidden">
+                    <div class="video-embed">
+                        <iframe src="https://www.youtube-nocookie.com/embed/dQw4w9WgXcQ" 
+                                title="Business Video 15" 
+                                allowfullscreen>
+                        </iframe>
+                    </div>
+                    <div class="video-info">
+                        <h3 class="video-title">Recruitment Video</h3>
+                        <p class="video-description">Talent recruitment and hiring</p>
+                    </div>
+                </div>
+                <div class="video-card hidden">
+                    <div class="video-embed">
+                        <iframe src="https://www.youtube-nocookie.com/embed/dQw4w9WgXcQ" 
+                                title="Business Video 16" 
+                                allowfullscreen>
+                        </iframe>
+                    </div>
+                    <div class="video-info">
+                        <h3 class="video-title">Safety Training</h3>
+                        <p class="video-description">Workplace safety training video</p>
+                    </div>
+                </div>
+                <div class="video-card hidden">
+                    <div class="video-embed">
+                        <iframe src="https://www.youtube-nocookie.com/embed/dQw4w9WgXcQ" 
+                                title="Business Video 17" 
+                                allowfullscreen>
+                        </iframe>
+                    </div>
+                    <div class="video-info">
+                        <h3 class="video-title">Customer Journey</h3>
+                        <p class="video-description">Customer experience journey video</p>
+                    </div>
+                </div>
+                <div class="video-card hidden">
+                    <div class="video-embed">
+                        <iframe src="https://www.youtube-nocookie.com/embed/dQw4w9WgXcQ" 
+                                title="Business Video 18" 
+                                allowfullscreen>
+                        </iframe>
+                    </div>
+                    <div class="video-info">
+                        <h3 class="video-title">Sustainability Report</h3>
+                        <p class="video-description">Corporate sustainability initiatives</p>
+                    </div>
+                </div>
+                <div class="video-card hidden">
+                    <div class="video-embed">
+                        <iframe src="https://www.youtube-nocookie.com/embed/dQw4w9WgXcQ" 
+                                title="Business Video 19" 
+                                allowfullscreen>
+                        </iframe>
+                    </div>
+                    <div class="video-info">
+                        <h3 class="video-title">Technology Showcase</h3>
+                        <p class="video-description">Latest technology implementation</p>
+                    </div>
+                </div>
+                <div class="video-card hidden">
+                    <div class="video-embed">
+                        <iframe src="https://www.youtube-nocookie.com/embed/dQw4w9WgXcQ" 
+                                title="Business Video 20" 
+                                allowfullscreen>
+                        </iframe>
+                    </div>
+                    <div class="video-info">
+                        <h3 class="video-title">Future Vision</h3>
+                        <p class="video-description">Company future vision and goals</p>
+                    </div>
+                </div>
+            </div>
+            <button class="expand-btn" onclick="toggleExpand('businessGrid', this)">
+                <i class="fas fa-expand-arrows-alt"></i> Show More Business Videos
+            </button>
+        </div>
+    </section>
+
+    <!-- Course Editing Section -->
+    <section id="courses" class="video-category">
+        <div class="container">
+            <div class="category-header">
+                <h2 class="category-title">Course Editing</h2>
+                <p class="category-description">Educational content editing for online courses and tutorials</p>
+            </div>
+            <div class="video-grid" id="coursesGrid">
+                <div class="video-card">
+                    <div class="video-embed">
+                        <iframe src="https://www.youtube-nocookie.com/embed/dQw4w9WgXcQ" 
+                                title="Course Video 1" 
+                                allowfullscreen>
+                        </iframe>
+                    </div>
+                    <div class="video-info">
+                        <h3 class="video-title">Introduction Module</h3>
+                        <p class="video-description">Engaging course introduction with animations</p>
+                    </div>
+                </div>
+                <div class="video-card">
+                    <div class="video-embed">
+                        <iframe src="https://www.youtube-nocookie.com/embed/dQw4w9WgXcQ" 
+                                title="Course Video 2" 
+                                allowfullscreen>
+                        </iframe>
+                    </div>
+                    <div class="video-info">
+                        <h3 class="video-title">Lesson Chapter</h3>
+                        <p class="video-description">Professional lesson with graphics and transitions</p>
+                    </div>
+                </div>
+                <div class="video-card">
+                    <div class="video-embed">
+                        <iframe src="https://www.youtube-nocookie.com/embed/dQw4w9WgXcQ" 
+                                title="Course Video 3" 
+                                allowfullscreen>
+                        </iframe>
+                    </div>
+                    <div class="video-info">
+                        <h3 class="video-title">Tutorial Series</h3>
+                        <p class="video-description">Step-by-step tutorial with clear explanations</p>
+                    </div>
+                </div>
+                <!-- Additional course videos (hidden initially) -->
+                <div class="video-card hidden">
+                    <div class="video-embed">
+                        <iframe src="https://www.youtube-nocookie.com/embed/dQw4w9WgXcQ" 
+                                title="Course Video 4" 
+                                allowfullscreen>
+                        </iframe>
+                    </div>
+                    <div class="video-info">
+                        <h3 class="video-title">Advanced Module</h3>
+                        <p class="video-description">Complex topics made simple with visuals</p>
+                    </div>
+                </div>
+                <div class="video-card hidden">
+                    <div class="video-embed">
+                        <iframe src="https://www.youtube-nocookie.com/embed/dQw4w9WgXcQ" 
+                                title="Course Video 5" 
+                                allowfullscreen>
+                        </iframe>
+                    </div>
+                    <div class="video-info">
+                        <h3 class="video-title">Course Summary</h3>
+                        <p class="video-description">Comprehensive course conclusion video</p>
+                    </div>
+                </div>
+                <div class="video-card hidden">
+                    <div class="video-embed">
+                        <iframe src="https://www.youtube-nocookie.com/embed/dQw4w9WgXcQ" 
+                                title="Course Video 6" 
+                                allowfullscreen>
+                        </iframe>
+                    </div>
+                    <div class="video-info">
+                        <h3 class="video-title">Live Session Recording</h3>
+                        <p class="video-description">Interactive live session with Q&A</p>
+                    </div>
+                </div>
+                <div class="video-card hidden">
+                    <div class="video-embed">
+                        <iframe src="https://www.youtube-nocookie.com/embed/dQw4w9WgXcQ" 
+                                title="Course Video 7" 
+                                allowfullscreen>
+                        </iframe>
+                    </div>
+                    <div class="video-info">
+                        <h3 class="video-title">Case Study Analysis</h3>
+                        <p class="video-description">Real-world case study breakdown</p>
+                    </div>
+                </div>
+                <div class="video-card hidden">
+                    <div class="video-embed">
+                        <iframe src="https://www.youtube-nocookie.com/embed/dQw4w9WgXcQ" 
+                                title="Course Video 8" 
+                                allowfullscreen>
+                        </iframe>
+                    </div>
+                    <div class="video-info">
+                        <h3 class="video-title">Practical Exercise</h3>
+                        <p class="video-description">Hands-on exercise demonstration</p>
+                    </div>
+                </div>
+                <div class="video-card hidden">
+                    <div class="video-embed">
+                        <iframe src="https://www.youtube-nocookie.com/embed/dQw4w9WgXcQ" 
+                                title="Course Video 9" 
+                                allowfullscreen>
+                        </iframe>
+                    </div>
+                    <div class="video-info">
+                        <h3 class="video-title">Workshop Module</h3>
+                        <p class="video-description">Interactive workshop session</p>
+                    </div>
+                </div>
+                <div class="video-card hidden">
+                    <div class="video-embed">
+                        <iframe src="https://www.youtube-nocookie.com/embed/dQw4w9WgXcQ" 
+                                title="Course Video 10" 
+                                allowfullscreen>
+                        </iframe>
+                    </div>
+                    <div class="video-info">
+                        <h3 class="video-title">Expert Interview</h3>
+                        <p class="video-description">Industry expert guest interview</p>
+                    </div>
+                </div>
+                <div class="video-card hidden">
+                    <div class="video-embed">
+                        <iframe src="https://www.youtube-nocookie.com/embed/dQw4w9WgXcQ" 
+                                title="Course Video 11" 
+                                allowfullscreen>
+                        </iframe>
+                    </div>
+                    <div class="video-info">
+                        <h3 class="video-title">Assessment Guide</h3>
+                        <p class="video-description">Course assessment and evaluation</p>
+                    </div>
+                </div>
+                <div class="video-card hidden">
+                    <div class="video-embed">
+                        <iframe src="https://www.youtube-nocookie.com/embed/dQw4w9WgXcQ" 
+                                title="Course Video 12" 
+                                allowfullscreen>
+                        </iframe>
+                    </div>
+                    <div class="video-info">
+                        <h3 class="video-title">Resource Library</h3>
+                        <p class="video-description">Additional resources and materials</p>
+                    </div>
+                </div>
+                <div class="video-card hidden">
+                    <div class="video-embed">
+                        <iframe src="https://www.youtube-nocookie.com/embed/dQw4w9WgXcQ" 
+                                title="Course Video 13" 
+                                allowfullscreen>
+                        </iframe>
+                    </div>
+                    <div class="video-info">
+                        <h3 class="video-title">Student Showcase</h3>
+                        <p class="video-description">Student project presentations</p>
+                    </div>
+                </div>
+                <div class="video-card hidden">
+                    <div class="video-embed">
+                        <iframe src="https://www.youtube-nocookie.com/embed/dQw4w9WgXcQ" 
+                                title="Course Video 14" 
+                                allowfullscreen>
+                        </iframe>
+                    </div>
+                    <div class="video-info">
+                        <h3 class="video-title">Troubleshooting Guide</h3>
+                        <p class="video-description">Common issues and solutions</p>
+                    </div>
+                </div>
+                <div class="video-card hidden">
+                    <div class="video-embed">
+                        <iframe src="https://www.youtube-nocookie.com/embed/dQw4w9WgXcQ" 
+                                title="Course Video 15" 
+                                allowfullscreen>
+                        </iframe>
+                    </div>
+                    <div class="video-info">
+                        <h3 class="video-title">Advanced Techniques</h3>
+                        <p class="video-description">Professional tips and techniques</p>
+                    </div>
+                </div>
+                <div class="video-card hidden">
+                    <div class="video-embed">
+                        <iframe src="https://www.youtube-nocookie.com/embed/dQw4w9WgXcQ" 
+                                title="Course Video 16" 
+                                allowfullscreen>
+                        </iframe>
+                    </div>
+                    <div class="video-info">
+                        <h3 class="video-title">Certification Prep</h3>
+                        <p class="video-description">Certification exam preparation</p>
+                    </div>
+                </div>
+                <div class="video-card hidden">
+                    <div class="video-embed">
+                        <iframe src="https://www.youtube-nocookie.com/embed/dQw4w9WgXcQ" 
+                                title="Course Video 17" 
+                                allowfullscreen>
+                        </iframe>
+                    </div>
+                    <div class="video-info">
+                        <h3 class="video-title">Industry Trends</h3>
+                        <p class="video-description">Latest industry trends and updates</p>
+                    </div>
+                </div>
+                <div class="video-card hidden">
+                    <div class="video-embed">
+                        <iframe src="https://www.youtube-nocookie.com/embed/dQw4w9WgXcQ" 
+                                title="Course Video 18" 
+                                allowfullscreen>
+                        </iframe>
+                    </div>
+                    <div class="video-info">
+                        <h3 class="video-title">Career Guidance</h3>
+                        <p class="video-description">Career development and opportunities</p>
+                    </div>
+                </div>
+                <div class="video-card hidden">
+                    <div class="video-embed">
+                        <iframe src="https://www.youtube-nocookie.com/embed/dQw4w9WgXcQ" 
+                                title="Course Video 19" 
+                                allowfullscreen>
+                        </iframe>
+                    </div>
+                    <div class="video-info">
+                        <h3 class="video-title">Community Forum</h3>
+                        <p class="video-description">Community discussion highlights</p>
+                    </div>
+                </div>
+                <div class="video-card hidden">
+                    <div class="video-embed">
+                        <iframe src="https://www.youtube-nocookie.com/embed/dQw4w9WgXcQ" 
+                                title="Course Video 20" 
+                                allowfullscreen>
+                        </iframe>
+                    </div>
+                    <div class="video-info">
+                        <h3 class="video-title">Next Steps</h3>
+                        <p class="video-description">Course completion and next learning path</p>
+                    </div>
+                </div>
+            </div>
+            <button class="expand-btn" onclick="toggleExpand('coursesGrid', this)">
+                <i class="fas fa-expand-arrows-alt"></i> Show More Course Videos
+            </button>
+        </div>
+    </section>
+
+    <!-- Platform Profiles Section -->
+    <section id="contact" class="platforms-section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title font-orbitron">Professional Profiles</h2>
+                <p class="section-subtitle">Hire me on your preferred platform with proven track records</p>
+            </div>
+            <div class="platforms-grid">
+                <!-- Fiverr Card -->
+                <div class="platform-card fiverr-card">
+                    <div class="platform-header">
+                        <div class="platform-logo">Fiverr</div>
+                        <div class="platform-badge">Level 2 Seller</div>
+                    </div>
+                    
+                    <div class="platform-stats">
+                        <div class="platform-stat">
+                            <div class="platform-stat-number">4.9</div>
+                            <div class="platform-stat-label">Rating</div>
+                        </div>
+                        <div class="platform-stat">
+                            <div class="platform-stat-number">1.5K+</div>
+                            <div class="platform-stat-label">Reviews</div>
+                        </div>
+                        <div class="platform-stat">
+                            <div class="platform-stat-number">2.5K+</div>
+                            <div class="platform-stat-label">Orders</div>
+                        </div>
+                    </div>
+                    
+                    <div class="platform-metrics">
+                        <div class="platform-metric">
+                            <span class="platform-metric-label">Response Time</span>
+                            <span class="platform-metric-value">1 Hour</span>
+                        </div>
+                        <div class="platform-metric">
+                            <span class="platform-metric-label">Order Completion</span>
+                            <span class="platform-metric-value">98%</span>
+                        </div>
+                        <div class="platform-metric">
+                            <span class="platform-metric-label">Delivery Time</span>
+                            <span class="platform-metric-value">On Time</span>
+                        </div>
+                    </div>
+                    
+                    <div class="platform-specialties">
+                        <h4>Specialties</h4>
+                        <div class="specialty-tags">
+                            <span class="specialty-tag">Video Editing</span>
+                            <span class="specialty-tag">Web Design</span>
+                            <span class="specialty-tag">Motion Graphics</span>
+                            <span class="specialty-tag">AI Solutions</span>
+                        </div>
+                    </div>
+                    
+                    <a href="https://www.fiverr.com/faisalhanif" class="platform-cta" target="_blank">
+                        <i class="fas fa-external-link-alt"></i>
+                        Visit My Fiverr Profile
+                    </a>
+                </div>
+                
+                <!-- Upwork Card -->
+                <div class="platform-card upwork-card">
+                    <div class="platform-header">
+                        <div class="platform-logo">Upwork</div>
+                        <div class="platform-badge">Top Rated</div>
+                    </div>
+                    
+                    <div class="platform-stats">
+                        <div class="platform-stat">
+                            <div class="platform-stat-number">92%</div>
+                            <div class="platform-stat-label">JSS</div>
+                        </div>
+                        <div class="platform-stat">
+                            <div class="platform-stat-number">70</div>
+                            <div class="platform-stat-label">Completed</div>
+                        </div>
+                        <div class="platform-stat">
+                            <div class="platform-stat-number">3</div>
+                            <div class="platform-stat-label">In Progress</div>
+                        </div>
+                    </div>
+                    
+                    <div class="platform-metrics">
+                        <div class="platform-metric">
+                            <span class="platform-metric-label">Client Satisfaction</span>
+                            <span class="platform-metric-value">92%</span>
+                        </div>
+                        <div class="platform-metric">
+                            <span class="platform-metric-label">Repeat Clients</span>
+                            <span class="platform-metric-value">80%</span>
+                        </div>
+                        <div class="platform-metric">
+                            <span class="platform-metric-label">Profile Views</span>
+                            <span class="platform-metric-value">High</span>
+                        </div>
+                    </div>
+                    
+                    <div class="platform-specialties">
+                        <h4>Specialties</h4>
+                        <div class="specialty-tags">
+                            <span class="specialty-tag">Web Development</span>
+                            <span class="specialty-tag">Brand Design</span>
+                            <span class="specialty-tag">AI Integration</span>
+                            <span class="specialty-tag">UI/UX</span>
+                        </div>
+                    </div>
+                    
+                    <a href="https://www.upwork.com/freelancers/faisalhanif" class="platform-cta" target="_blank">
+                        <i class="fas fa-external-link-alt"></i>
+                        Visit My Upwork Profile
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact-section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title font-orbitron">Get In Touch</h2>
+                <p class="section-subtitle">Ready to transform your vision into stunning video content? Let's discuss your project!</p>
+            </div>
+            <div class="contact-content">
+                <div class="primary-contact">
+                    <a href="https://wa.me/1234567890" class="contact-btn whatsapp" target="_blank">
+                        <i class="fab fa-whatsapp"></i>
+                        WhatsApp
+                    </a>
+                    <a href="mailto:contact@thefaisalhanif.com" class="contact-btn email">
+                        <i class="fas fa-envelope"></i>
+                        Email
+                    </a>
+                </div>
+                
+                <div class="contact-divider">Or connect with me on</div>
+                
+                <div class="secondary-contact">
+                    <a href="https://www.linkedin.com/in/faisalhanif" class="social-btn small" target="_blank" title="LinkedIn">
+                        <i class="fab fa-linkedin"></i>
+                    </a>
+                    <a href="https://www.twitter.com/faisalhanif" class="social-btn small" target="_blank" title="Twitter">
+                        <i class="fab fa-twitter"></i>
+                    </a>
+                    <a href="https://www.instagram.com/faisalhanif" class="social-btn small" target="_blank" title="Instagram">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+                    <a href="https://www.youtube.com/faisalhanif" class="social-btn small" target="_blank" title="YouTube">
+                        <i class="fab fa-youtube"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2024 Faisal Hanif. Professional Video Editing Services. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Animated background canvas
+        const canvas = document.getElementById('bg-canvas');
+        const ctx = canvas.getContext('2d');
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+
+        resizeCanvas();
+        window.addEventListener('resize', resizeCanvas);
+
+        // Particle system for sci-fi background
+        const particles = [];
+        const particleCount = 100;
+
+        class Particle {
+            constructor() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.vx = (Math.random() - 0.5) * 0.5;
+                this.vy = (Math.random() - 0.5) * 0.5;
+                this.size = Math.random() * 2;
+                this.opacity = Math.random() * 0.5 + 0.2;
+            }
+
+            update() {
+                this.x += this.vx;
+                this.y += this.vy;
+
+                if (this.x < 0 || this.x > canvas.width) this.vx *= -1;
+                if (this.y < 0 || this.y > canvas.height) this.vy *= -1;
+            }
+
+            draw() {
+                ctx.save();
+                ctx.globalAlpha = this.opacity;
+                ctx.fillStyle = '#00d9ff';
+                ctx.shadowBlur = 10;
+                ctx.shadowColor = '#00d9ff';
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fill();
+                ctx.restore();
+            }
+        }
+
+        // Initialize particles
+        for (let i = 0; i < particleCount; i++) {
+            particles.push(new Particle());
+        }
+
+        // Animation loop
+        function animate() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            
+            // Draw connections between nearby particles
+            for (let i = 0; i < particles.length; i++) {
+                for (let j = i + 1; j < particles.length; j++) {
+                    const dx = particles[i].x - particles[j].x;
+                    const dy = particles[i].y - particles[j].y;
+                    const distance = Math.sqrt(dx * dx + dy * dy);
+                    
+                    if (distance < 100) {
+                        ctx.save();
+                        ctx.globalAlpha = (100 - distance) / 100 * 0.2;
+                        ctx.strokeStyle = '#8b5cf6';
+                        ctx.lineWidth = 0.5;
+                        ctx.beginPath();
+                        ctx.moveTo(particles[i].x, particles[i].y);
+                        ctx.lineTo(particles[j].x, particles[j].y);
+                        ctx.stroke();
+                        ctx.restore();
+                    }
+                }
+            }
+            
+            // Update and draw particles
+            particles.forEach(particle => {
+                particle.update();
+                particle.draw();
+            });
+            
+            requestAnimationFrame(animate);
+        }
+
+        animate();
+
+        // Mobile menu functionality
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const navMenu = document.getElementById('navMenu');
+
+        mobileMenuBtn.addEventListener('click', () => {
+            navMenu.classList.toggle('active');
+        });
+
+        // Expand/collapse functionality for video sections
+        function toggleExpand(gridId, button) {
+            const grid = document.getElementById(gridId);
+            const hiddenCards = grid.querySelectorAll('.video-card.hidden');
+            const isExpanded = hiddenCards.length === 0;
+
+            if (isExpanded) {
+                // Collapse - hide all but first 3
+                const allCards = grid.querySelectorAll('.video-card');
+                for (let i = 3; i < allCards.length; i++) {
+                    allCards[i].classList.add('hidden');
+                }
+                button.innerHTML = '<i class="fas fa-expand-arrows-alt"></i> Show More';
+            } else {
+                // Expand - show all
+                hiddenCards.forEach(card => {
+                    card.classList.remove('hidden');
+                });
+                button.innerHTML = '<i class="fas fa-compress-arrows-alt"></i> Show Less';
+            }
+        }
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Intersection Observer for animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.animationDelay = '0s';
+                    entry.target.style.animationPlayState = 'running';
+                }
+            });
+        }, observerOptions);
+
+        // Observe all video cards and stat items
+        document.querySelectorAll('.video-card, .stat-item, .testimonial-card').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Add stagger animation to video cards
+        document.querySelectorAll('.video-grid').forEach(grid => {
+            const cards = grid.querySelectorAll('.video-card');
+            cards.forEach((card, index) => {
+                card.style.animationDelay = `${index * 0.1}s`;
+            });
+        });
+
+        // Enhanced scroll effects for navigation
+        let lastScrollTop = 0;
+        const nav = document.querySelector('.top-nav');
+
+        window.addEventListener('scroll', () => {
+            let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+            
+            if (scrollTop > lastScrollTop && scrollTop > 100) {
+                nav.style.transform = 'translateY(-100%)';
+            } else {
+                nav.style.transform = 'translateY(0)';
+            }
+            
+            lastScrollTop = scrollTop;
+        });
+    </script>
+</body>
+</html>
