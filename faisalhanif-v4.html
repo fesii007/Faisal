@@ -1,0 +1,658 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Faisal Hanif — Video Ad Creative Specialist. 2,500+ projects, 1,600+ reviews.">
+<title>Faisal Hanif — Video Ads Built to Get Sales</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{--black:#0d0d0d;--dark:#141414;--dark2:#1c1c1c;--white:#ffffff;--off:#f5f5f2;--off2:#eeede9;--green:#1db954;--green-dark:#15963e;--green-pale:#e8f7ed;--gray:#6b6b6b;--gray-light:#a0a0a0;--border-light:rgba(0,0,0,.08);--border-dark:rgba(255,255,255,.08)}
+html{scroll-behavior:smooth}
+body{background:var(--white);color:var(--black);font-family:'Inter',sans-serif;font-weight:400;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+img{display:block;max-width:100%}a{text-decoration:none;color:inherit}
+.cur,.cur-r{position:fixed;border-radius:50%;pointer-events:none;z-index:9999;top:0;left:0;transform:translate(-50%,-50%)}
+.cur{width:8px;height:8px;background:var(--green)}
+.cur-r{width:30px;height:30px;border:1px solid rgba(29,185,84,.5);transition:transform .35s ease,width .2s,height .2s}
+@media(hover:none){.cur,.cur-r{display:none}body{cursor:auto}}
+#loader{position:fixed;inset:0;background:var(--black);z-index:9998;display:flex;flex-direction:column;align-items:center;justify-content:center;transition:opacity .8s ease}
+#loader.hide{opacity:0;pointer-events:none}
+.loader-txt{font-family:'Playfair Display',serif;font-size:48px;font-weight:700;color:var(--white);letter-spacing:4px;animation:lp 1.4s ease infinite}
+.loader-sub{font-size:11px;letter-spacing:5px;text-transform:uppercase;color:var(--green);margin-top:12px;animation:lp 1.4s ease .3s infinite}
+.loader-bar{width:100px;height:1px;background:rgba(255,255,255,.1);margin-top:28px;overflow:hidden}
+.loader-fill{height:100%;width:30%;background:var(--green);animation:lslide 1.1s ease infinite}
+@keyframes lp{0%,100%{opacity:.4}50%{opacity:1}}
+@keyframes lslide{0%{transform:translateX(-200%)}100%{transform:translateX(450%)}}
+nav{position:fixed;top:0;left:0;right:0;z-index:500;padding:24px 60px;display:flex;justify-content:space-between;align-items:center;transition:all .4s}
+nav.scrolled{background:rgba(255,255,255,.97);backdrop-filter:blur(20px);padding:16px 60px;border-bottom:1px solid var(--border-light);box-shadow:0 2px 24px rgba(0,0,0,.06)}
+.nav-logo{font-family:'Playfair Display',serif;font-size:24px;font-weight:700;color:var(--white);transition:color .3s}
+nav.scrolled .nav-logo{color:var(--black)}
+.nav-logo span{color:var(--green)}
+.nav-links{display:flex;gap:32px;align-items:center}
+.nav-links a{font-size:12px;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,.7);transition:color .2s}
+nav.scrolled .nav-links a{color:var(--gray)}
+.nav-links a:hover{color:var(--green)!important}
+.nav-cta-btn{background:var(--green)!important;color:var(--black)!important;padding:10px 22px;font-size:12px;font-weight:700;letter-spacing:1px;transition:background .2s!important}
+.nav-cta-btn:hover{background:var(--green-dark)!important}
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;z-index:600}
+.hamburger span{display:block;width:24px;height:1.5px;background:var(--white);transition:.3s}
+nav.scrolled .hamburger span{background:var(--black)}
+.hamburger.open span:nth-child(1){transform:rotate(45deg) translate(5px,5px)}
+.hamburger.open span:nth-child(2){opacity:0}
+.hamburger.open span:nth-child(3){transform:rotate(-45deg) translate(5px,-5px)}
+.drawer{position:fixed;top:0;right:0;bottom:0;width:280px;background:var(--white);z-index:550;padding:80px 36px 40px;display:flex;flex-direction:column;transform:translateX(100%);transition:transform .4s ease;box-shadow:-20px 0 60px rgba(0,0,0,.12)}
+.drawer.open{transform:translateX(0)}
+.drawer a{font-size:17px;color:var(--black);padding:16px 0;border-bottom:1px solid var(--border-light);display:block}
+.drawer a:hover{color:var(--green)}
+.drawer .d-cta{margin-top:24px;background:var(--green);color:var(--black)!important;text-align:center;padding:16px!important;font-weight:700;letter-spacing:1px;font-size:13px!important;border:none!important}
+.overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.4);z-index:540}
+.overlay.open{display:block}
+@media(max-width:900px){nav{padding:18px 24px}nav.scrolled{padding:14px 24px}.nav-links{display:none}.hamburger{display:flex}}
+.btn-green{display:inline-flex;align-items:center;gap:8px;background:var(--green);color:var(--black);padding:15px 36px;font-size:13px;font-weight:700;letter-spacing:1px;text-transform:uppercase;border:none;cursor:pointer;transition:background .2s,transform .2s,box-shadow .3s;box-shadow:0 4px 20px rgba(29,185,84,.3)}
+.btn-green:hover{background:var(--green-dark);transform:translateY(-2px);box-shadow:0 8px 32px rgba(29,185,84,.4)}
+.btn-outline-dark{display:inline-flex;align-items:center;gap:8px;border:1.5px solid var(--black);color:var(--black);padding:14px 32px;font-size:13px;font-weight:600;letter-spacing:1px;text-transform:uppercase;background:transparent;cursor:pointer;transition:all .2s}
+.btn-outline-dark:hover{background:var(--black);color:var(--white)}
+.btn-outline-white{display:inline-flex;align-items:center;gap:8px;border:1.5px solid rgba(255,255,255,.3);color:var(--white);padding:14px 32px;font-size:13px;font-weight:600;letter-spacing:1px;text-transform:uppercase;background:transparent;cursor:pointer;transition:all .2s}
+.btn-outline-white:hover{border-color:var(--white);background:rgba(255,255,255,.08)}
+.rv{opacity:0;transform:translateY(24px);transition:opacity .75s ease,transform .75s ease}
+.rv-l{opacity:0;transform:translateX(-24px);transition:opacity .75s ease,transform .75s ease}
+.rv-r{opacity:0;transform:translateX(24px);transition:opacity .75s ease,transform .75s ease}
+.rv.on,.rv-l.on,.rv-r.on{opacity:1;transform:none}
+.section{padding:100px 60px}
+@media(max-width:768px){.section{padding:72px 24px}}
+.eyebrow{font-size:11px;letter-spacing:4px;text-transform:uppercase;font-weight:600;color:var(--green);margin-bottom:16px}
+.sec-h{font-family:'Playfair Display',serif;font-size:clamp(34px,5vw,60px);font-weight:900;line-height:1.08;color:var(--black)}
+.sec-h em{font-style:italic;color:var(--green)}
+.sec-h-white{color:var(--white)}
+.sec-sub{font-size:16px;color:var(--gray);line-height:1.8;max-width:560px}
+.hero{min-height:100vh;background:var(--black);display:flex;align-items:center;padding:140px 60px 100px;position:relative;overflow:hidden}
+.hero-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(29,185,84,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(29,185,84,.04) 1px,transparent 1px);background-size:64px 64px}
+.hero-glow{position:absolute;right:-5%;top:10%;width:600px;height:600px;border-radius:50%;background:radial-gradient(circle,rgba(29,185,84,.08) 0%,transparent 65%);animation:hglow 9s ease-in-out infinite}
+@keyframes hglow{0%,100%{transform:scale(1) translateY(0)}50%{transform:scale(1.05) translateY(-20px)}}
+.hero-content{position:relative;z-index:2;max-width:700px;flex:1}
+.hero-badge{display:inline-flex;align-items:center;gap:10px;border:1px solid rgba(29,185,84,.35);padding:8px 18px;margin-bottom:32px;font-size:11px;letter-spacing:3px;text-transform:uppercase;color:var(--green)}
+.badge-dot{width:7px;height:7px;border-radius:50%;background:var(--green);animation:bdot 1.6s ease infinite}
+@keyframes bdot{0%,100%{opacity:1}50%{opacity:.15}}
+.hero-h{font-family:'Playfair Display',serif;font-size:clamp(48px,8vw,96px);font-weight:900;line-height:.95;color:var(--white);letter-spacing:-1px}
+.hero-h .green{color:var(--green)}
+.hero-callout{border-left:2px solid var(--green);padding:14px 20px;margin-top:28px;max-width:520px}
+.hero-callout p{font-size:14px;color:rgba(255,255,255,.55);line-height:1.7}
+.hero-btns{display:flex;gap:16px;margin-top:40px;flex-wrap:wrap}
+.hero-stats{display:flex;gap:0;margin-top:60px;padding-top:40px;border-top:1px solid rgba(255,255,255,.07);flex-wrap:wrap;row-gap:24px}
+.hstat{padding-right:36px;margin-right:36px;border-right:1px solid rgba(255,255,255,.08)}
+.hstat:last-child{border:none;margin:0;padding:0}
+.hstat-n{font-family:'Playfair Display',serif;font-size:40px;font-weight:900;color:var(--white);line-height:1}
+.hstat-n span{color:var(--green)}
+.hstat-l{font-size:11px;color:rgba(255,255,255,.35);margin-top:5px;line-height:1.5;max-width:140px}
+.hero-photo{position:absolute;right:5%;bottom:0;width:clamp(260px,28vw,420px);z-index:2;animation:hphoto 1s ease .4s both}
+@keyframes hphoto{from{opacity:0;transform:translateX(30px)}to{opacity:1;transform:translateX(0)}}
+.hero-photo img{width:100%;-webkit-mask-image:linear-gradient(to top,transparent 0%,black 22%);mask-image:linear-gradient(to top,transparent 0%,black 22%)}
+.hero-float{position:absolute;left:-32px;bottom:60px;background:var(--white);padding:16px 24px;box-shadow:0 16px 48px rgba(0,0,0,.25)}
+.hf-n{font-family:'Playfair Display',serif;font-size:34px;font-weight:900;color:var(--black);line-height:1}
+.hf-n span{color:var(--green);font-size:20px}
+.hf-l{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--gray);margin-top:3px}
+@media(max-width:900px){.hero{padding:110px 24px 72px}.hero-photo{display:none}.hstat{border:none;margin:0;padding:0;min-width:calc(50% - 12px)}}
+.ticker{background:var(--green);padding:13px 0;overflow:hidden;white-space:nowrap}
+.ticker-inner{display:inline-flex;animation:tick 28s linear infinite}
+.ticker-item{font-size:13px;letter-spacing:3px;text-transform:uppercase;font-weight:700;color:var(--black);padding:0 28px}
+.ticker-dot{color:rgba(0,0,0,.3)}
+@keyframes tick{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+.about-bg{background:var(--white)}
+.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center}
+@media(max-width:900px){.about-grid{grid-template-columns:1fr;gap:48px}}
+.about-img-wrap{position:relative}
+.about-img-frame{position:absolute;top:-16px;left:-16px;right:16px;bottom:16px;border:1px solid rgba(29,185,84,.3);z-index:0;pointer-events:none}
+.about-img-wrap img{position:relative;z-index:1;width:100%;filter:grayscale(10%)}
+.about-badge{position:absolute;bottom:-24px;right:-24px;background:var(--green);color:var(--black);padding:20px 26px;z-index:3}
+.ab-n{font-family:'Playfair Display',serif;font-size:44px;font-weight:900;line-height:1}
+.ab-l{font-size:10px;letter-spacing:2px;text-transform:uppercase;font-weight:700;margin-top:3px}
+.about-body p{font-size:16px;color:var(--gray);line-height:1.85;margin-bottom:18px}
+.about-kpis{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:32px}
+.kpi{border-left:3px solid var(--green);padding:12px 16px;background:var(--off)}
+.kpi-n{font-family:'Playfair Display',serif;font-size:28px;font-weight:900;color:var(--black);line-height:1}
+.kpi-n span{color:var(--green)}
+.kpi-l{font-size:11px;letter-spacing:1.5px;text-transform:uppercase;color:var(--gray);margin-top:3px}
+.shift-bg{background:var(--off)}
+.shift-top{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:start;margin-bottom:48px}
+@media(max-width:900px){.shift-top{grid-template-columns:1fr;gap:24px;margin-bottom:32px}}
+.shift-right p{font-size:15px;color:var(--gray);line-height:1.85;margin-bottom:14px}
+.shift-points{display:flex;flex-direction:column;gap:12px}
+.shift-pt{display:flex;gap:16px;align-items:flex-start;background:var(--white);border:1px solid var(--border-light);padding:20px 22px;transition:border-color .2s,box-shadow .2s}
+.shift-pt:hover{border-color:rgba(29,185,84,.3);box-shadow:0 4px 20px rgba(0,0,0,.06)}
+.spt-num{width:30px;height:30px;background:var(--green);color:var(--black);font-size:13px;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.spt-title{font-size:14px;font-weight:700;color:var(--black);margin-bottom:5px}
+.spt-desc{font-size:13px;color:var(--gray);line-height:1.65}
+.services-bg{background:var(--white)}
+.svc-intro{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:end;margin-bottom:52px}
+@media(max-width:900px){.svc-intro{grid-template-columns:1fr;gap:20px;margin-bottom:36px}}
+.svc-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:1px;background:var(--border-light);border:1px solid var(--border-light)}
+.svc-card{background:var(--white);padding:40px 32px;position:relative;overflow:hidden;transition:background .3s}
+.svc-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--green);transform:scaleX(0);transform-origin:left;transition:transform .4s}
+.svc-card:hover{background:var(--off)}
+.svc-card:hover::before{transform:scaleX(1)}
+.svc-cat{font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--green);font-weight:700;margin-bottom:16px}
+.svc-icon{font-size:28px;margin-bottom:14px}
+.svc-name{font-family:'Playfair Display',serif;font-size:22px;font-weight:700;color:var(--black);margin-bottom:10px}
+.svc-desc{font-size:14px;color:var(--gray);line-height:1.7;margin-bottom:20px}
+.svc-pts{list-style:none;display:flex;flex-direction:column;gap:8px}
+.svc-pts li{display:flex;align-items:flex-start;gap:10px;font-size:13px;color:var(--gray);line-height:1.5}
+.svc-pts li::before{content:'';width:8px;height:8px;background:var(--green);border-radius:50%;flex-shrink:0;margin-top:4px}
+.scope-bg{background:var(--off)}
+.scope-top{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:end;margin-bottom:44px}
+@media(max-width:900px){.scope-top{grid-template-columns:1fr;gap:20px;margin-bottom:32px}}
+.scope-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+@media(max-width:768px){.scope-grid{grid-template-columns:1fr}}
+.scope-card{padding:36px 32px}
+.scope-dark{background:var(--black)}
+.scope-light{background:var(--white);border:1px solid var(--border-light)}
+.scope-title{font-family:'Playfair Display',serif;font-size:22px;font-weight:700;margin-bottom:24px}
+.scope-dark .scope-title{color:var(--white)}
+.scope-light .scope-title{color:var(--black)}
+.scope-list{list-style:none;display:flex;flex-direction:column;gap:12px}
+.scope-list li{display:flex;align-items:flex-start;gap:12px;font-size:14px;line-height:1.6}
+.scope-dark .scope-list li{color:rgba(255,255,255,.65)}
+.scope-light .scope-list li{color:var(--gray)}
+.dot-g{width:8px;height:8px;background:var(--green);border-radius:50%;flex-shrink:0;margin-top:5px}
+.dot-gr{width:8px;height:8px;background:#bbb;border-radius:50%;flex-shrink:0;margin-top:5px}
+.port-bg{background:var(--black)}
+.port-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:16px;margin-top:52px}
+.port-item{position:relative;overflow:hidden;background:#000;aspect-ratio:16/9}
+.port-item iframe{width:100%;height:100%;border:none;pointer-events:none}
+.port-item:hover iframe{pointer-events:all}
+.port-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.9) 0%,transparent 60%);padding:22px;display:flex;flex-direction:column;justify-content:flex-end;transition:opacity .3s}
+.port-item:hover .port-overlay{opacity:0}
+.port-cat{font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--green);margin-bottom:5px}
+.port-name{font-size:17px;font-weight:600;color:var(--white)}
+.port-play{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:52px;height:52px;border-radius:50%;background:rgba(29,185,84,.15);border:1px solid rgba(29,185,84,.45);display:flex;align-items:center;justify-content:center;font-size:18px;color:var(--green);transition:background .3s,transform .3s}
+.port-item:hover .port-play{background:var(--green);color:var(--black);transform:translate(-50%,-50%) scale(1.08)}
+.port-cta{text-align:center;margin-top:48px}
+.vrev-bg{background:var(--off)}
+.vrev-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px;margin-top:52px}
+.vrev-card{background:var(--white);border:1px solid var(--border-light);overflow:hidden;transition:box-shadow .3s}
+.vrev-card:hover{box-shadow:0 12px 48px rgba(0,0,0,.1)}
+.vrev-thumb{position:relative;aspect-ratio:16/9;background:#000;overflow:hidden}
+.vrev-thumb iframe{width:100%;height:100%;border:none;pointer-events:none}
+.vrev-thumb:hover iframe{pointer-events:all}
+.vrev-veil{position:absolute;inset:0;background:rgba(0,0,0,.28);display:flex;align-items:center;justify-content:center;transition:opacity .3s}
+.vrev-thumb:hover .vrev-veil{opacity:0}
+.vrev-play{width:50px;height:50px;border-radius:50%;background:var(--green);display:flex;align-items:center;justify-content:center;font-size:17px;color:var(--black)}
+.vrev-body{padding:20px 22px}
+.vrev-stars{color:var(--green);font-size:14px;margin-bottom:8px}
+.vrev-quote{font-size:14px;color:var(--gray);line-height:1.7;font-style:italic;margin-bottom:12px}
+.vrev-by{font-size:11px;font-weight:600;color:var(--black)}
+.vrev-badge{display:inline-block;font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--green);border:1px solid rgba(29,185,84,.3);padding:2px 8px;margin-left:8px}
+.screv-bg{background:var(--white)}
+.screv-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:52px}
+@media(max-width:900px){.screv-grid{grid-template-columns:1fr}}
+.screv-item{display:flex;flex-direction:column;gap:14px}
+.screv-lbl{display:flex;align-items:center;gap:12px}
+.screv-num{width:32px;height:32px;background:var(--green);color:var(--black);font-size:13px;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.screv-txt{font-size:13px;font-weight:700;color:var(--black)}
+.screv-sub{font-size:12px;color:var(--gray);margin-top:2px}
+.screv-arrow{color:var(--green);font-size:20px;margin-left:auto}
+.screv-box{background:var(--off);border:1px solid var(--border-light);overflow:hidden;min-height:200px;display:flex;align-items:center;justify-content:center;transition:box-shadow .3s}
+.screv-box:hover{box-shadow:0 8px 32px rgba(0,0,0,.08)}
+.screv-box img{width:100%;height:auto;display:block}
+.screv-ph{display:flex;flex-direction:column;align-items:center;gap:10px;padding:32px;text-align:center;width:100%;height:200px;justify-content:center}
+.screv-ph-icon{font-size:32px;opacity:.25}
+.screv-ph-txt{font-size:11px;color:var(--gray-light);letter-spacing:1px;text-transform:uppercase;line-height:1.6}
+.screv-cta{text-align:center;margin-top:44px}
+.why-bg{background:var(--off)}
+.why-grid{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:start}
+@media(max-width:900px){.why-grid{grid-template-columns:1fr;gap:48px}}
+.why-list{margin-top:40px;list-style:none}
+.why-item{display:flex;gap:20px;padding:24px 0;border-bottom:1px solid var(--border-light)}
+.why-item:first-child{border-top:1px solid var(--border-light)}
+.why-num{font-family:'Playfair Display',serif;font-size:36px;font-weight:900;color:rgba(29,185,84,.25);line-height:1;flex-shrink:0;width:44px}
+.why-t{font-size:15px;font-weight:700;color:var(--black);margin-bottom:5px}
+.why-d{font-size:13px;color:var(--gray);line-height:1.65}
+.fiv-panel{background:var(--black);padding:44px 36px;position:relative}
+.fiv-panel::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--green)}
+.fiv-head{display:flex;align-items:center;gap:16px;margin-bottom:28px}
+.fiv-av{width:56px;height:56px;border-radius:50%;overflow:hidden;border:2px solid var(--green);flex-shrink:0}
+.fiv-av img{width:100%;height:100%;object-fit:cover}
+.fiv-name{font-family:'Playfair Display',serif;font-size:22px;color:var(--white);font-weight:700}
+.fiv-level{font-size:11px;letter-spacing:1.5px;text-transform:uppercase;color:var(--green);margin-top:3px}
+.fiv-stats{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:24px}
+.fst{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);padding:16px}
+.fst-n{font-family:'Playfair Display',serif;font-size:30px;font-weight:900;color:var(--white);line-height:1}
+.fst-l{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.35);margin-top:3px}
+.fiv-link{display:block;text-align:center;border:1px solid var(--green);color:var(--green);padding:13px;font-size:12px;letter-spacing:2px;text-transform:uppercase;font-weight:600;transition:background .2s,color .2s}
+.fiv-link:hover{background:var(--green);color:var(--black)}
+.brands-bg{background:var(--white);padding:64px 60px}
+@media(max-width:768px){.brands-bg{padding:56px 24px}}
+.brands-lbl{font-size:11px;letter-spacing:4px;text-transform:uppercase;color:var(--gray-light);text-align:center;margin-bottom:44px;font-weight:600}
+.brands-row{display:flex;justify-content:center;align-items:center;gap:40px;flex-wrap:wrap}
+.brand-chip{opacity:.35;filter:grayscale(1);transition:opacity .25s,filter .25s;display:flex;flex-direction:column;align-items:center;gap:6px;cursor:default}
+.brand-chip:hover{opacity:.9;filter:grayscale(0)}
+.brand-chip img{height:28px;width:auto}
+.brand-logo-box{width:80px;height:44px;display:flex;align-items:center;justify-content:center;border:1px dashed rgba(0,0,0,.15);background:var(--off);transition:border-color .25s}
+.brand-chip:hover .brand-logo-box{border-color:rgba(29,185,84,.4)}
+.brand-logo-box img{height:28px;width:auto;max-width:72px;object-fit:contain}
+.brand-logo-empty{font-size:9px;letter-spacing:1px;text-transform:uppercase;color:var(--gray-light);font-weight:500}
+.brand-chip .bn{font-size:14px;font-weight:800;letter-spacing:-.3px;color:var(--black)}
+.brand-chip .bl{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--gray)}
+.pkg-bg{background:var(--black)}
+.pkg-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px;margin-top:52px}
+.pkg-card{background:var(--dark2);border:1px solid rgba(255,255,255,.07);padding:36px 30px;transition:border-color .3s}
+.pkg-card:hover{border-color:rgba(29,185,84,.3)}
+.pkg-card.featured{border-color:var(--green);background:var(--dark)}
+.pkg-tag{display:inline-block;background:var(--green);color:var(--black);font-size:10px;letter-spacing:2px;text-transform:uppercase;font-weight:800;padding:4px 12px;margin-bottom:20px}
+.pkg-name{font-family:'Playfair Display',serif;font-size:26px;font-weight:900;color:var(--white);margin-bottom:8px}
+.pkg-desc{font-size:13px;color:rgba(255,255,255,.4);line-height:1.65;margin-bottom:24px}
+.pkg-pts{list-style:none;display:flex;flex-direction:column;gap:10px;margin-bottom:28px}
+.pkg-pts li{display:flex;align-items:flex-start;gap:10px;font-size:13px;color:rgba(255,255,255,.6);line-height:1.5}
+.pkg-pts li::before{content:'';width:7px;height:7px;background:var(--green);border-radius:50%;flex-shrink:0;margin-top:4px}
+.pkg-cta{display:block;text-align:center;border:1px solid rgba(255,255,255,.2);color:rgba(255,255,255,.6);padding:12px;font-size:12px;letter-spacing:1.5px;text-transform:uppercase;font-weight:600;transition:all .2s}
+.pkg-card.featured .pkg-cta{background:var(--green);border-color:var(--green);color:var(--black)}
+.pkg-cta:hover,.pkg-card.featured .pkg-cta:hover{border-color:var(--green);color:var(--green);background:transparent}
+.pkg-card.featured .pkg-cta:hover{background:var(--green-dark);color:var(--black)}
+.proc-bg{background:var(--off)}
+.proc-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:2px;margin-top:52px;background:var(--border-light)}
+.proc-card{background:var(--white);padding:36px 28px;position:relative;transition:background .3s}
+.proc-card:hover{background:var(--off)}
+.proc-num{font-family:'Playfair Display',serif;font-size:72px;font-weight:900;color:rgba(29,185,84,.08);line-height:1;margin-bottom:20px}
+.proc-title{font-size:17px;font-weight:700;color:var(--black);margin-bottom:10px}
+.proc-desc{font-size:13px;color:var(--gray);line-height:1.65}
+.proc-arrow{position:absolute;top:36px;right:-14px;width:28px;height:28px;background:var(--green);display:flex;align-items:center;justify-content:center;font-size:12px;color:var(--black);font-weight:700;z-index:2}
+.proc-card:last-child .proc-arrow{display:none}
+@media(max-width:768px){.proc-arrow{display:none}}
+.faq-bg{background:var(--white)}
+.faq-grid{display:grid;grid-template-columns:1fr 1fr;gap:48px;margin-top:52px}
+@media(max-width:900px){.faq-grid{grid-template-columns:1fr}}
+.faq-item{border-bottom:1px solid var(--border-light);padding-bottom:24px;margin-bottom:24px}
+.faq-q{font-size:15px;font-weight:700;color:var(--black);cursor:pointer;display:flex;justify-content:space-between;align-items:flex-start;gap:12px;line-height:1.4}
+.faq-icon{width:24px;height:24px;border:1px solid var(--border-light);display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;color:var(--green);transition:transform .3s;margin-top:2px}
+.faq-item.open .faq-icon{transform:rotate(45deg)}
+.faq-a{font-size:14px;color:var(--gray);line-height:1.75;display:none;margin-top:12px}
+.faq-item.open .faq-a{display:block}
+.cta-bg{background:var(--black);padding:120px 60px;text-align:center;position:relative;overflow:hidden}
+@media(max-width:768px){.cta-bg{padding:80px 24px}}
+.cta-wm{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-family:'Playfair Display',serif;font-size:clamp(80px,15vw,220px);font-weight:900;color:rgba(29,185,84,.04);white-space:nowrap;pointer-events:none}
+.cta-h{font-family:'Playfair Display',serif;font-size:clamp(36px,6vw,72px);font-weight:900;color:var(--white);line-height:1.05;margin-bottom:20px}
+.cta-h em{font-style:italic;color:var(--green)}
+.cta-sub{font-size:16px;color:rgba(255,255,255,.45);max-width:500px;margin:0 auto 44px;line-height:1.75}
+.cta-btns{display:flex;justify-content:center;gap:16px;flex-wrap:wrap;margin-bottom:52px}
+.cta-facts{display:flex;justify-content:center;gap:44px;flex-wrap:wrap}
+@media(max-width:768px){.cta-facts{gap:20px}}
+.cta-fact{display:flex;align-items:center;gap:10px;font-size:13px;color:rgba(255,255,255,.45)}
+.cta-icon{width:36px;height:36px;border:1px solid rgba(29,185,84,.25);display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0}
+footer{background:var(--dark);padding:60px 60px 32px}
+@media(max-width:768px){footer{padding:48px 24px 28px}}
+.footer-top{display:grid;grid-template-columns:1.6fr 1fr 1fr 1fr;gap:48px;padding-bottom:48px;border-bottom:1px solid rgba(255,255,255,.06)}
+@media(max-width:900px){.footer-top{grid-template-columns:1fr 1fr;row-gap:36px}}
+@media(max-width:540px){.footer-top{grid-template-columns:1fr}}
+.f-logo{font-family:'Playfair Display',serif;font-size:30px;font-weight:900;color:var(--white)}
+.f-logo span{color:var(--green)}
+.f-tag{font-size:13px;color:rgba(255,255,255,.3);margin-top:10px;max-width:220px;line-height:1.6}
+.f-socials{display:flex;gap:10px;margin-top:22px}
+.fsoc{width:38px;height:38px;border:1px solid rgba(255,255,255,.1);display:flex;align-items:center;justify-content:center;font-size:13px;color:rgba(255,255,255,.4);transition:border-color .2s,color .2s}
+.fsoc:hover{border-color:var(--green);color:var(--green)}
+.f-col h4{font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--green);margin-bottom:18px;font-weight:700}
+.f-col a{display:block;font-size:13px;color:rgba(255,255,255,.38);margin-bottom:10px;transition:color .2s}
+.f-col a:hover{color:var(--white)}
+.footer-bottom{display:flex;justify-content:space-between;align-items:center;padding-top:24px;flex-wrap:wrap;gap:10px}
+.footer-bottom p{font-size:12px;color:rgba(255,255,255,.18)}
+.footer-bottom a{font-size:12px;color:var(--green)}
+</style>
+</head>
+<body>
+<div class="cur" id="cur"></div><div class="cur-r" id="curR"></div>
+<div id="loader"><div class="loader-txt">FH</div><div class="loader-sub">Video Ad Specialist</div><div class="loader-bar"><div class="loader-fill"></div></div></div>
+<div class="overlay" id="overlay"></div>
+
+<nav id="nav">
+  <div class="nav-logo">Faisal<span>.</span></div>
+  <div class="nav-links">
+    <a href="#about">About</a><a href="#services">Services</a><a href="#portfolio">Work</a><a href="#packages">Packages</a><a href="#faq">FAQ</a>
+    <a href="https://wa.me/923302126300" class="nav-cta-btn" target="_blank">Send Brief →</a>
+  </div>
+  <div class="hamburger" id="hamburger"><span></span><span></span><span></span></div>
+</nav>
+<div class="drawer" id="drawer">
+  <a href="#about" class="dl">About</a><a href="#services" class="dl">Services</a><a href="#portfolio" class="dl">Work</a><a href="#packages" class="dl">Packages</a><a href="#faq" class="dl">FAQ</a>
+  <a href="https://wa.me/923302126300" class="d-cta dl" target="_blank">💬 Send Your Brief</a>
+</div>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="hero-grid"></div><div class="hero-glow"></div>
+  <div class="hero-content">
+    <div class="hero-badge"><span class="badge-dot"></span>Available — Taking New Projects</div>
+    <h1 class="hero-h">Video editing built<br>to get <span class="green">results,</span><br>not just views.</h1>
+    <div class="hero-callout">
+      <p>I create scroll-stopping ad creatives, polished YouTube content, high-converting VSLs, and everything in between — for brands and creators who need video that actually performs. I focus on the part that decides whether people stop, understand, trust, and take action: <strong style="color:rgba(255,255,255,.8)">the edit.</strong></p>
+    </div>
+    <div class="hero-btns">
+      <a href="https://wa.me/923302126300" class="btn-green" target="_blank"><svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.096.541 4.062 1.487 5.774L0 24l6.389-1.676A11.942 11.942 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.797 9.797 0 01-5.003-1.374l-.359-.213-3.72.976.994-3.624-.234-.372A9.795 9.795 0 012.182 12C2.182 6.57 6.57 2.182 12 2.182S21.818 6.57 21.818 12 17.43 21.818 12 21.818z"/></svg>Send Your Brief</a>
+      <a href="#portfolio" class="btn-outline-white">Watch Examples</a>
+    </div>
+    <div class="hero-stats">
+      <div class="hstat"><div class="hstat-n">2.5k<span>+</span></div><div class="hstat-l">Projects delivered across freelance platforms and direct clients</div></div>
+      <div class="hstat"><div class="hstat-n">1.6k<span>+</span></div><div class="hstat-l">Platform reviews from buyers who needed work finished properly</div></div>
+      <div class="hstat"><div class="hstat-n">4.9<span>★</span></div><div class="hstat-l">Fiverr rating built on repeat delivery</div></div>
+      <div class="hstat"><div class="hstat-n">5<span>+</span></div><div class="hstat-l">Years turning raw footage and ideas into finished ad creative</div></div>
+    </div>
+  </div>
+  <div class="hero-photo">
+    <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjmRyIqtOVyun7hOmwBkba5CglWZLtXTCWAbbDPuDJmVCYhbn0h6X_9iKTb-2FAdHdHf6SgsWcY2auMx9mP-u1tC88EcaaD0oHOui0YLyeCdwQgcqA3LDBrw2Jj7irrlWpafYBgOH5CWVOA/w718-h834-no" alt="Faisal Hanif">
+    <div class="hero-float"><div class="hf-n">40<span>+</span></div><div class="hf-l">Countries Served</div></div>
+  </div>
+</section>
+
+<!-- TICKER -->
+<div class="ticker" aria-hidden="true"><div class="ticker-inner">
+  <span class="ticker-item">Facebook Ads</span><span class="ticker-dot"> ✦ </span><span class="ticker-item">YouTube Editing</span><span class="ticker-dot"> ✦ </span><span class="ticker-item">Video Sales Letters</span><span class="ticker-dot"> ✦ </span><span class="ticker-item">UGC Creatives</span><span class="ticker-dot"> ✦ </span><span class="ticker-item">TikTok Ads</span><span class="ticker-dot"> ✦ </span><span class="ticker-item">AI Video Ads</span><span class="ticker-dot"> ✦ </span><span class="ticker-item">Motion Graphics</span><span class="ticker-dot"> ✦ </span><span class="ticker-item">Ecommerce Creatives</span><span class="ticker-dot"> ✦ </span><span class="ticker-item">Facebook Ads</span><span class="ticker-dot"> ✦ </span><span class="ticker-item">YouTube Editing</span><span class="ticker-dot"> ✦ </span><span class="ticker-item">Video Sales Letters</span><span class="ticker-dot"> ✦ </span><span class="ticker-item">UGC Creatives</span><span class="ticker-dot"> ✦ </span><span class="ticker-item">TikTok Ads</span><span class="ticker-dot"> ✦ </span><span class="ticker-item">AI Video Ads</span><span class="ticker-dot"> ✦ </span><span class="ticker-item">Motion Graphics</span><span class="ticker-dot"> ✦ </span><span class="ticker-item">Ecommerce Creatives</span><span class="ticker-dot"> ✦ </span>
+</div></div>
+
+<!-- ABOUT -->
+<section class="section about-bg" id="about">
+  <div class="about-grid">
+    <div class="rv-l">
+      <div class="about-img-wrap">
+        <div class="about-img-frame"></div>
+        <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjmRyIqtOVyun7hOmwBkba5CglWZLtXTCWAbbDPuDJmVCYhbn0h6X_9iKTb-2FAdHdHf6SgsWcY2auMx9mP-u1tC88EcaaD0oHOui0YLyeCdwQgcqA3LDBrw2Jj7irrlWpafYBgOH5CWVOA/w718-h834-no" alt="Faisal Hanif">
+        <div class="about-badge"><div class="ab-n">5+</div><div class="ab-l">Years of<br>Excellence</div></div>
+      </div>
+    </div>
+    <div class="rv-r">
+      <div class="eyebrow">About Me</div>
+      <h2 class="sec-h">The creative behind<br>the <em>conversions.</em></h2>
+      <div class="about-body" style="margin-top:24px">
+        <p>I'm Faisal Hanif — a full-time freelance video editing specialist based in Pakistan. For 5+ years I've been turning raw footage, UGC, AI visuals, and product assets into polished video content that performs — whether that's a Facebook ad, a YouTube video, or a high-ticket VSL.</p>
+        <p>I specialise in Video Ads, Video Sales Letters, and YouTube editing. I don't run ad accounts or manage campaigns — I focus exclusively on the edit: hooks, pacing, structure, motion graphics, and sound design that make people watch, trust, and act.</p>
+        <p>I also run <strong>3EditorsLab</strong> — a small creative team that handles larger-scale video production for agencies and brands.</p>
+      </div>
+      <div class="about-kpis">
+        <div class="kpi"><div class="kpi-n">2.5k<span>+</span></div><div class="kpi-l">Projects Delivered</div></div>
+        <div class="kpi"><div class="kpi-n">1.6k<span>+</span></div><div class="kpi-l">5★ Reviews</div></div>
+        <div class="kpi"><div class="kpi-n">40<span>+</span></div><div class="kpi-l">Countries Served</div></div>
+        <div class="kpi"><div class="kpi-n">4.9<span>★</span></div><div class="kpi-l">Fiverr Rating</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- THE SHIFT -->
+<section class="section shift-bg" id="shift">
+  <div class="shift-top">
+    <div class="rv-l"><div class="eyebrow">The Shift</div><h2 class="sec-h">Pretty edits do not save weak creative.</h2></div>
+    <div class="rv-r shift-right"><p>Your ad has a brutal job: earn attention, explain the offer fast, make the product feel worth trying, and give the viewer a reason to take action now.</p><p>That is where I work. I take your product footage, UGC, testimonials, AI visuals, voiceover, or raw idea and turn it into ad creative that is structured for the sale.</p></div>
+  </div>
+  <div class="shift-points rv">
+    <div class="shift-pt"><div class="spt-num">1</div><div><div class="spt-title">Hooks that stop the right buyer</div><div class="spt-desc">The first seconds are built around the viewer's pain, desire, objection, curiosity, or proof point — not random effects or flashy transitions that look good but say nothing.</div></div></div>
+    <div class="shift-pt"><div class="spt-num">2</div><div><div class="spt-title">Edits that make the offer clear</div><div class="spt-desc">Fast pacing, captions, product shots, sound design, and motion graphics are used to make the message easier to understand and easier to buy from — every element earns its place.</div></div></div>
+    <div class="shift-pt"><div class="spt-num">3</div><div><div class="spt-title">Variants your media buyer can actually test</div><div class="spt-desc">Instead of one beautiful video, you can get multiple angles, hooks, cutdowns, and formats — ready to drop into your ad account and run against each other immediately.</div></div></div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section class="section services-bg" id="services">
+  <div class="svc-intro">
+    <div class="rv-l"><div class="eyebrow">Services</div><h2 class="sec-h">Video editing built<br>for every goal your<br><em>business has.</em></h2></div>
+    <div class="rv-r"><p class="sec-sub">Ads, VSLs, YouTube content, UGC — bring the footage, product, or idea. I shape the edit, structure the message, and deliver content that makes people watch and take action.</p></div>
+  </div>
+  <div class="svc-grid">
+    <div class="svc-card rv"><div class="svc-cat">Short-Form Ads</div><div class="svc-icon">📱</div><div class="svc-name">Meta & TikTok Ad Creatives</div><div class="svc-desc">Direct-response video ads for ecommerce, apps, services, and lead generation offers — built to stop the scroll and push the click.</div><ul class="svc-pts"><li>Multiple hook options per video</li><li>Feed, story, and reel formats</li><li>Captions, pacing, and sound design</li><li>Platform-ready aspect ratios (9:16, 1:1, 4:5)</li></ul></div>
+    <div class="svc-card rv"><div class="svc-cat">Sales Pages</div><div class="svc-icon">🎬</div><div class="svc-name">VSL & Explainer Videos</div><div class="svc-desc">Long-form video sales letters for courses, coaching, software, and high-ticket offers — structured to sell, not just inform.</div><ul class="svc-pts"><li>Script flow and visual structure</li><li>Motion graphics and proof moments</li><li>Clean handoff for landing pages</li><li>Voiceover integration</li></ul></div>
+    <div class="svc-card rv"><div class="svc-cat">Content Creation</div><div class="svc-icon">▶️</div><div class="svc-name">YouTube Video Editing</div><div class="svc-desc">Long-form and short-form YouTube content edited for watch time, retention, and subscriber growth — not just for looks.</div><ul class="svc-pts"><li>Engaging cuts that hold attention</li><li>Lower thirds, titles, and graphics</li><li>Color grading and audio polish</li><li>Shorts and clip repurposing</li></ul></div>
+    <div class="svc-card rv"><div class="svc-cat">Trust Builders</div><div class="svc-icon">🎭</div><div class="svc-name">UGC-Style Ads</div><div class="svc-desc">Native-feeling edits that look closer to creator content while still selling the offer clearly. Builds trust fast at scale.</div><ul class="svc-pts"><li>Founder, creator, or testimonial edits</li><li>Problem-solution ad structures</li><li>Variations for testing different angles</li><li>Raw-but-polished authentic feel</li></ul></div>
+    <div class="svc-card rv"><div class="svc-cat">Scale Assets</div><div class="svc-icon">🤖</div><div class="svc-name">AI-Assisted Video Ads</div><div class="svc-desc">AI visuals combined with professional editing for products and offers that need fast creative volume without sacrificing quality.</div><ul class="svc-pts"><li>AI scene generation support</li><li>Product or concept visualization</li><li>Human-edited final polish</li><li>Rapid iteration at scale</li></ul></div>
+    <div class="svc-card rv"><div class="svc-cat">Full Production</div><div class="svc-icon">🎞️</div><div class="svc-name">General Video Editing</div><div class="svc-desc">Podcast edits, brand videos, promo clips, testimonials, event recaps — if it needs a professional edit, I can handle it.</div><ul class="svc-pts"><li>Multi-camera and single-camera edits</li><li>B-roll integration and transitions</li><li>Music sync and sound design</li><li>Any format, any platform</li></ul></div>
+  </div>
+</section>
+
+<!-- CLEAR SCOPE -->
+<section class="section scope-bg" id="scope">
+  <div class="scope-top">
+    <div class="rv-l"><div class="eyebrow">Clear Scope</div><h2 class="sec-h">I am your creative<br>side, not your ad<br>account manager.</h2></div>
+    <div class="rv-r"><p class="sec-sub">This makes the relationship cleaner and the results more predictable. You hire me for the asset people see before they click — everything after that click is outside my scope.</p></div>
+  </div>
+  <div class="scope-grid rv">
+    <div class="scope-card scope-dark">
+      <div class="scope-title">What I handle</div>
+      <ul class="scope-list">
+        <li><span class="dot-g"></span>Ad creative strategy based on your product, offer, and buyer</li>
+        <li><span class="dot-g"></span>Hooks, scripts, edit direction, captions, motion, sound, and pacing</li>
+        <li><span class="dot-g"></span>Creative variations, aspect ratios, cutdowns, and platform-ready exports</li>
+        <li><span class="dot-g"></span>Polished delivery with communication fast enough for campaign timelines</li>
+        <li><span class="dot-g"></span>Multiple format variants for A/B testing</li>
+      </ul>
+    </div>
+    <div class="scope-card scope-light">
+      <div class="scope-title">What I do not handle</div>
+      <ul class="scope-list">
+        <li><span class="dot-gr"></span>Media buying, campaign setup, budget management, or pixel tracking</li>
+        <li><span class="dot-gr"></span>Guaranteeing ROAS, CPA, or leads — those depend on your offer, targeting, page, and traffic</li>
+        <li><span class="dot-gr"></span>Replacing your ad strategist or performance marketer</li>
+        <li><span class="dot-gr"></span>Making a vague idea perform without proper assets, context, or direction</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- PORTFOLIO -->
+<section class="section port-bg" id="portfolio">
+  <div class="eyebrow rv" style="color:var(--green)">Portfolio</div>
+  <h2 class="sec-h sec-h-white rv">Work that<br><em>speaks louder.</em></h2>
+  <div class="port-grid">
+    <div class="port-item rv"><iframe src="https://www.youtube.com/embed/nl98Qdinfn4" allowfullscreen loading="lazy" title="Portfolio 1"></iframe><div class="port-overlay"><div class="port-cat">Long Form · Motion Graphics</div><div class="port-name">YouTube Content — 4K Edit</div></div><div class="port-play">▶</div></div>
+    <div class="port-item rv"><iframe src="https://www.youtube.com/embed/oSiyAYYzoA8" allowfullscreen loading="lazy" title="Portfolio 2"></iframe><div class="port-overlay"><div class="port-cat">VSL · Animation · Color Grade</div><div class="port-name">Video Sales Letter</div></div><div class="port-play">▶</div></div>
+    <div class="port-item rv"><iframe src="https://www.youtube.com/embed/Azq-qTzsTVw" allowfullscreen loading="lazy" title="Portfolio 3"></iframe><div class="port-overlay"><div class="port-cat">Product Ad · Sound Design</div><div class="port-name">Ecommerce Ad Creative</div></div><div class="port-play">▶</div></div>
+  </div>
+  <div class="port-cta rv"><a href="https://www.thefaisalhanif.com/video-editing-portfolio.html" class="btn-green" target="_blank">View Full Portfolio →</a></div>
+</section>
+
+<!-- VIDEO REVIEWS -->
+<section class="section vrev-bg" id="reviews">
+  <div class="eyebrow rv">Client Testimonials</div>
+  <h2 class="sec-h rv">What clients say<br><em>on camera.</em></h2>
+  <div class="vrev-grid">
+    <div class="vrev-card rv"><div class="vrev-thumb"><iframe src="https://www.youtube.com/embed/vhd6DcAqRg0" allowfullscreen loading="lazy" title="Review 1"></iframe><div class="vrev-veil"><div class="vrev-play">▶</div></div></div><div class="vrev-body"><div class="vrev-stars">★★★★★</div><div class="vrev-quote">"Faisal's video ad delivered a 5x ROAS in the first week. He understood the brief perfectly and executed without endless back-and-forth."</div><div class="vrev-by">Client Review <span class="vrev-badge">Fiverr</span></div></div></div>
+    <div class="vrev-card rv"><div class="vrev-thumb"><iframe src="https://www.youtube.com/embed/N8RGxGGqrJU" allowfullscreen loading="lazy" title="Review 2"></iframe><div class="vrev-veil"><div class="vrev-play">▶</div></div></div><div class="vrev-body"><div class="vrev-stars">★★★★★</div><div class="vrev-quote">"Best video editor on Fiverr. Fast communication, sharp creative instincts, and delivered beyond what I described in the brief."</div><div class="vrev-by">Client Review <span class="vrev-badge">Fiverr</span></div></div></div>
+    <div class="vrev-card rv"><div class="vrev-thumb"><iframe src="https://www.youtube.com/embed/IRAhJMTQMuI" allowfullscreen loading="lazy" title="Review 3"></iframe><div class="vrev-veil"><div class="vrev-play">▶</div></div></div><div class="vrev-body"><div class="vrev-stars">★★★★★</div><div class="vrev-quote">"Our Facebook campaign generated 100+ leads in 2 weeks using Faisal's creatives. Professional, fast, and genuinely talented."</div><div class="vrev-by">Client Review <span class="vrev-badge">Fiverr</span></div></div></div>
+  </div>
+</section>
+
+<!-- SCREENSHOT REVIEWS -->
+<section class="section screv-bg">
+  <div class="eyebrow rv">Written Reviews</div>
+  <h2 class="sec-h rv">1,600+ five-star<br><em>reviews on Fiverr.</em></h2>
+  <p class="sec-sub rv" style="margin-top:16px">Real screenshots from real buyers. Replace placeholders below with your actual Fiverr review screenshots.</p>
+  <div class="screv-grid">
+    <div class="screv-item rv">
+      <div class="screv-lbl"><div class="screv-num">01</div><div><div class="screv-txt">Ecommerce Brand Owner</div><div class="screv-sub">Facebook Ad Creative · 5 Stars</div></div><div class="screv-arrow">↓</div></div>
+      <div class="screv-box"><div class="screv-ph"><div class="screv-ph-icon">📸</div><div class="screv-ph-txt">Replace with your<br>Fiverr review screenshot<br><br>&lt;img src="review1.jpg"&gt;</div></div></div>
+    </div>
+    <div class="screv-item rv">
+      <div class="screv-lbl"><div class="screv-num">02</div><div><div class="screv-txt">SaaS Company Founder</div><div class="screv-sub">VSL Video Production · 5 Stars</div></div><div class="screv-arrow">↓</div></div>
+      <div class="screv-box"><div class="screv-ph"><div class="screv-ph-icon">📸</div><div class="screv-ph-txt">Replace with your<br>Fiverr review screenshot<br><br>&lt;img src="review2.jpg"&gt;</div></div></div>
+    </div>
+    <div class="screv-item rv">
+      <div class="screv-lbl"><div class="screv-num">03</div><div><div class="screv-txt">Digital Marketing Agency</div><div class="screv-sub">UGC Ad Package · 5 Stars</div></div><div class="screv-arrow">↓</div></div>
+      <div class="screv-box"><div class="screv-ph"><div class="screv-ph-icon">📸</div><div class="screv-ph-txt">Replace with your<br>Fiverr review screenshot<br><br>&lt;img src="review3.jpg"&gt;</div></div></div>
+    </div>
+  </div>
+  <div class="screv-cta rv"><a href="https://www.fiverr.com/faisalhanif652" target="_blank" class="btn-green">See All 1,600+ Reviews on Fiverr →</a></div>
+</section>
+
+<!-- WHY ME -->
+<section class="section why-bg">
+  <div class="why-grid">
+    <div>
+      <div class="eyebrow rv">Why Choose Me</div>
+      <h2 class="sec-h rv">Results over<br><em>everything.</em></h2>
+      <ul class="why-list">
+        <li class="why-item rv"><div class="why-num">01</div><div><div class="why-t">Performance-first thinking</div><div class="why-d">Every cut, every hook, every transition is made with one goal — your conversions. Not a pretty reel for a portfolio.</div></div></li>
+        <li class="why-item rv"><div class="why-num">02</div><div><div class="why-t">2,500+ projects of real proof</div><div class="why-d">Five years, real results, and 1,600+ verified five-star reviews across platforms. The track record is the pitch.</div></div></li>
+        <li class="why-item rv"><div class="why-num">03</div><div><div class="why-t">Fast delivery, no excuses</div><div class="why-d">Your campaigns can't wait for slow creatives. I deliver on time, communicate clearly, and never miss a deadline.</div></div></li>
+        <li class="why-item rv"><div class="why-num">04</div><div><div class="why-t">Revisions until it is right</div><div class="why-d">No hidden revision fees. No arguments. We work until the creative is exactly what your campaign needs to run.</div></div></li>
+      </ul>
+    </div>
+    <div class="rv-r">
+      <div class="fiv-panel">
+        <div class="fiv-head"><div class="fiv-av"><img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjmRyIqtOVyun7hOmwBkba5CglWZLtXTCWAbbDPuDJmVCYhbn0h6X_9iKTb-2FAdHdHf6SgsWcY2auMx9mP-u1tC88EcaaD0oHOui0YLyeCdwQgcqA3LDBrw2Jj7irrlWpafYBgOH5CWVOA/w718-h834-no" alt="Faisal"></div><div><div class="fiv-name">Faisal Hanif</div><div class="fiv-level">⭐ Level 2 Seller · Video Ad Creative</div></div></div>
+        <div class="fiv-stats"><div class="fst"><div class="fst-n">4.9</div><div class="fst-l">Avg Rating</div></div><div class="fst"><div class="fst-n">1.6k+</div><div class="fst-l">Reviews</div></div><div class="fst"><div class="fst-n">2.5k+</div><div class="fst-l">Orders Done</div></div><div class="fst"><div class="fst-n">98%</div><div class="fst-l">Completion</div></div></div>
+        <a href="https://www.fiverr.com/faisalhanif652" class="fiv-link" target="_blank">View Fiverr Profile →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BRANDS -->
+<div class="brands-bg rv">
+  <p class="brands-lbl">Brands & Channels I've Worked With</p>
+  <div class="brands-row">
+    <div class="brand-chip">
+      <div class="brand-logo-box"><img src="https://i.ibb.co/Z6f218N0/filmora-square.png" alt="Wondershare"></div>
+      <span class="bl">Wondershare</span>
+    </div>
+    <div class="brand-chip">
+      <div class="brand-logo-box"><img src="https://i.ibb.co/b572xR2g/stellar-logo.png" alt="Stellar"></div>
+      <span class="bl">Stellar</span>
+    </div>
+    <div class="brand-chip">
+      <div class="brand-logo-box"><img src="https://i.ibb.co/MDt5nv00/img-7c51d39b0d82f797ac6b3797d437fe21-0-100-0-0-auto.png" alt="NodyTalk"></div>
+      <span class="bl">NodyTalk</span>
+    </div>
+    <div class="brand-chip">
+      <div class="brand-logo-box brand-logo-empty">Logo</div>
+      <span class="bl">Systeme.io</span>
+    </div>
+    <div class="brand-chip">
+      <div class="brand-logo-box brand-logo-empty">Logo</div>
+      <span class="bl">SocialNerds</span>
+    </div>
+    <div class="brand-chip">
+      <div class="brand-logo-box brand-logo-empty">Logo</div>
+      <span class="bl">ViscapMedia</span>
+    </div>
+    <div class="brand-chip">
+      <div class="brand-logo-box brand-logo-empty">Logo</div>
+      <span class="bl">FXGlobe.com</span>
+    </div>
+    <div class="brand-chip">
+      <div class="brand-logo-box brand-logo-empty">Logo</div>
+      <span class="bl">Makeit.io</span>
+    </div>
+    <div class="brand-chip">
+      <div class="brand-logo-box brand-logo-empty">Logo</div>
+      <span class="bl">Coursera</span>
+    </div>
+    <div class="brand-chip">
+      <div class="brand-logo-box brand-logo-empty">Logo</div>
+      <span class="bl">Bridox</span>
+    </div>
+    <div class="brand-chip">
+      <div class="brand-logo-box brand-logo-empty">Logo</div>
+      <span class="bl">1HourDeveloper</span>
+    </div>
+  </div>
+</div>
+
+<!-- PACKAGES -->
+<section class="section pkg-bg" id="packages">
+  <div class="eyebrow rv" style="color:var(--green)">Packages</div>
+  <h2 class="sec-h sec-h-white rv">Pick the right<br><em>creative package.</em></h2>
+  <div class="pkg-grid">
+    <div class="pkg-card rv"><div class="pkg-tag">Starter</div><div class="pkg-name">Single Ad</div><div class="pkg-desc">One polished video ad with one hook variation. Good for testing a new offer or product quickly.</div><ul class="pkg-pts"><li>1 video ad (up to 60 sec)</li><li>1 hook variant</li><li>Captions + sound design</li><li>1 platform format</li><li>3 rounds of revisions</li></ul><a href="https://wa.me/923302126300" class="pkg-cta" target="_blank">Send Brief →</a></div>
+    <div class="pkg-card featured rv"><div class="pkg-tag">Most Popular</div><div class="pkg-name">Ad Pack</div><div class="pkg-desc">Multiple hooks, angles, and formats for your media buyer to run real tests and find winners fast.</div><ul class="pkg-pts"><li>3 video ads with different hooks</li><li>Feed + Story + Reel formats</li><li>Captions, motion graphics, sound</li><li>Cutdowns (15s + 30s + 60s)</li><li>Unlimited revisions</li></ul><a href="https://wa.me/923302126300" class="pkg-cta" target="_blank">Send Brief →</a></div>
+    <div class="pkg-card rv"><div class="pkg-tag">Scale</div><div class="pkg-name">Monthly Retainer</div><div class="pkg-desc">Ongoing creative production for brands that need a reliable creative partner every month.</div><ul class="pkg-pts"><li>Weekly creative delivery</li><li>Dedicated turnaround slot</li><li>All formats + variants included</li><li>Direct WhatsApp communication</li><li>Priority queue, no delays</li></ul><a href="https://wa.me/923302126300" class="pkg-cta" target="_blank">Let's Talk →</a></div>
+  </div>
+</section>
+
+<!-- PROCESS -->
+<section class="section proc-bg" id="process">
+  <div class="eyebrow rv">How It Works</div>
+  <h2 class="sec-h rv">Simple process,<br><em>exceptional results.</em></h2>
+  <div class="proc-grid">
+    <div class="proc-card rv"><div class="proc-arrow">→</div><div class="proc-num">01</div><div class="proc-title">Send Your Brief</div><div class="proc-desc">Share your product, offer, target audience, platform, references, and any existing footage or assets you have.</div></div>
+    <div class="proc-card rv"><div class="proc-arrow">→</div><div class="proc-num">02</div><div class="proc-title">I Plan the Creative</div><div class="proc-desc">I structure the hook, ad narrative, visual plan, and variant angles before a single frame is edited.</div></div>
+    <div class="proc-card rv"><div class="proc-arrow">→</div><div class="proc-num">03</div><div class="proc-title">Edit & Deliver</div><div class="proc-desc">Professional edit with motion graphics, captions, sound design, and color grade. Delivered on time, every time.</div></div>
+    <div class="proc-card rv"><div class="proc-num">04</div><div class="proc-title">Revise & Launch</div><div class="proc-desc">Your feedback applied until the creative is exactly right. Hand off to your media buyer and scale what works.</div></div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="section faq-bg" id="faq">
+  <div class="eyebrow rv">FAQ</div>
+  <h2 class="sec-h rv">Questions buyers<br><em>actually ask.</em></h2>
+  <div class="faq-grid">
+    <div>
+      <div class="faq-item rv"><div class="faq-q">Do you guarantee results or ROAS? <span class="faq-icon">+</span></div><div class="faq-a">No. ROAS depends on your offer, targeting, landing page, budget, and traffic — none of which I control. I guarantee a polished, well-structured creative that gives the ad the best possible chance to perform.</div></div>
+      <div class="faq-item rv"><div class="faq-q">What do you need from me to start? <span class="faq-icon">+</span></div><div class="faq-a">Product footage or visuals, your offer details, target audience, platform, and any references you like. The more context you give upfront, the faster and better the output.</div></div>
+      <div class="faq-item rv"><div class="faq-q">How long does a video ad take? <span class="faq-icon">+</span></div><div class="faq-a">A single ad typically takes 2–4 days. An ad pack with multiple hooks and formats usually takes 4–7 days. Rush delivery is available — mention it in your brief.</div></div>
+      <div class="faq-item rv"><div class="faq-q">Do you write the script too? <span class="faq-icon">+</span></div><div class="faq-a">Yes. Script, hook structure, and visual direction are all part of my process. You can also provide your own script — I'll work with whatever you have and improve it if needed.</div></div>
+    </div>
+    <div>
+      <div class="faq-item rv"><div class="faq-q">Can you handle AI-generated visuals? <span class="faq-icon">+</span></div><div class="faq-a">Yes. I work with AI-generated footage from tools like Kling AI, Runway, and others — combining them with professional editing, sound, and motion to produce a polished finished creative.</div></div>
+      <div class="faq-item rv"><div class="faq-q">Do you work with agencies? <span class="faq-icon">+</span></div><div class="faq-a">Yes. I regularly work as a white-label creative partner for digital marketing agencies. I match your brief format and deliver client-ready work with no branding from my end.</div></div>
+      <div class="faq-item rv"><div class="faq-q">How many revisions do I get? <span class="faq-icon">+</span></div><div class="faq-a">As many as it takes to get it right. I don't count rounds and I don't charge extra for revisions. We stop when you're genuinely happy with the creative and ready to run it.</div></div>
+      <div class="faq-item rv"><div class="faq-q">What platforms do you deliver for? <span class="faq-icon">+</span></div><div class="faq-a">Facebook, Instagram, TikTok, YouTube, Snapchat, and any other platform. I deliver all required aspect ratios (9:16, 16:9, 1:1, 4:5) in the correct specs for each platform.</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-bg" id="contact">
+  <div class="cta-wm" aria-hidden="true">BRIEF ME</div>
+  <div class="eyebrow rv" style="justify-content:center;display:flex">Ready to Work</div>
+  <h2 class="cta-h rv">Got an offer that<br>needs <em>buyers?</em></h2>
+  <p class="cta-sub rv">Send your brief today. Tell me the product, offer, platform, and what you've tried. I'll tell you exactly what I'd build and how fast I can deliver it.</p>
+  <div class="cta-btns rv">
+    <a href="https://wa.me/923302126300" class="btn-green" target="_blank"><svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.096.541 4.062 1.487 5.774L0 24l6.389-1.676A11.942 11.942 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.797 9.797 0 01-5.003-1.374l-.359-.213-3.72.976.994-3.624-.234-.372A9.795 9.795 0 012.182 12C2.182 6.57 6.57 2.182 12 2.182S21.818 6.57 21.818 12 17.43 21.818 12 21.818z"/></svg>Send Your Brief on WhatsApp</a>
+    <a href="mailto:hello@thefaisalhanif.com" class="btn-outline-white">📧 Email Me</a>
+  </div>
+  <div class="cta-facts rv">
+    <div class="cta-fact"><div class="cta-icon">⚡</div><span>Response within 3 hours</span></div>
+    <div class="cta-fact"><div class="cta-icon">🌍</div><span>Working worldwide</span></div>
+    <div class="cta-fact"><div class="cta-icon">✅</div><span>Free creative consultation</span></div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-top">
+    <div>
+      <div class="f-logo">Faisal<span>.</span></div>
+      <p class="f-tag">Video Ad Creative Specialist — helping brands convert attention into buyers, one creative at a time.</p>
+      <div class="f-socials">
+        <a href="https://www.linkedin.com/in/thefaisalhanif/" class="fsoc" target="_blank">in</a>
+        <a href="https://www.instagram.com/thefaisalhanif" class="fsoc" target="_blank">ig</a>
+        <a href="https://www.facebook.com/thefaisalhanif" class="fsoc" target="_blank">fb</a>
+        <a href="https://wa.me/923302126300" class="fsoc" target="_blank">wa</a>
+        <a href="https://www.x.com/thefaisalhanif" class="fsoc" target="_blank">𝕏</a>
+      </div>
+    </div>
+    <div class="f-col"><h4>Navigate</h4><a href="#about">About</a><a href="#services">Services</a><a href="#portfolio">Portfolio</a><a href="#packages">Packages</a><a href="#faq">FAQ</a><a href="#contact">Contact</a></div>
+    <div class="f-col"><h4>Platforms</h4><a href="https://www.fiverr.com/faisalhanif652" target="_blank">Fiverr Profile</a><a href="https://www.upwork.com/freelancers/~0118f879bd0067fa2d" target="_blank">Upwork Profile</a><a href="https://wa.me/923302126300" target="_blank">WhatsApp</a><a href="mailto:hello@thefaisalhanif.com">Email</a></div>
+    <div class="f-col"><h4>Services</h4><a href="#services">Meta & TikTok Ads</a><a href="#services">VSL Videos</a><a href="#services">YouTube Editing</a><a href="#services">UGC-Style Ads</a><a href="#services">AI Video Ads</a><a href="#packages">Packages</a></div>
+  </div>
+  <div class="footer-bottom"><p>© 2026 Faisal Hanif. All rights reserved.</p><a href="https://www.fiverr.com/faisalhanif652" target="_blank">faisalhanif652 on Fiverr</a></div>
+</footer>
+
+<script>
+window.addEventListener('load',()=>{setTimeout(()=>{document.getElementById('loader').classList.add('hide');},900);});
+const cur=document.getElementById('cur'),curR=document.getElementById('curR');
+document.addEventListener('mousemove',e=>{cur.style.transform=`translate(${e.clientX-4}px,${e.clientY-4}px)`;curR.style.transform=`translate(${e.clientX-15}px,${e.clientY-15}px)`;});
+document.querySelectorAll('a,button').forEach(el=>{el.addEventListener('mouseenter',()=>{curR.style.width='48px';curR.style.height='48px';});el.addEventListener('mouseleave',()=>{curR.style.width='30px';curR.style.height='30px';});});
+const nav=document.getElementById('nav');
+window.addEventListener('scroll',()=>{nav.classList.toggle('scrolled',window.scrollY>60);},{passive:true});
+const ham=document.getElementById('hamburger'),drawer=document.getElementById('drawer'),ovl=document.getElementById('overlay');
+function openD(){ham.classList.add('open');drawer.classList.add('open');ovl.classList.add('open');document.body.style.overflow='hidden';}
+function closeD(){ham.classList.remove('open');drawer.classList.remove('open');ovl.classList.remove('open');document.body.style.overflow='';}
+ham.addEventListener('click',()=>{ham.classList.contains('open')?closeD():openD();});
+ovl.addEventListener('click',closeD);
+document.querySelectorAll('.dl').forEach(a=>{a.addEventListener('click',closeD);});
+const obs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('on');obs.unobserve(e.target);}});},{threshold:0.08});
+document.querySelectorAll('.rv,.rv-l,.rv-r').forEach((el,i)=>{
+  const siblings=el.parentElement.querySelectorAll('.rv,.rv-l,.rv-r');
+  if(siblings.length>1){const idx=Array.from(siblings).indexOf(el);el.style.transitionDelay=(idx*0.1)+'s';}
+  obs.observe(el);
+});
+document.querySelectorAll('.faq-q').forEach(q=>{q.addEventListener('click',()=>{const item=q.parentElement;const wasOpen=item.classList.contains('open');document.querySelectorAll('.faq-item').forEach(i=>i.classList.remove('open'));if(!wasOpen)item.classList.add('open');});});
+</script>
+</body>
+</html>
