@@ -1,0 +1,752 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Faisal Hanif — Software Engineer & Video Editor</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;700;800&family=Syne:wght@400;600;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --bg:#080c10;--bg2:#0d1117;--bg3:#111820;
+  --surface:#141c24;--surface2:#1a2330;
+  --white:#f0f6fc;--muted:#7d8590;--muted2:#4a5568;
+  --green:#00ff88;--green2:#00cc6a;--green-dim:rgba(0,255,136,.08);
+  --blue:#58a6ff;--purple:#bc8cff;--orange:#ffa657;
+  --border:rgba(0,255,136,.15);--border2:rgba(240,246,252,.06);
+  --mono:"JetBrains Mono",monospace;--sans:"Syne",sans-serif;--body:"Inter",sans-serif;
+}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--white);font-family:var(--body);overflow-x:hidden;-webkit-font-smoothing:antialiased}
+img{display:block;max-width:100%}
+a{text-decoration:none;color:inherit}
+::selection{background:rgba(0,255,136,.2);color:var(--white)}
+
+/* SCANLINES */
+body::after{content:"";position:fixed;inset:0;background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,0,0,.02) 2px,rgba(0,0,0,.02) 4px);pointer-events:none;z-index:9990}
+
+/* CURSOR */
+.cur,.cur-r{position:fixed;border-radius:50%;pointer-events:none;z-index:9999;top:0;left:0;transform:translate(-50%,-50%)}
+.cur{width:6px;height:6px;background:var(--green)}
+.cur-r{width:28px;height:28px;border:1px solid rgba(0,255,136,.4);transition:transform .3s ease,width .2s,height .2s}
+@media(hover:none){.cur,.cur-r{display:none}}
+
+/* LOADER */
+#loader{position:fixed;inset:0;background:var(--bg);z-index:9997;display:flex;flex-direction:column;align-items:center;justify-content:center;transition:opacity .9s ease}
+#loader.hide{opacity:0;pointer-events:none}
+.l-box{font-family:var(--mono);text-align:left;width:min(340px,90vw)}
+.l-prompt{font-size:12px;color:var(--muted);margin-bottom:8px}
+.l-prompt span{color:var(--green)}
+.l-name{font-family:var(--sans);font-size:clamp(36px,8vw,52px);font-weight:800;color:var(--white);letter-spacing:-1px;line-height:1}
+.l-name em{color:var(--green);font-style:normal}
+.l-sub{font-size:11px;color:var(--muted);margin-top:6px;letter-spacing:1px}
+.l-bar-w{height:1px;background:rgba(255,255,255,.06);margin-top:22px;overflow:hidden}
+.l-bar{height:100%;background:var(--green);animation:lb 1.3s ease forwards}
+@keyframes lb{from{width:0}to{width:100%}}
+.l-cur{font-size:11px;color:var(--muted2);margin-top:10px}
+.cblink{display:inline-block;width:7px;height:13px;background:var(--green);animation:blink .8s step-end infinite;vertical-align:middle;margin-left:2px}
+@keyframes blink{50%{opacity:0}}
+
+/* MATRIX CANVAS */
+#bgc{position:fixed;inset:0;z-index:0;opacity:.3;pointer-events:none}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:500;padding:18px 56px;display:flex;justify-content:space-between;align-items:center;transition:all .4s;border-bottom:1px solid transparent}
+nav.sc{background:rgba(8,12,16,.93);backdrop-filter:blur(20px);padding:12px 56px;border-bottom-color:var(--border)}
+.nl{font-family:var(--mono);font-size:15px;font-weight:700;color:var(--white);display:flex;align-items:center;gap:6px}
+.nl em{color:var(--green);font-style:normal;animation:blink 1.2s step-end infinite}
+.nr{display:flex;gap:24px;align-items:center}
+.nr a{font-family:var(--mono);font-size:11px;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);transition:color .2s}
+.nr a:hover,.nr a:focus{color:var(--green)}
+.ncta{border:1px solid var(--green)!important;color:var(--green)!important;padding:8px 18px;transition:background .2s,color .2s!important}
+.ncta:hover{background:var(--green)!important;color:var(--bg)!important}
+.hbg{display:none;flex-direction:column;gap:5px;cursor:pointer;z-index:600;padding:4px}
+.hbg span{display:block;width:22px;height:1.5px;background:var(--white);transition:.3s}
+.hbg.op span:nth-child(1){transform:rotate(45deg) translate(5px,5px)}
+.hbg.op span:nth-child(2){opacity:0}
+.hbg.op span:nth-child(3){transform:rotate(-45deg) translate(5px,-5px)}
+.drw{position:fixed;top:0;right:0;bottom:0;width:min(280px,80vw);background:var(--bg2);z-index:550;padding:70px 26px 36px;display:flex;flex-direction:column;transform:translateX(100%);transition:transform .4s ease;border-left:1px solid var(--border)}
+.drw.op{transform:translateX(0)}
+.drw a{font-family:var(--mono);font-size:14px;color:var(--muted);padding:13px 0;border-bottom:1px solid var(--border2);display:block;transition:color .2s}
+.drw a:hover{color:var(--green)}
+.drw .dcta{margin-top:18px;background:var(--green);color:var(--bg)!important;text-align:center;padding:13px!important;font-weight:700;letter-spacing:1px;font-size:12px!important;border:none!important}
+.ovl{display:none;position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:540}
+.ovl.op{display:block}
+@media(max-width:900px){nav,nav.sc{padding:14px 20px}.nr{display:none}.hbg{display:flex}}
+
+/* BUTTONS */
+.bg{display:inline-flex;align-items:center;gap:8px;background:var(--green);color:var(--bg);padding:13px 30px;font-family:var(--mono);font-size:12px;font-weight:700;letter-spacing:1px;text-transform:uppercase;border:none;cursor:pointer;transition:all .2s;box-shadow:0 0 20px rgba(0,255,136,.2)}
+.bg:hover{background:var(--green2);transform:translateY(-2px);box-shadow:0 0 36px rgba(0,255,136,.35)}
+.bog{display:inline-flex;align-items:center;gap:8px;border:1px solid var(--green);color:var(--green);padding:12px 26px;font-family:var(--mono);font-size:12px;font-weight:700;letter-spacing:1px;text-transform:uppercase;background:transparent;cursor:pointer;transition:all .2s}
+.bog:hover{background:var(--green-dim)}
+
+/* REVEAL */
+.rv{opacity:0;transform:translateY(20px);transition:opacity .7s ease,transform .7s ease}
+.rvl{opacity:0;transform:translateX(-20px);transition:opacity .7s ease,transform .7s ease}
+.rvr{opacity:0;transform:translateX(20px);transition:opacity .7s ease,transform .7s ease}
+.rv.on,.rvl.on,.rvr.on{opacity:1;transform:none}
+
+/* SECTION */
+.s{padding:88px 56px;position:relative;z-index:2}
+@media(max-width:768px){.s{padding:60px 20px}}
+.ey{font-family:var(--mono);font-size:10px;letter-spacing:4px;text-transform:uppercase;color:var(--green);margin-bottom:13px;display:flex;align-items:center;gap:8px}
+.ey::before{content:"//";color:var(--muted2)}
+.sh{font-family:var(--sans);font-size:clamp(28px,5vw,54px);font-weight:800;line-height:1.06;color:var(--white)}
+.sh em{font-style:normal;color:var(--green)}
+.ss{font-size:14px;color:var(--muted);line-height:1.8;max-width:500px}
+
+/* HERO */
+.hero{min-height:100vh;display:grid;grid-template-columns:1.1fr .9fr;align-items:center;padding:120px 56px 72px;position:relative;z-index:2;gap:48px}
+@media(max-width:960px){.hero{grid-template-columns:1fr;padding:96px 20px 60px;gap:36px}}
+.htag{font-family:var(--mono);font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--green);display:flex;align-items:center;gap:10px;margin-bottom:18px}
+.htag::before{content:"";width:28px;height:1px;background:var(--green)}
+.pulse{width:7px;height:7px;border-radius:50%;background:var(--green);animation:pulse 1.5s ease infinite;flex-shrink:0}
+@keyframes pulse{0%,100%{transform:scale(1);opacity:1}50%{transform:scale(1.4);opacity:.4}}
+.hname{font-family:var(--sans);font-size:clamp(48px,9vw,100px);font-weight:800;color:var(--white);line-height:.95;letter-spacing:-2px;display:block}
+.hrole1{font-family:var(--mono);font-size:clamp(16px,2.5vw,28px);font-weight:700;color:var(--green);display:block;margin-top:6px;letter-spacing:-1px}
+.hrole2{font-family:var(--mono);font-size:clamp(16px,2.5vw,28px);font-weight:700;color:var(--blue);display:block;letter-spacing:-1px}
+.hamp{color:var(--muted2);margin:0 6px}
+.hstmt{font-family:var(--mono);font-size:13px;color:var(--muted);line-height:1.9;max-width:500px;margin:24px 0;border-left:2px solid var(--green);padding-left:16px}
+.hstmt strong{color:var(--white)}
+.hbtns{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:40px}
+.hstats{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--border2)}
+@media(max-width:960px){.hstats{grid-template-columns:repeat(2,1fr)}}
+.hst{background:var(--surface);padding:16px 12px;text-align:center}
+.hstn{font-family:var(--mono);font-size:clamp(20px,3vw,30px);font-weight:700;color:var(--white);line-height:1}
+.hstn span{color:var(--green)}
+.hstl{font-family:var(--mono);font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--muted2);margin-top:4px}
+
+/* TERMINAL */
+.term{background:var(--bg2);border:1px solid var(--border);overflow:hidden}
+.tbar{background:var(--surface);padding:10px 14px;display:flex;align-items:center;gap:7px;border-bottom:1px solid var(--border2)}
+.td{width:10px;height:10px;border-radius:50%}
+.td.r{background:#ff5f57}.td.y{background:#febc2e}.td.g{background:#28c840}
+.ttl{font-family:var(--mono);font-size:9px;color:var(--muted2);margin-left:7px;letter-spacing:1px}
+.tbody{padding:18px 20px;font-family:var(--mono);font-size:12px;line-height:2.1}
+.tln{display:flex;gap:8px}.tnum{color:var(--muted2);width:18px;flex-shrink:0;font-size:10px;user-select:none}
+.tc{color:var(--muted2)}.tg{color:var(--green)}.tb{color:var(--blue)}.tp{color:var(--purple)}.to{color:var(--orange)}.tw{color:var(--white)}
+.hbadges{display:flex;gap:9px;flex-wrap:wrap;margin-top:13px}
+.hbdg{display:flex;align-items:center;gap:7px;background:var(--surface);border:1px solid var(--border2);padding:7px 12px;font-family:var(--mono);font-size:10px;color:var(--muted)}
+.hbdg-dot{width:5px;height:5px;border-radius:50%;background:var(--green);flex-shrink:0}
+
+/* STATEMENT SECTION */
+.stmt-bg{background:var(--bg2);border-top:1px solid var(--border2);border-bottom:1px solid var(--border2);position:relative;z-index:2}
+.stmt-in{max-width:920px;margin:0 auto;padding:72px 56px}
+@media(max-width:768px){.stmt-in{padding:52px 20px}}
+.stmt-lbl{font-family:var(--mono);font-size:10px;letter-spacing:4px;text-transform:uppercase;color:var(--muted2);margin-bottom:18px}
+.stmt-txt{font-family:var(--sans);font-size:clamp(20px,4vw,38px);font-weight:700;line-height:1.35;color:var(--white)}
+.stmt-txt .hg{color:var(--green)}.stmt-txt .hb{color:var(--blue)}.stmt-txt .hp{color:var(--purple)}
+
+/* ABOUT */
+.abg{display:grid;grid-template-columns:1fr 1fr;gap:68px;align-items:center}
+@media(max-width:900px){.abg{grid-template-columns:1fr;gap:44px}}
+.pw{position:relative}
+.pf{position:absolute;top:-12px;left:-12px;right:12px;bottom:12px;border:1px solid var(--border);z-index:0;pointer-events:none}
+.pf::before{content:"FAISAL HANIF";position:absolute;top:-10px;left:14px;font-family:var(--mono);font-size:8px;letter-spacing:3px;background:var(--bg);color:var(--green);padding:0 7px}
+.pw img{position:relative;z-index:1;width:100%;filter:grayscale(15%) contrast(1.05)}
+.pbdg{position:absolute;bottom:-18px;right:-18px;background:var(--green);color:var(--bg);padding:14px 18px;z-index:3;font-family:var(--mono)}
+.pbn{font-size:32px;font-weight:800;line-height:1}
+.pbl{font-size:8px;letter-spacing:2px;text-transform:uppercase;font-weight:700;margin-top:2px;opacity:.8}
+.akpis{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:24px}
+.kpi{border-left:2px solid var(--green);padding:10px 13px;background:var(--surface)}
+.kpin{font-family:var(--mono);font-size:22px;font-weight:700;color:var(--white);line-height:1}
+.kpin span{color:var(--green)}
+.kpil{font-family:var(--mono);font-size:8px;letter-spacing:2px;text-transform:uppercase;color:var(--muted2);margin-top:2px}
+
+/* SUPERPOWERS */
+.pwbg{background:var(--bg2)}
+.pwg{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:44px}
+@media(max-width:768px){.pwg{grid-template-columns:1fr}}
+.pwc{background:var(--surface);border:1px solid var(--border2);padding:32px 26px;position:relative;overflow:hidden;transition:border-color .3s}
+.pwc:hover{border-color:var(--border)}
+.pwc::before{content:"";position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--green),transparent)}
+.pwl{font-family:var(--mono);font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--green);margin-bottom:13px}
+.pwt{font-family:var(--sans);font-size:20px;font-weight:700;color:var(--white);margin-bottom:7px}
+.pws{font-size:13px;color:var(--muted);line-height:1.65;margin-bottom:20px}
+.sbrs{display:flex;flex-direction:column;gap:11px}
+.sbr{display:flex;flex-direction:column;gap:5px}
+.sbrt{display:flex;justify-content:space-between;align-items:center}
+.sbrn{font-family:var(--mono);font-size:11px;color:var(--muted);display:flex;align-items:center;gap:6px}
+.sbrp{font-family:var(--mono);font-size:11px;color:var(--green);font-weight:700}
+.sbrk{height:2px;background:var(--surface2);border-radius:1px;overflow:hidden}
+.sbrf{height:100%;background:linear-gradient(90deg,var(--green),var(--blue));border-radius:1px;width:0;transition:width 1.4s cubic-bezier(.4,0,.2,1)}
+
+/* NUMBERS */
+.nwl{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--border2);border:1px solid var(--border2)}
+@media(max-width:768px){.nwl{grid-template-columns:repeat(2,1fr)}}
+.nwc{background:var(--bg2);padding:32px 20px;text-align:center;position:relative;overflow:hidden;transition:background .3s}
+.nwc:hover{background:var(--surface)}
+.nwc::after{content:"";position:absolute;bottom:0;left:0;right:0;height:2px;background:var(--green);transform:scaleX(0);transition:transform .4s;transform-origin:left}
+.nwc:hover::after{transform:scaleX(1)}
+.nwi{font-size:22px;margin-bottom:10px}
+.nwn{font-family:var(--mono);font-size:clamp(28px,5vw,48px);font-weight:700;color:var(--white);line-height:1}
+.nwn span{color:var(--green)}
+.nwl2{font-family:var(--mono);font-size:8px;letter-spacing:2px;text-transform:uppercase;color:var(--muted2);margin-top:6px}
+.nwsub{font-size:11px;color:var(--muted2);margin-top:3px}
+
+/* SOCIAL */
+.socbg{background:var(--bg);border-top:1px solid var(--border2);border-bottom:1px solid var(--border2);position:relative;z-index:2}
+.socg{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border2)}
+@media(max-width:600px){.socg{grid-template-columns:1fr}}
+.socc{background:var(--bg2);padding:36px 28px;text-align:center;position:relative;overflow:hidden;transition:background .3s}
+.socc:hover{background:var(--surface)}
+.socc::before{content:"";position:absolute;top:0;left:0;right:0;height:3px}
+.socc.fb::before{background:#1877f2}
+.socc.ig::before{background:linear-gradient(90deg,#f09433,#dc2743,#bc1888)}
+.socc.li::before{background:#0a66c2}
+.socico{font-size:26px;margin-bottom:11px}
+.socp{font-family:var(--mono);font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--muted2);margin-bottom:10px}
+.socn{font-family:var(--mono);font-size:clamp(28px,5vw,48px);font-weight:700;color:var(--white);line-height:1}
+.socn span{color:var(--green)}
+.socl{font-family:var(--mono);font-size:8px;letter-spacing:2px;text-transform:uppercase;color:var(--muted2);margin-top:5px}
+
+/* JOURNEY */
+.jbg{background:var(--bg2)}
+.jg{display:grid;grid-template-columns:1fr 1fr;gap:68px;align-items:start}
+@media(max-width:900px){.jg{grid-template-columns:1fr;gap:40px}}
+.tl{margin-top:28px;position:relative;padding-left:22px}
+.tl::before{content:"";position:absolute;left:0;top:8px;bottom:8px;width:1px;background:linear-gradient(to bottom,var(--green),rgba(0,255,136,.04))}
+.tli{position:relative;padding-bottom:24px}
+.tli:last-child{padding-bottom:0}
+.tldot{position:absolute;left:-27px;top:5px;width:11px;height:11px;border-radius:50%;background:var(--green);border:2px solid var(--bg2);box-shadow:0 0 8px rgba(0,255,136,.5)}
+.tlyr{font-family:var(--mono);font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--green);margin-bottom:3px}
+.tlt{font-family:var(--sans);font-size:15px;font-weight:700;color:var(--white);margin-bottom:3px}
+.tld{font-size:13px;color:var(--muted);line-height:1.6}
+
+/* EDUCATION */
+.edug{display:flex;flex-direction:column;gap:9px;margin-top:24px}
+.educ{background:var(--bg);border:1px solid var(--border2);padding:14px 16px;display:flex;gap:12px;align-items:flex-start;transition:border-color .25s,background .25s}
+.educ:hover{border-color:var(--border);background:var(--surface)}
+.edui{width:34px;height:34px;background:var(--green-dim);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0}
+.edud{font-family:var(--sans);font-size:14px;font-weight:700;color:var(--white);margin-bottom:2px}
+.eduo{font-family:var(--mono);font-size:10px;color:var(--muted2)}
+.edutg{display:inline-block;font-family:var(--mono);font-size:8px;letter-spacing:2px;text-transform:uppercase;color:var(--green);border:1px solid rgba(0,255,136,.2);padding:2px 6px;margin-top:3px}
+
+/* SKILLS CARDS */
+.skbg{background:var(--bg)}
+.skg{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:36px}
+@media(max-width:768px){.skg{grid-template-columns:1fr}}
+.skc{background:var(--bg2);border:1px solid var(--border2);padding:36px 28px;position:relative;overflow:hidden;cursor:pointer;transition:border-color .3s,transform .3s}
+.skc::before{content:"";position:absolute;top:0;left:0;bottom:0;width:2px;background:var(--green);transform:scaleY(0);transform-origin:top;transition:transform .4s}
+.skc:hover{border-color:var(--border);transform:translateY(-4px)}
+.skc:hover::before{transform:scaleY(1)}
+.skcnum{font-family:var(--mono);font-size:72px;font-weight:800;color:rgba(0,255,136,.04);line-height:1;position:absolute;top:14px;right:16px}
+.skcico{width:52px;height:52px;background:var(--green-dim);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:22px;margin-bottom:18px}
+.skctag{font-family:var(--mono);font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--green);margin-bottom:8px}
+.skcn{font-family:var(--sans);font-size:clamp(24px,3.5vw,36px);font-weight:800;color:var(--white);line-height:1.05;margin-bottom:10px}
+.skcd{font-size:13px;color:var(--muted);line-height:1.7;margin-bottom:18px}
+.skcpts{list-style:none;display:flex;flex-direction:column;gap:7px;margin-bottom:22px}
+.skcpts li{font-family:var(--mono);font-size:11px;color:var(--muted);display:flex;gap:7px;align-items:flex-start;line-height:1.5}
+.skcpts li::before{content:"▶";color:var(--green);font-size:7px;margin-top:3px;flex-shrink:0}
+.skclink{display:inline-flex;align-items:center;gap:7px;border:1px solid var(--border);color:var(--green);padding:9px 18px;font-family:var(--mono);font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;transition:all .2s}
+.skclink:hover{background:var(--green-dim);border-color:var(--green)}
+.skclink svg{transition:transform .2s}.skclink:hover svg{transform:translateX(4px)}
+.skcst{display:flex;gap:0;margin-top:20px;padding-top:16px;border-top:1px solid var(--border2)}
+.skcs{padding-right:16px;margin-right:16px;border-right:1px solid var(--border2)}
+.skcs:last-child{border:none;margin:0;padding:0}
+.skcsn{font-family:var(--mono);font-size:20px;font-weight:700;color:var(--white);line-height:1}
+.skcsn span{color:var(--green)}
+.skcsl{font-family:var(--mono);font-size:8px;letter-spacing:2px;text-transform:uppercase;color:var(--muted2);margin-top:2px}
+
+/* TEAMS */
+.tmbg{background:var(--bg2)}
+.tmg{display:grid;grid-template-columns:1fr 1fr;gap:22px;margin-top:40px}
+@media(max-width:768px){.tmg{grid-template-columns:1fr}}
+.tmc{background:var(--bg);border:1px solid var(--border2);padding:28px;position:relative;overflow:hidden;transition:border-color .3s}
+.tmc:hover{border-color:var(--border)}
+.tmc::before{content:"";position:absolute;top:0;left:0;right:0;height:2px}
+.tmc.v::before{background:linear-gradient(90deg,var(--green),var(--blue))}
+.tmc.w::before{background:linear-gradient(90deg,var(--blue),var(--purple))}
+.tmtag{font-family:var(--mono);font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--green);margin-bottom:8px}
+.tmtag.w{color:var(--blue)}
+.tmn{font-family:var(--sans);font-size:24px;font-weight:800;color:var(--white);margin-bottom:6px}
+.tmd{font-size:13px;color:var(--muted);line-height:1.65;margin-bottom:18px}
+.tmct{display:inline-flex;align-items:center;gap:7px;background:var(--surface);border:1px solid var(--border2);padding:5px 12px;font-family:var(--mono);font-size:10px;color:var(--white);margin-bottom:16px}
+.tmct span{color:var(--green);font-weight:700}
+.desk{width:100%;height:130px;position:relative;overflow:hidden;background:var(--bg2);border:1px solid var(--border2);margin-bottom:14px}
+.desk svg{position:absolute;bottom:0;left:0;width:100%;height:100%}
+.tmtags{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}
+.tmtg{background:var(--surface);padding:8px 6px;text-align:center;border:1px solid var(--border2);font-family:var(--mono);font-size:10px}
+.tmtg.g{color:var(--green)}.tmtg.b{color:var(--blue)}
+
+/* BRANDS */
+.brbg{background:var(--bg);padding:48px 56px;border-top:1px solid var(--border2);border-bottom:1px solid var(--border2);position:relative;z-index:2}
+@media(max-width:768px){.brbg{padding:40px 20px}}
+.brlbl{font-family:var(--mono);font-size:9px;letter-spacing:4px;text-transform:uppercase;color:var(--muted2);text-align:center;margin-bottom:28px}
+.brrow{display:flex;justify-content:center;align-items:center;gap:16px;flex-wrap:wrap}
+.brc{opacity:.3;filter:grayscale(1);transition:opacity .25s,filter .25s;display:flex;flex-direction:column;align-items:center;gap:5px}
+.brc:hover{opacity:.9;filter:grayscale(0)}
+.brb{width:64px;height:36px;display:flex;align-items:center;justify-content:center;border:1px dashed var(--border2)}
+.brc:hover .brb{border-color:var(--border)}
+.brb img{height:20px;width:auto;max-width:56px;object-fit:contain}
+.brem{font-family:var(--mono);font-size:7px;letter-spacing:1px;text-transform:uppercase;color:var(--muted2)}
+.brl{font-family:var(--mono);font-size:7px;letter-spacing:2px;text-transform:uppercase;color:var(--muted2)}
+
+/* PROOF */
+.prfbg{background:var(--bg)}
+.prfg{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:40px}
+@media(max-width:768px){.prfg{grid-template-columns:1fr}}
+.prfc{background:var(--bg2);border:1px solid var(--border2);padding:26px 22px;position:relative;overflow:hidden;transition:border-color .3s}
+.prfc:hover{border-color:var(--border)}
+.prfc::before{content:"";position:absolute;top:0;left:0;right:0;height:2px;background:var(--green)}
+.prfh{display:flex;align-items:center;gap:11px;margin-bottom:20px}
+.prfi{width:38px;height:38px;background:var(--green-dim);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:17px;flex-shrink:0}
+.prfn{font-family:var(--sans);font-size:18px;font-weight:700;color:var(--white)}
+.prfbdg{font-family:var(--mono);font-size:8px;letter-spacing:2px;text-transform:uppercase;color:var(--green);border:1px solid rgba(0,255,136,.2);padding:2px 6px;margin-top:2px;display:inline-block}
+.prfst{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;margin-bottom:18px}
+.prfsn{background:var(--surface);padding:9px 6px;text-align:center}
+.prfsnn{font-family:var(--mono);font-size:18px;font-weight:700;color:var(--white);line-height:1}
+.prfsnn span{color:var(--green)}
+.prfsnl{font-family:var(--mono);font-size:7px;letter-spacing:2px;text-transform:uppercase;color:var(--muted2);margin-top:2px}
+.pbr{margin-bottom:8px}
+.pbrl{display:flex;justify-content:space-between;font-family:var(--mono);font-size:9px;color:var(--muted2);margin-bottom:4px}
+.pbrl span:last-child{color:var(--green)}
+.pbrk{height:2px;background:var(--surface2);overflow:hidden}
+.pbrf{height:100%;background:linear-gradient(90deg,var(--green),var(--blue));width:0;transition:width 1.5s ease}
+
+/* TESTIMONIALS */
+.tsbg{background:var(--bg2)}
+.tsg{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:40px}
+@media(max-width:900px){.tsg{grid-template-columns:1fr 1fr}}
+@media(max-width:560px){.tsg{grid-template-columns:1fr}}
+.tsc{background:var(--bg);border:1px solid var(--border2);padding:22px;transition:border-color .3s}
+.tsc:hover{border-color:var(--border)}
+.tsst{color:var(--green);font-size:11px;margin-bottom:12px;font-family:var(--mono);letter-spacing:2px}
+.tsq{font-size:13px;color:var(--muted);line-height:1.7;margin-bottom:16px;font-style:italic}
+.tsau{display:flex;align-items:center;gap:9px}
+.tsav{width:32px;height:32px;border-radius:50%;background:var(--green-dim);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:12px;font-weight:700;color:var(--green);flex-shrink:0}
+.tsan{font-family:var(--mono);font-size:11px;font-weight:700;color:var(--white)}
+.tsap{font-family:var(--mono);font-size:8px;letter-spacing:2px;text-transform:uppercase;color:var(--muted2);margin-top:2px}
+
+/* CTA */
+.ctabg{background:var(--bg);padding:96px 56px;text-align:center;position:relative;overflow:hidden;z-index:2}
+@media(max-width:768px){.ctabg{padding:68px 20px}}
+.ctagb{position:absolute;inset:0;background-image:linear-gradient(rgba(0,255,136,.03) 1px,transparent 1px),linear-gradient(90deg,rgba(0,255,136,.03) 1px,transparent 1px);background-size:36px 36px}
+.ctagl{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:450px;height:450px;border-radius:50%;background:radial-gradient(circle,rgba(0,255,136,.05) 0%,transparent 65%);pointer-events:none}
+.ctah{font-family:var(--sans);font-size:clamp(30px,6vw,60px);font-weight:800;color:var(--white);line-height:1.05;margin-bottom:14px;position:relative;z-index:2}
+.ctah em{font-style:normal;color:var(--green)}
+.ctasub{font-size:14px;color:var(--muted);max-width:460px;margin:0 auto 32px;line-height:1.75;position:relative;z-index:2}
+.ctabtns{display:flex;justify-content:center;gap:12px;flex-wrap:wrap;margin-bottom:36px;position:relative;z-index:2}
+.ctafs{display:flex;justify-content:center;gap:28px;flex-wrap:wrap;position:relative;z-index:2}
+.ctaf{font-family:var(--mono);font-size:10px;color:var(--muted2);display:flex;align-items:center;gap:6px}
+.ctaf::before{content:"✓";color:var(--green);font-weight:700}
+
+/* FOOTER */
+footer{background:var(--bg2);padding:48px 56px 24px;border-top:1px solid var(--border2);position:relative;z-index:2}
+@media(max-width:768px){footer{padding:36px 20px 20px}}
+.ftop{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:36px;padding-bottom:36px;border-bottom:1px solid var(--border2)}
+@media(max-width:900px){.ftop{grid-template-columns:1fr 1fr;row-gap:28px}}
+@media(max-width:520px){.ftop{grid-template-columns:1fr}}
+.flog{font-family:var(--mono);font-size:16px;font-weight:700;color:var(--white);display:flex;align-items:center;gap:5px}
+.flog em{color:var(--green);font-style:normal;animation:blink 1.2s step-end infinite}
+.ftag{font-size:12px;color:var(--muted2);margin-top:7px;max-width:190px;line-height:1.6}
+.fsocs{display:flex;gap:7px;margin-top:16px}
+.fsoc{width:32px;height:32px;border:1px solid var(--border2);display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:11px;color:var(--muted2);transition:border-color .2s,color .2s}
+.fsoc:hover{border-color:var(--green);color:var(--green)}
+.fcol h4{font-family:var(--mono);font-size:8px;letter-spacing:3px;text-transform:uppercase;color:var(--green);margin-bottom:13px;font-weight:700}
+.fcol a{display:block;font-size:12px;color:var(--muted2);margin-bottom:8px;transition:color .2s}
+.fcol a:hover{color:var(--green)}
+.fbot{display:flex;justify-content:space-between;align-items:center;padding-top:20px;flex-wrap:wrap;gap:8px}
+.fbot p{font-family:var(--mono);font-size:9px;color:var(--muted2)}
+.fblinks{display:flex;gap:14px;flex-wrap:wrap}
+.fblinks a{font-family:var(--mono);font-size:9px;color:var(--muted2);transition:color .2s}
+.fblinks a:hover{color:var(--green)}
+</style>
+</head>
+<body>
+<canvas id="bgc"></canvas>
+<div class="cur" id="cur"></div>
+<div class="cur-r" id="curR"></div>
+<div id="loader">
+  <div class="l-box">
+    <div class="l-prompt"><span>faisal@portfolio</span>:~$ ./load.sh</div>
+    <div class="l-name">Faisal <em>Hanif</em></div>
+    <div class="l-sub">// Software Engineer & Video Editor</div>
+    <div class="l-bar-w"><div class="l-bar"></div></div>
+    <div class="l-cur">Initializing portfolio<span class="cblink"></span></div>
+  </div>
+</div>
+<div class="ovl" id="ovl"></div>
+<nav id="nav">
+  <div class="nl">faisal.hanif<em>_</em></div>
+  <div class="nr">
+    <a href="#about">About</a>
+    <a href="#journey">Journey</a>
+    <a href="#skills">Skills</a>
+    <a href="#team">Team</a>
+    <a href="#contact" class="ncta">Talk →</a>
+  </div>
+  <div class="hbg" id="hbg"><span></span><span></span><span></span></div>
+</nav>
+<div class="drw" id="drw">
+  <a href="#about" class="dl">About</a>
+  <a href="#journey" class="dl">Journey</a>
+  <a href="#skills" class="dl">Skills</a>
+  <a href="#team" class="dl">Team</a>
+  <a href="#proof" class="dl">Track Record</a>
+  <a href="https://wa.me/923302126300" class="dcta dl" target="_blank">💬 WhatsApp Me</a>
+</div>
+
+<section class="hero" id="home">
+  <div>
+    <div class="htag"><span class="pulse"></span>Available for Projects</div>
+    <h1>
+      <span class="hname">Faisal Hanif</span>
+      <span class="hrole1">Software Engineer</span>
+      <span class="hrole2"><span class="hamp">&amp;</span>Video Editor</span>
+    </h1>
+    <div class="hstmt">Master's in IT. 7 years in the field. 2,500+ projects delivered.<br><strong>I didn't just learn these skills — I built a career on both of them.</strong><br>From writing production-grade code to cutting high-converting video — expert level. Both.</div>
+    <div class="hbtns">
+      <a href="#skills" class="bg">Explore My Work →</a>
+      <a href="https://wa.me/923302126300" class="bog" target="_blank">💬 WhatsApp</a>
+    </div>
+    <div class="hstats">
+      <div class="hst"><div class="hstn">2.5k<span>+</span></div><div class="hstl">Projects</div></div>
+      <div class="hst"><div class="hstn">1.6k<span>+</span></div><div class="hstl">Reviews</div></div>
+      <div class="hst"><div class="hstn">7<span>+</span></div><div class="hstl">Years</div></div>
+      <div class="hst"><div class="hstn">40<span>+</span></div><div class="hstl">Countries</div></div>
+    </div>
+  </div>
+  <div>
+    <div class="term rvr">
+      <div class="tbar"><span class="td r"></span><span class="td y"></span><span class="td g"></span><span class="ttl">faisal_hanif.profile.js</span></div>
+      <div class="tbody">
+        <div class="tln"><span class="tnum">1</span><span><span class="tc">const</span> <span class="tb">me</span> <span class="tc">=</span> <span class="tg">{</span></span></div>
+        <div class="tln"><span class="tnum">2</span><span>&nbsp;&nbsp;<span class="tp">name</span><span class="tc">:</span> <span class="to">"Faisal Hanif"</span><span class="tc">,</span></span></div>
+        <div class="tln"><span class="tnum">3</span><span>&nbsp;&nbsp;<span class="tp">title</span><span class="tc">:</span> <span class="to">"Software Engineer &amp; Video Editor"</span><span class="tc">,</span></span></div>
+        <div class="tln"><span class="tnum">4</span><span>&nbsp;&nbsp;<span class="tp">exp</span><span class="tc">:</span> <span class="tg">7</span> <span class="tc">/* years */</span><span class="tc">,</span></span></div>
+        <div class="tln"><span class="tnum">5</span><span>&nbsp;&nbsp;<span class="tp">projects</span><span class="tc">:</span> <span class="tg">2500</span><span class="tc">,</span></span></div>
+        <div class="tln"><span class="tnum">6</span><span>&nbsp;&nbsp;<span class="tp">reviews</span><span class="tc">:</span> <span class="tg">1600</span><span class="tc">,</span></span></div>
+        <div class="tln"><span class="tnum">7</span><span>&nbsp;&nbsp;<span class="tp">countries</span><span class="tc">:</span> <span class="tg">40</span><span class="tc">,</span></span></div>
+        <div class="tln"><span class="tnum">8</span><span>&nbsp;&nbsp;<span class="tp">rating</span><span class="tc">:</span> <span class="tg">4.9</span><span class="tc">,</span></span></div>
+        <div class="tln"><span class="tnum">9</span><span>&nbsp;&nbsp;<span class="tp">degree</span><span class="tc">:</span> <span class="to">"M.Sc IT"</span><span class="tc">,</span></span></div>
+        <div class="tln"><span class="tnum">10</span><span>&nbsp;&nbsp;<span class="tp">certs</span><span class="tc">:</span> <span class="tg">6</span><span class="tc">,</span></span></div>
+        <div class="tln"><span class="tnum">11</span><span>&nbsp;&nbsp;<span class="tp">teams</span><span class="tc">:</span> <span class="to">["3EditorsLab","W3bLab"]</span><span class="tc">,</span></span></div>
+        <div class="tln"><span class="tnum">12</span><span>&nbsp;&nbsp;<span class="tp">available</span><span class="tc">:</span> <span class="tg">true</span></span></div>
+        <div class="tln"><span class="tnum">13</span><span><span class="tg">}</span><span class="tc">;</span></span></div>
+        <div class="tln" style="margin-top:6px"><span class="tnum">14</span><span><span class="tc">// </span><span class="tg">Ready to ship your next project</span><span class="cblink"></span></span></div>
+      </div>
+    </div>
+    <div class="hbadges rvr" style="margin-top:12px">
+      <div class="hbdg"><span class="hbdg-dot"></span>Fiverr Level 2 · 4.9★</div>
+      <div class="hbdg"><span class="hbdg-dot"></span>Upwork Top Rated · 92%</div>
+      <div class="hbdg"><span class="hbdg-dot"></span>50k+ Social Following</div>
+    </div>
+  </div>
+</section>
+
+<div class="stmt-bg">
+  <div class="stmt-in rv">
+    <div class="stmt-lbl">// Who I am — no fluff</div>
+    <div class="stmt-txt">I'm a <span class="hg">Software Engineer</span> who builds real web apps — and a <span class="hb">Video Editor</span> who creates content that performs.<br>Not one or the other. <span class="hp">Both. At expert level. For 7 years.</span><br>Master's in IT. 6 certifications. Two specialized teams. <span class="hg">40+ countries</span> served.</div>
+  </div>
+</div>
+
+<section class="s" id="about" style="background:var(--bg)">
+  <div class="abg">
+    <div class="rvl">
+      <div class="pw">
+        <div class="pf"></div>
+        <img src="https://i.postimg.cc/zDqZWPQR/faisal.jpg" alt="Faisal Hanif" onerror="this.style.background='#141c24';this.style.height='400px';this.alt='FH'">
+        <div class="pbdg"><div class="pbn">7+</div><div class="pbl">Years<br>Expert</div></div>
+      </div>
+    </div>
+    <div class="rvr">
+      <div class="ey">About Me</div>
+      <h2 class="sh" style="margin-bottom:18px">Real skills.<br>Real track record.<br><em>Real results.</em></h2>
+      <p style="font-size:14px;color:var(--muted);line-height:1.85;margin-bottom:13px">I'm Faisal Hanif — a Master's graduate in IT who turned two genuine passions into a full-time professional career. Video editing and software engineering were both hobbies I took seriously enough to become expert in. I studied both, practiced obsessively, and built a 7-year track record.</p>
+      <p style="font-size:14px;color:var(--muted);line-height:1.85;margin-bottom:13px">2,500+ projects. Clients in 40+ countries. Two specialized teams. 6 certifications. This isn't a side hustle — it's a professional operation built from scratch, one project at a time.</p>
+      <p style="font-size:14px;color:var(--muted);line-height:1.85">I run <strong style="color:var(--white)">3EditorsLab</strong> for video production and <strong style="color:var(--white)">W3bLab</strong> for development — two focused teams for bigger projects without losing quality.</p>
+      <div class="akpis">
+        <div class="kpi"><div class="kpin">2.5k<span>+</span></div><div class="kpil">Projects Done</div></div>
+        <div class="kpi"><div class="kpin">1.6k<span>+</span></div><div class="kpil">5★ Reviews</div></div>
+        <div class="kpi"><div class="kpin">40<span>+</span></div><div class="kpil">Countries</div></div>
+        <div class="kpi"><div class="kpin">4.9<span>★</span></div><div class="kpil">Fiverr Rating</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="s pwbg" id="superpowers">
+  <div class="ey rv">Superpowers</div>
+  <h2 class="sh rv" style="margin-bottom:6px">My weapons.<br><em>Proven in battle.</em></h2>
+  <p class="ss rv" style="margin-bottom:0">Every bar = years of real project delivery. Not courses. Not claims.</p>
+  <div class="pwg">
+    <div class="pwc rv">
+      <div class="pwl">// Software Engineering</div>
+      <div class="pwt">I Build Things That Work</div>
+      <div class="pws">React, Node.js, full-stack apps, APIs, databases. Clean code shipped on time.</div>
+      <div class="sbrs">
+        <div class="sbr"><div class="sbrt"><div class="sbrn">⚛️ React &amp; Next.js</div><div class="sbrp">92%</div></div><div class="sbrk"><div class="sbrf" data-w="92"></div></div></div>
+        <div class="sbr"><div class="sbrt"><div class="sbrn">🟢 Node.js &amp; Express</div><div class="sbrp">88%</div></div><div class="sbrk"><div class="sbrf" data-w="88"></div></div></div>
+        <div class="sbr"><div class="sbrt"><div class="sbrn">🗄️ MongoDB &amp; MySQL</div><div class="sbrp">85%</div></div><div class="sbrk"><div class="sbrf" data-w="85"></div></div></div>
+        <div class="sbr"><div class="sbrt"><div class="sbrn">🌐 HTML5 / CSS3 / JS</div><div class="sbrp">96%</div></div><div class="sbrk"><div class="sbrf" data-w="96"></div></div></div>
+        <div class="sbr"><div class="sbrt"><div class="sbrn">🐙 Git &amp; DevOps</div><div class="sbrp">90%</div></div><div class="sbrk"><div class="sbrf" data-w="90"></div></div></div>
+      </div>
+    </div>
+    <div class="pwc rv">
+      <div class="pwl">// Video Editing</div>
+      <div class="pwt">I Make Video That Converts</div>
+      <div class="pws">Ads, VSLs, YouTube, motion graphics. 2,500+ delivered. Every frame with purpose.</div>
+      <div class="sbrs">
+        <div class="sbr"><div class="sbrt"><div class="sbrn">🎬 Premiere Pro</div><div class="sbrp">97%</div></div><div class="sbrk"><div class="sbrf" data-w="97"></div></div></div>
+        <div class="sbr"><div class="sbrt"><div class="sbrn">✨ After Effects</div><div class="sbrp">90%</div></div><div class="sbrk"><div class="sbrf" data-w="90"></div></div></div>
+        <div class="sbr"><div class="sbrt"><div class="sbrn">🎨 DaVinci Resolve</div><div class="sbrp">88%</div></div><div class="sbrk"><div class="sbrf" data-w="88"></div></div></div>
+        <div class="sbr"><div class="sbrt"><div class="sbrn">🤖 AI Video (Kling/Runway)</div><div class="sbrp">85%</div></div><div class="sbrk"><div class="sbrf" data-w="85"></div></div></div>
+        <div class="sbr"><div class="sbrt"><div class="sbrn">📱 Short-form &amp; Ads</div><div class="sbrp">98%</div></div><div class="sbrk"><div class="sbrf" data-w="98"></div></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="s" style="padding-top:0;padding-bottom:0;background:var(--bg)">
+  <div class="nwl">
+    <div class="nwc rv"><div class="nwi">📁</div><div class="nwn">2.5k<span>+</span></div><div class="nwl2">Projects</div><div class="nwsub">All platforms &amp; direct</div></div>
+    <div class="nwc rv"><div class="nwi">⭐</div><div class="nwn">1.6k<span>+</span></div><div class="nwl2">5-Star Reviews</div><div class="nwsub">Verified on Fiverr</div></div>
+    <div class="nwc rv"><div class="nwi">🌍</div><div class="nwn">40<span>+</span></div><div class="nwl2">Countries</div><div class="nwsub">US, UK, UAE &amp; beyond</div></div>
+    <div class="nwc rv"><div class="nwi">📅</div><div class="nwn">7<span>+</span></div><div class="nwl2">Years</div><div class="nwsub">Video &amp; Web combined</div></div>
+    <div class="nwc rv"><div class="nwi">🏆</div><div class="nwn">4.9<span>★</span></div><div class="nwl2">Fiverr Rating</div><div class="nwsub">Level 2 Seller</div></div>
+    <div class="nwc rv"><div class="nwi">💼</div><div class="nwn">92<span>%</span></div><div class="nwl2">Upwork JSS</div><div class="nwsub">Top Rated badge</div></div>
+    <div class="nwc rv"><div class="nwi">🔁</div><div class="nwn">80<span>%</span></div><div class="nwl2">Repeat Clients</div><div class="nwsub">Come back again</div></div>
+    <div class="nwc rv"><div class="nwi">⚡</div><div class="nwn">98<span>%</span></div><div class="nwl2">On-Time</div><div class="nwsub">No missed deadlines</div></div>
+  </div>
+</div>
+
+<div class="socbg">
+  <div class="socg">
+    <div class="socc fb rv"><div class="socico">📘</div><div class="socp">Facebook</div><div class="socn">50k<span>+</span></div><div class="socl">Followers</div></div>
+    <div class="socc ig rv"><div class="socico">📸</div><div class="socp">Instagram</div><div class="socn">6k<span>+</span></div><div class="socl">Followers</div></div>
+    <div class="socc li rv"><div class="socico">💼</div><div class="socp">LinkedIn</div><div class="socn">1k<span>+</span></div><div class="socl">Connections</div></div>
+  </div>
+</div>
+
+<section class="s jbg" id="journey">
+  <div class="jg">
+    <div>
+      <div class="ey rv">My Journey</div>
+      <h2 class="sh rv">How I became both.<br><em>Step by step.</em></h2>
+      <div class="tl">
+        <div class="tli rv"><div class="tldot"></div><div class="tlyr">2017–2019 · The Hobby Phase</div><div class="tlt">Discovered video editing &amp; coding as hobbies</div><div class="tld">Started tinkering with editing software and learning to code in free time. Both felt natural. Both became obsessions. I didn't choose between them — I pursued both seriously.</div></div>
+        <div class="tli rv"><div class="tldot"></div><div class="tlyr">2019–2021 · The Education Phase</div><div class="tlt">M.Sc IT · Media Editing Certificate · Google Web Dev</div><div class="tld">Turned hobbies into credentials. Completed a Master's in IT, a 2-year professional media editing certificate, Google's web development &amp; digital marketing programs, plus AutoCAD and office management certifications.</div></div>
+        <div class="tli rv"><div class="tldot"></div><div class="tlyr">2020 · Fiverr Launch</div><div class="tlt">First orders. First reviews. First proof.</div><div class="tld">Launched on Fiverr and immediately started building a reputation. Delivered every order better than the brief asked for. The reviews followed. The Level 2 badge came next.</div></div>
+        <div class="tli rv"><div class="tldot"></div><div class="tlyr">2022 · Upwork Expansion</div><div class="tlt">Top Rated on a second platform</div><div class="tld">Joined Upwork and earned Top Rated status. 92% Job Success Score. Proved the approach worked across platforms — it was the work that mattered.</div></div>
+        <div class="tli rv"><div class="tldot"></div><div class="tlyr">2023 · Building Teams</div><div class="tlt">3EditorsLab + W3bLab</div><div class="tld">Built two specialized teams. 3EditorsLab for video production. W3bLab for software engineering. Went from solo freelancer to studio operator handling larger-scale projects.</div></div>
+        <div class="tli rv"><div class="tldot"></div><div class="tlyr">2024–Now · The Scale Phase</div><div class="tlt">2,500+ projects · 40+ countries · Growing</div><div class="tld">Two teams. Two skill sets. One professional reputation built on delivery, communication, and refusing to accept average work.</div></div>
+      </div>
+    </div>
+    <div>
+      <div class="ey rv">Education &amp; Credentials</div>
+      <h2 class="sh rv">Qualified on<br><em>every level.</em></h2>
+      <div class="edug rv" style="margin-top:22px">
+        <div class="educ"><div class="edui">🎓</div><div><div class="edud">Master of Science — Information Technology</div><div class="eduo">Pakistan · Full Postgraduate Program</div><div class="edutg">M.Sc IT · Degree</div></div></div>
+        <div class="educ"><div class="edui">🎬</div><div><div class="edud">Media Editing Certificate</div><div class="eduo">2-Year Professional Program</div><div class="edutg">Certified · Video Production</div></div></div>
+        <div class="educ"><div class="edui">🌐</div><div><div class="edud">Web Development Certificate</div><div class="eduo">Google · 2-Year Program</div><div class="edutg">Google Certified</div></div></div>
+        <div class="educ"><div class="edui">📊</div><div><div class="edud">Digital Marketing Certificate</div><div class="eduo">Google · 6-Month Program</div><div class="edutg">Google Certified</div></div></div>
+        <div class="educ"><div class="edui">🏢</div><div><div class="edud">Office Management Certificate</div><div class="eduo">6-Month Professional Program</div><div class="edutg">Certified</div></div></div>
+        <div class="educ"><div class="edui">📐</div><div><div class="edud">AutoCAD Certificate</div><div class="eduo">6-Month Technical Program</div><div class="edutg">Certified · Technical Design</div></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="s skbg" id="skills">
+  <div class="ey rv">What I Do</div>
+  <h2 class="sh rv" style="margin-bottom:10px">Two disciplines.<br><em>Expert level. Both.</em></h2>
+  <p class="ss rv" style="margin-bottom:36px">Click to open the full services page — portfolio, packages, process, everything.</p>
+  <div class="skg">
+    <div class="skc rv" onclick="window.location.href='video.html'">
+      <div class="skcnum">01</div>
+      <div class="skcico">🎬</div>
+      <div class="skctag">Primary Specialty · 7 Years</div>
+      <div class="skcn">Video<br>Editor</div>
+      <div class="skcd">Ad creatives, VSLs, YouTube, UGC, motion graphics, AI production. 2,500+ delivered. Built to perform, not just look good.</div>
+      <ul class="skcpts">
+        <li>Facebook &amp; TikTok ads that get sales</li>
+        <li>Video Sales Letters for courses &amp; coaching</li>
+        <li>YouTube long-form &amp; Shorts editing</li>
+        <li>Motion graphics &amp; AI video production</li>
+        <li>UGC-style creatives that build trust</li>
+      </ul>
+      <a href="video.html" class="skclink">View Video Portfolio <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+      <div class="skcst">
+        <div class="skcs"><div class="skcsn">2.5k<span>+</span></div><div class="skcsl">Projects</div></div>
+        <div class="skcs"><div class="skcsn">1.6k<span>+</span></div><div class="skcsl">Reviews</div></div>
+        <div class="skcs"><div class="skcsn">4.9<span>★</span></div><div class="skcsl">Rating</div></div>
+      </div>
+    </div>
+    <div class="skc rv" onclick="window.location.href='web.html'">
+      <div class="skcnum">02</div>
+      <div class="skcico">💻</div>
+      <div class="skctag">Software Engineering · 5 Years</div>
+      <div class="skcn">Software<br>Engineer</div>
+      <div class="skcd">Full-stack web apps, landing pages, e-commerce, SaaS, APIs. Clean code. Real functionality. Delivered on time.</div>
+      <ul class="skcpts">
+        <li>React &amp; Next.js web applications</li>
+        <li>Landing pages &amp; high-converting sales pages</li>
+        <li>E-commerce &amp; SaaS platforms</li>
+        <li>Node.js backend &amp; REST API development</li>
+        <li>Database design — MongoDB &amp; MySQL</li>
+      </ul>
+      <a href="web.html" class="skclink">View Web Portfolio <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+      <div class="skcst">
+        <div class="skcs"><div class="skcsn">92<span>%</span></div><div class="skcsl">JSS</div></div>
+        <div class="skcs"><div class="skcsn">Top</div><div class="skcsl">Rated</div></div>
+        <div class="skcs"><div class="skcsn">5<span>+</span></div><div class="skcsl">Years</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="s tmbg" id="team">
+  <div class="ey rv">My Teams</div>
+  <h2 class="sh rv" style="margin-bottom:10px">I started solo.<br><em>Then built teams.</em></h2>
+  <p class="ss rv" style="margin-bottom:36px">When the project needs more capacity, I have two specialized teams ready. Same quality. More output.</p>
+  <div class="tmg">
+    <div class="tmc v rv">
+      <div class="tmtag">Video Production Studio</div>
+      <div class="tmn">3EditorsLab</div>
+      <div class="tmd">A tight team of professional video editors handling ad creatives, VSLs, YouTube content, and motion graphics at scale. Every member trained to my standard.</div>
+      <div class="tmct">Team Size: <span>3 Editors</span></div>
+      <div class="desk">
+        <svg viewBox="0 0 560 130" xmlns="http://www.w3.org/2000/svg">
+          <defs><style>.pc{fill:#1a2330;stroke:#00ff88;stroke-width:1}.ph{fill:#243040;stroke:#00ff88;stroke-width:1}.lp{fill:#0d1117;stroke:#00ff88;stroke-width:1}.scr{fill:#0a2010}.cl{stroke:#00ff88;stroke-width:1.5}.cld{stroke:#00ff88;stroke-width:1;opacity:.4}@keyframes t1{0%,100%{transform:translateX(0)}50%{transform:translateX(2px)}}@keyframes t2{0%,100%{transform:translateX(0)}50%{transform:translateX(-2px)}}@keyframes t3{0%,100%{transform:translateX(0)}40%{transform:translateX(1px)}}.a1{animation:t1 1.2s ease-in-out infinite}.a2{animation:t2 .9s ease-in-out infinite}.a3{animation:t3 1.5s ease-in-out infinite}.glw{animation:g1 2s ease-in-out infinite}@keyframes g1{0%,100%{opacity:.7}50%{opacity:1}}</style></defs>
+          <rect x="30" y="96" width="500" height="6" rx="1" fill="#141c24"/>
+          <g class="a1" transform="translate(60,15)"><circle cx="28" cy="16" r="13" class="ph"/><rect x="13" y="29" width="30" height="36" rx="3" class="pc"/><rect x="4" y="64" width="48" height="4" rx="1" fill="#141c24"/><rect x="7" y="46" width="42" height="28" rx="2" class="lp"/><rect x="10" y="49" width="36" height="22" rx="1" class="scr"/><line x1="12" y1="54" x2="44" y2="54" class="cl glw"/><line x1="12" y1="59" x2="38" y2="59" class="cld"/><line x1="12" y1="64" x2="42" y2="64" class="cl glw"/><line x1="12" y1="68" x2="32" y2="68" class="cld"/></g>
+          <g class="a2" transform="translate(240,5)"><circle cx="28" cy="16" r="13" class="ph"/><rect x="13" y="29" width="30" height="36" rx="3" class="pc"/><rect x="4" y="64" width="48" height="4" rx="1" fill="#141c24"/><rect x="7" y="46" width="42" height="28" rx="2" class="lp"/><rect x="10" y="49" width="36" height="22" rx="1" class="scr"/><rect x="12" y="52" width="18" height="14" rx="1" fill="rgba(0,255,136,.07)"/><line x1="14" y1="55" x2="28" y2="55" class="cl glw"/><line x1="14" y1="60" x2="26" y2="60" class="cld"/><line x1="14" y1="64" x2="28" y2="64" class="cl glw"/><line x1="33" y1="53" x2="45" y2="53" class="cl glw"/><line x1="33" y1="58" x2="43" y2="58" class="cld"/><line x1="33" y1="63" x2="45" y2="63" class="cld"/></g>
+          <g class="a3" transform="translate(420,15)"><circle cx="28" cy="16" r="13" class="ph"/><rect x="13" y="29" width="30" height="36" rx="3" class="pc"/><rect x="4" y="64" width="48" height="4" rx="1" fill="#141c24"/><rect x="7" y="46" width="42" height="28" rx="2" class="lp"/><rect x="10" y="49" width="36" height="22" rx="1" class="scr"/><line x1="12" y1="53" x2="44" y2="53" class="cld"/><line x1="12" y1="58" x2="41" y2="58" class="cl glw"/><line x1="12" y1="63" x2="37" y2="63" class="cld"/><line x1="12" y1="67" x2="43" y2="67" class="cl glw"/></g>
+          <circle cx="148" cy="104" r="3" fill="rgba(0,255,136,.5)"><animate attributeName="opacity" values=".5;1;.5" dur="2s" repeatCount="indefinite"/></circle>
+          <circle cx="284" cy="104" r="3" fill="rgba(0,255,136,.4)"><animate attributeName="opacity" values="1;.4;1" dur="1.4s" repeatCount="indefinite"/></circle>
+          <circle cx="448" cy="104" r="3" fill="rgba(0,255,136,.5)"><animate attributeName="opacity" values=".4;1;.4" dur="2.6s" repeatCount="indefinite"/></circle>
+        </svg>
+      </div>
+      <div class="tmtags"><div class="tmtg g">Video Ads</div><div class="tmtg g">VSL</div><div class="tmtg g">YouTube</div></div>
+    </div>
+    <div class="tmc w rv">
+      <div class="tmtag w">Software Engineering Studio</div>
+      <div class="tmn">W3bLab</div>
+      <div class="tmd">A focused team of developers building web applications, landing pages, e-commerce platforms, and SaaS products. Reliable. Clean code. Shipped on time.</div>
+      <div class="tmct">Team Size: <span>3 Developers</span></div>
+      <div class="desk">
+        <svg viewBox="0 0 560 130" xmlns="http://www.w3.org/2000/svg">
+          <defs><style>.pc2{fill:#1a2330;stroke:#58a6ff;stroke-width:1}.ph2{fill:#243040;stroke:#58a6ff;stroke-width:1}.lp2{fill:#0d1117;stroke:#58a6ff;stroke-width:1}.scr2{fill:#050d1a}.cl2{stroke:#58a6ff;stroke-width:1.5}.cl2d{stroke:#bc8cff;stroke-width:1.2;opacity:.6}@keyframes t4{0%,100%{transform:translateX(0)}55%{transform:translateX(2px)}}@keyframes t5{0%,100%{transform:translateX(0)}40%{transform:translateX(-1px)}}@keyframes t6{0%,100%{transform:translateX(0)}50%{transform:translateX(2px)}}.b1{animation:t4 1.1s ease-in-out infinite}.b2{animation:t5 .85s ease-in-out infinite}.b3{animation:t6 1.4s ease-in-out infinite}.glw2{animation:g2 1.8s ease-in-out infinite}@keyframes g2{0%,100%{opacity:.7}50%{opacity:1}}</style></defs>
+          <rect x="30" y="96" width="500" height="6" rx="1" fill="#141c24"/>
+          <g class="b1" transform="translate(60,15)"><circle cx="28" cy="16" r="13" class="ph2"/><rect x="13" y="29" width="30" height="36" rx="3" class="pc2"/><rect x="4" y="64" width="48" height="4" rx="1" fill="#141c24"/><rect x="7" y="46" width="42" height="28" rx="2" class="lp2"/><rect x="10" y="49" width="36" height="22" rx="1" class="scr2"/><line x1="12" y1="54" x2="43" y2="54" class="cl2 glw2"/><line x1="12" y1="59" x2="36" y2="59" class="cl2d"/><line x1="12" y1="64" x2="40" y2="64" class="cl2 glw2"/><line x1="12" y1="68" x2="31" y2="68" class="cl2d"/></g>
+          <g class="b2" transform="translate(240,5)"><circle cx="28" cy="16" r="13" class="ph2"/><rect x="13" y="29" width="30" height="36" rx="3" class="pc2"/><rect x="4" y="64" width="48" height="4" rx="1" fill="#141c24"/><rect x="7" y="46" width="42" height="28" rx="2" class="lp2"/><rect x="10" y="49" width="36" height="22" rx="1" class="scr2"/><rect x="12" y="52" width="14" height="14" rx="1" fill="rgba(88,166,255,.08)"/><line x1="14" y1="55" x2="24" y2="55" class="cl2d glw2"/><line x1="14" y1="60" x2="22" y2="60" class="cl2 "/><line x1="14" y1="65" x2="24" y2="65" class="cl2d glw2"/><line x1="30" y1="53" x2="45" y2="53" class="cl2 glw2"/><line x1="30" y1="58" x2="42" y2="58" class="cl2d"/><line x1="30" y1="63" x2="44" y2="63" class="cl2 "/></g>
+          <g class="b3" transform="translate(420,15)"><circle cx="28" cy="16" r="13" class="ph2"/><rect x="13" y="29" width="30" height="36" rx="3" class="pc2"/><rect x="4" y="64" width="48" height="4" rx="1" fill="#141c24"/><rect x="7" y="46" width="42" height="28" rx="2" class="lp2"/><rect x="10" y="49" width="36" height="22" rx="1" class="scr2"/><line x1="12" y1="52" x2="44" y2="52" class="cl2d"/><line x1="12" y1="57" x2="41" y2="57" class="cl2 glw2"/><line x1="12" y1="62" x2="35" y2="62" class="cl2d"/><line x1="12" y1="67" x2="43" y2="67" class="cl2 glw2"/></g>
+          <circle cx="148" cy="104" r="3" fill="rgba(88,166,255,.5)"><animate attributeName="opacity" values=".5;1;.5" dur="1.8s" repeatCount="indefinite"/></circle>
+          <circle cx="284" cy="104" r="3" fill="rgba(188,140,255,.5)"><animate attributeName="opacity" values="1;.5;1" dur="1.3s" repeatCount="indefinite"/></circle>
+          <circle cx="448" cy="104" r="3" fill="rgba(88,166,255,.5)"><animate attributeName="opacity" values=".4;1;.4" dur="2.2s" repeatCount="indefinite"/></circle>
+        </svg>
+      </div>
+      <div class="tmtags"><div class="tmtg b">React Apps</div><div class="tmtg b">Node.js</div><div class="tmtg b">Landing Pages</div></div>
+    </div>
+  </div>
+</section>
+
+<div class="brbg rv">
+  <p class="brlbl">// brands &amp; channels worked with</p>
+  <div class="brrow">
+    <div class="brc"><div class="brb"><img src="https://i.ibb.co/Z6f218N0/filmora-square.png" alt="Wondershare"></div><span class="brl">Wondershare</span></div>
+    <div class="brc"><div class="brb"><img src="https://i.ibb.co/b572xR2g/stellar-logo.png" alt="Stellar"></div><span class="brl">Stellar</span></div>
+    <div class="brc"><div class="brb"><img src="https://i.ibb.co/MDt5nv00/img-7c51d39b0d82f797ac6b3797d437fe21-0-100-0-0-auto.png" alt="NodyTalk"></div><span class="brl">NodyTalk</span></div>
+    <div class="brc"><div class="brb brem">Logo</div><span class="brl">Systeme.io</span></div>
+    <div class="brc"><div class="brb brem">Logo</div><span class="brl">SocialNerds</span></div>
+    <div class="brc"><div class="brb brem">Logo</div><span class="brl">ViscapMedia</span></div>
+    <div class="brc"><div class="brb brem">Logo</div><span class="brl">FXGlobe</span></div>
+    <div class="brc"><div class="brb brem">Logo</div><span class="brl">Makeit.io</span></div>
+    <div class="brc"><div class="brb brem">Logo</div><span class="brl">Coursera</span></div>
+    <div class="brc"><div class="brb brem">Logo</div><span class="brl">Bridox</span></div>
+    <div class="brc"><div class="brb brem">Logo</div><span class="brl">1HourDev</span></div>
+  </div>
+</div>
+
+<section class="s prfbg" id="proof">
+  <div class="ey rv">Track Record</div>
+  <h2 class="sh rv" style="margin-bottom:10px">Numbers that speak.<br><em>I don't need to.</em></h2>
+  <p class="ss rv" style="margin-bottom:36px">Real data from both platforms — exactly what you'd see yourself.</p>
+  <div class="prfg">
+    <div class="prfc rvl"><div class="prfh"><div class="prfi">⭐</div><div><div class="prfn">Fiverr</div><div class="prfbdg">Level 2 Seller</div></div></div><div class="prfst"><div class="prfsn"><div class="prfsnn">4.9<span>★</span></div><div class="prfsnl">Rating</div></div><div class="prfsn"><div class="prfsnn">1.6k<span>+</span></div><div class="prfsnl">Reviews</div></div><div class="prfsn"><div class="prfsnn">2.5k<span>+</span></div><div class="prfsnl">Orders</div></div></div><div class="pbr"><div class="pbrl"><span>Order Completion</span><span>98%</span></div><div class="pbrk"><div class="pbrf" data-w="98"></div></div></div><div class="pbr"><div class="pbrl"><span>On-Time Delivery</span><span>97%</span></div><div class="pbrk"><div class="pbrf" data-w="97"></div></div></div><div class="pbr"><div class="pbrl"><span>Response Rate</span><span>99%</span></div><div class="pbrk"><div class="pbrf" data-w="99"></div></div></div></div>
+    <div class="prfc rvr"><div class="prfh"><div class="prfi">🏆</div><div><div class="prfn">Upwork</div><div class="prfbdg">Top Rated</div></div></div><div class="prfst"><div class="prfsn"><div class="prfsnn">92<span>%</span></div><div class="prfsnl">JSS</div></div><div class="prfsn"><div class="prfsnn">20<span>+</span></div><div class="prfsnl">Jobs</div></div><div class="prfsn"><div class="prfsnn">80<span>%</span></div><div class="prfsnl">Repeat</div></div></div><div class="pbr"><div class="pbrl"><span>Job Success Score</span><span>92%</span></div><div class="pbrk"><div class="pbrf" data-w="92"></div></div></div><div class="pbr"><div class="pbrl"><span>Client Satisfaction</span><span>95%</span></div><div class="pbrk"><div class="pbrf" data-w="95"></div></div></div><div class="pbr"><div class="pbrl"><span>Repeat Client Rate</span><span>80%</span></div><div class="pbrk"><div class="pbrf" data-w="80"></div></div></div></div>
+  </div>
+</section>
+
+<section class="s tsbg" id="testimonials">
+  <div class="ey rv">Testimonials</div>
+  <h2 class="sh rv">What clients say.<br><em>Unfiltered.</em></h2>
+  <div class="tsg">
+    <div class="tsc rv"><div class="tsst">★★★★★</div><div class="tsq">"Faisal is simply the best. Video editing skills top-notch, delivered exactly what our brand needed. Fast, professional, genuinely creative."</div><div class="tsau"><div class="tsav">J</div><div><div class="tsan">James T.</div><div class="tsap">Fiverr</div></div></div></div>
+    <div class="tsc rv"><div class="tsst">★★★★★</div><div class="tsq">"Outstanding web development. Built our entire e-commerce platform from scratch — worked perfectly from day one. Highly recommended."</div><div class="tsau"><div class="tsav">S</div><div><div class="tsan">Sarah M.</div><div class="tsap">Upwork</div></div></div></div>
+    <div class="tsc rv"><div class="tsst">★★★★★</div><div class="tsq">"100+ leads in 2 weeks using Faisal's ad creatives. He thinks about what the video needs to achieve — not just how it looks."</div><div class="tsau"><div class="tsav">A</div><div><div class="tsan">Ali R.</div><div class="tsap">Fiverr</div></div></div></div>
+    <div class="tsc rv"><div class="tsst">★★★★★</div><div class="tsq">"I've worked with many freelancers. Faisal is in a completely different category. Communication, speed, and quality all exceed expectations."</div><div class="tsau"><div class="tsav">D</div><div><div class="tsan">David K.</div><div class="tsap">Fiverr</div></div></div></div>
+    <div class="tsc rv"><div class="tsst">★★★★★</div><div class="tsq">"Built our VSL from scratch. The structure, pacing, and visuals were exactly what a high-ticket offer needs. Conversion rate improved significantly."</div><div class="tsau"><div class="tsav">M</div><div><div class="tsan">Michael B.</div><div class="tsap">Direct Client</div></div></div></div>
+    <div class="tsc rv"><div class="tsst">★★★★★</div><div class="tsq">"We use Faisal as our white-label editor for client work. Consistent, reliable, always on time. Best creative investment our agency has made."</div><div class="tsau"><div class="tsav">T</div><div><div class="tsan">Tom W.</div><div class="tsap">Agency Partner</div></div></div></div>
+  </div>
+</section>
+
+<section class="ctabg" id="contact">
+  <div class="ctagb"></div><div class="ctagl"></div>
+  <div class="ey rv" style="justify-content:center;display:flex">Get In Touch</div>
+  <h2 class="ctah rv">Got a project?<br><em>Let's ship it.</em></h2>
+  <p class="ctasub rv">Video ad, YouTube series, VSL, web app, landing page — tell me what you need and I'll tell you exactly how I'd build it.</p>
+  <div class="ctabtns rv">
+    <a href="https://wa.me/923302126300" class="bg" target="_blank">💬 WhatsApp Me</a>
+    <a href="mailto:hello@thefaisalhanif.com" class="bog">📧 Email Me</a>
+  </div>
+  <div class="ctafs rv">
+    <div class="ctaf">Response within 3 hours</div>
+    <div class="ctaf">Working worldwide</div>
+    <div class="ctaf">Free consultation</div>
+    <div class="ctaf">+92 330 2126300</div>
+  </div>
+</section>
+
+<footer>
+  <div class="ftop">
+    <div>
+      <div class="flog">faisal.hanif<em>_</em></div>
+      <p class="ftag">Software Engineer &amp; Video Editor. 7 years. 2,500+ projects. 40+ countries.</p>
+      <div class="fsocs">
+        <a href="https://www.linkedin.com/in/thefaisalhanif/" class="fsoc" target="_blank">in</a>
+        <a href="https://www.instagram.com/thefaisalhanif" class="fsoc" target="_blank">ig</a>
+        <a href="https://www.facebook.com/thefaisalhanif" class="fsoc" target="_blank">fb</a>
+        <a href="https://wa.me/923302126300" class="fsoc" target="_blank">wa</a>
+        <a href="https://www.x.com/thefaisalhanif" class="fsoc" target="_blank">&#x1D54F;</a>
+      </div>
+    </div>
+    <div class="fcol"><h4>Navigate</h4><a href="#about">About Me</a><a href="#journey">My Journey</a><a href="#skills">What I Do</a><a href="#team">My Teams</a><a href="#proof">Track Record</a><a href="#contact">Contact</a></div>
+    <div class="fcol"><h4>My Work</h4><a href="video.html">Video Editing</a><a href="web.html">Web Development</a><a href="#superpowers">Superpowers</a><a href="#testimonials">Testimonials</a></div>
+    <div class="fcol"><h4>Contact</h4><a href="mailto:hello@thefaisalhanif.com">hello@thefaisalhanif.com</a><a href="tel:+923302126300">+92 330 2126300</a><a href="https://wa.me/923302126300" target="_blank">WhatsApp</a><a href="#">Pakistan · Remote Worldwide</a></div>
+  </div>
+  <div class="fbot">
+    <p>© 2026 Faisal Hanif. All rights reserved.</p>
+    <div class="fblinks">
+      <a href="privacy.html">Privacy Policy</a>
+      <a href="terms.html">Terms of Service</a>
+      <a href="refund.html">Refund Policy</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+window.addEventListener("load",()=>{setTimeout(()=>{document.getElementById("loader").classList.add("hide");},1400);});
+(function(){const c=document.getElementById("bgc"),x=c.getContext("2d");let W,H,d=[];const ch="01アイウエオカキクケコ<>{}[]=+-*/";function r(){W=c.width=window.innerWidth;H=c.height=window.innerHeight;d=[];const n=Math.floor(W/20);for(let i=0;i<n;i++)d.push(Math.random()*-H);}r();window.addEventListener("resize",r,{passive:true});function draw(){x.fillStyle="rgba(8,12,16,0.05)";x.fillRect(0,0,W,H);x.fillStyle="rgba(0,255,136,0.1)";x.font="11px JetBrains Mono,monospace";for(let i=0;i<d.length;i++){const char=ch[Math.floor(Math.random()*ch.length)];x.fillText(char,i*20,d[i]);d[i]+=1.1;if(d[i]>H+40)d[i]=-40;}requestAnimationFrame(draw);}draw();})();
+const cur=document.getElementById("cur"),curR=document.getElementById("curR");
+document.addEventListener("mousemove",e=>{cur.style.transform=`translate(${e.clientX-3}px,${e.clientY-3}px)`;curR.style.transform=`translate(${e.clientX-14}px,${e.clientY-14}px)`;});
+document.querySelectorAll("a,button").forEach(el=>{el.addEventListener("mouseenter",()=>{curR.style.width="42px";curR.style.height="42px";});el.addEventListener("mouseleave",()=>{curR.style.width="28px";curR.style.height="28px";});});
+const nav=document.getElementById("nav");
+window.addEventListener("scroll",()=>{nav.classList.toggle("sc",window.scrollY>60);},{passive:true});
+const hbg=document.getElementById("hbg"),drw=document.getElementById("drw"),ovl=document.getElementById("ovl");
+function oD(){hbg.classList.add("op");drw.classList.add("op");ovl.classList.add("op");document.body.style.overflow="hidden";}
+function cD(){hbg.classList.remove("op");drw.classList.remove("op");ovl.classList.remove("op");document.body.style.overflow="";}
+hbg.addEventListener("click",()=>hbg.classList.contains("op")?cD():oD());
+ovl.addEventListener("click",cD);
+document.querySelectorAll(".dl").forEach(a=>a.addEventListener("click",cD));
+const obs=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add("on");obs.unobserve(e.target);}});},{threshold:0.07});
+document.querySelectorAll(".rv,.rvl,.rvr").forEach(el=>{const s=el.parentElement.querySelectorAll(".rv,.rvl,.rvr");if(s.length>1){const i=Array.from(s).indexOf(el);el.style.transitionDelay=(i*0.09)+"s";}obs.observe(el);});
+const bObs=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){e.target.querySelectorAll(".sbrf,.pbrf").forEach(b=>{b.style.width=(b.getAttribute("data-w")||0)+"%";});bObs.unobserve(e.target);}});},{threshold:0.3});
+document.querySelectorAll(".pwc,.prfc").forEach(c=>bObs.observe(c));
+</script>
+</body>
+</html>
